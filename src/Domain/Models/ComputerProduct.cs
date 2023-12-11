@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Core.DataAccess.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public partial class ComputerProduct
+public partial class ComputerProduct : BaseEntity<Guid>
 {
-    public Guid Id { get; set; }
 
     public Guid ProductId { get; set; }
 
@@ -20,12 +20,6 @@ public partial class ComputerProduct
     public Guid SSDCapacityId { get; set; }
 
     public Guid OperatingSystemId { get; set; }
-
-    public DateOnly CreatedDate { get; set; }
-
-    public DateOnly? UpdatedDate { get; set; }
-
-    public DateOnly? DeletedDate { get; set; }
 
     public virtual ComputerBrand Brand { get; set; } = null!;
 

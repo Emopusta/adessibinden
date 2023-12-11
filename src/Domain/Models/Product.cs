@@ -1,21 +1,16 @@
-﻿using System;
+﻿using Core.DataAccess.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public partial class Product
+public partial class Product : BaseEntity<Guid>
 {
-    public Guid Id { get; set; }
-
+    
     public Guid CreatorUserId { get; set; }
 
     public Guid ProductCategoryId { get; set; }
 
-    public DateOnly CreatedDate { get; set; }
-
-    public DateOnly? UpdatedDate { get; set; }
-
-    public DateOnly? DeletedDate { get; set; }
 
     public virtual ICollection<CarProduct> CarProducts { get; set; } = new List<CarProduct>();
 

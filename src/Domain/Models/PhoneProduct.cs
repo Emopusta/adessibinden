@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Core.DataAccess.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public partial class PhoneProduct
+public partial class PhoneProduct : BaseEntity<Guid>
 {
-    public Guid Id { get; set; }
-
     public Guid ProductId { get; set; }
 
     public Guid ColorId { get; set; }
@@ -20,12 +19,6 @@ public partial class PhoneProduct
     public bool UsageStatus { get; set; }
 
     public decimal Price { get; set; }
-
-    public DateOnly CreatedDate { get; set; }
-
-    public DateOnly? UpdatedDate { get; set; }
-
-    public DateOnly? DeletedDate { get; set; }
 
     public virtual Color Color { get; set; } = null!;
 

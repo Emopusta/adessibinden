@@ -1,21 +1,15 @@
-﻿using System;
+﻿using Core.DataAccess.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public partial class User
+public partial class User : BaseEntity<Guid>
 {
-    public Guid Id { get; set; }
 
     public string Email { get; set; } = null!;
 
     public string PasswordHash { get; set; } = null!;
-
-    public DateOnly CreatedDate { get; set; }
-
-    public DateOnly? UpdatedDate { get; set; }
-
-    public DateOnly? DeletedDate { get; set; }
 
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 
