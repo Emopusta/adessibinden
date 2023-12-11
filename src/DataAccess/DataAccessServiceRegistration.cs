@@ -1,4 +1,6 @@
-﻿using DataAccess.Contexts;
+﻿using Application.Services.Repositories;
+using DataAccess.Contexts;
+using DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +21,7 @@ namespace DataAccess
                 options.UseNpgsql(
                     configuration.GetConnectionString("Adessibinden")));
 
+            services.AddScoped<IColorRepository, ColorRepository>();
 
             return services;
         }
