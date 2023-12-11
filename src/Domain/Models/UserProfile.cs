@@ -14,7 +14,7 @@ public partial class UserProfile : BaseEntity<Guid>
 
     public string? Address { get; set; }
 
-    public DateOnly? BirthDate { get; set; }
+    public DateTime? BirthDate { get; set; }
 
     public virtual User User { get; set; } = null!;
 }
