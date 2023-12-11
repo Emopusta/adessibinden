@@ -15,7 +15,7 @@ namespace DataAccess.EntityConfigurations
         public void Configure(EntityTypeBuilder<Color> builder)
         {
 
-            builder.ToTable("Colors").HasKey(e => e.Id);
+            builder.ToTable("colors").HasKey(e => e.Id);
 
             builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
 

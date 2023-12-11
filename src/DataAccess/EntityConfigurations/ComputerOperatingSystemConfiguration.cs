@@ -15,7 +15,7 @@ namespace DataAccess.EntityConfigurations
         public void Configure(EntityTypeBuilder<ComputerOperatingSystem> builder)
         {
 
-            builder.ToTable("ComputerOperatingSystems").HasKey(e => e.Id);
+            builder.ToTable("computerOperatingSystems").HasKey(e => e.Id);
 
             builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
 

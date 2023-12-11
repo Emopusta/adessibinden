@@ -13,7 +13,7 @@ namespace DataAccess.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<ComputerProduct> builder)
         {
-            builder.ToTable("ComputerProducts").HasKey(e => e.Id);
+            builder.ToTable("computerProducts").HasKey(e => e.Id);
 
             builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
 

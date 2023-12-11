@@ -13,7 +13,7 @@ namespace DataAccess.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<ComputerSSDCapacity> builder)
         {
-            builder.ToTable("ComputerSSDCapacities").HasKey(e => e.Id);
+            builder.ToTable("computerSSDCapacities").HasKey(e => e.Id);
 
             builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
 

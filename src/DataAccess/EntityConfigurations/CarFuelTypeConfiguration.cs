@@ -15,7 +15,7 @@ namespace DataAccess.EntityConfigurations
         public void Configure(EntityTypeBuilder<CarFuelType> builder)
         {
 
-            builder.ToTable("CarFuelTypes").HasKey(e => e.Id);
+            builder.ToTable("carFuelTypes").HasKey(e => e.Id);
 
             builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
 
