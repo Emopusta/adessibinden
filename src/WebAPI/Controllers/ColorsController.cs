@@ -13,7 +13,7 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateColorCommand createColorCommand)
         {
-            CreatedColorResponse response = await Mediator.Send(createColorCommand);
+            var response = await Mediator.Send(createColorCommand);
 
             return Ok(response);
         }
