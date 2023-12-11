@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Core.DataAccess.Entities
 {
-    public class BaseEntity<TId> : IEntityTimestamps
+    public interface IEntityTimestamps
     {
-        public TId Id { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public DateTime? DeletedDate { get; set; }
-
     }
 }
