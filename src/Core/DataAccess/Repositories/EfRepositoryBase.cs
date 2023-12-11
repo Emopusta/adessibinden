@@ -26,7 +26,6 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<T
     {
         entity.CreatedDate = DateTime.UtcNow;
         await Context.AddAsync(entity);
-        await Context.SaveChangesAsync();
         return entity;
     }
 

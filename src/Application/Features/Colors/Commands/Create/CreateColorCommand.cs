@@ -1,4 +1,5 @@
 ﻿using Application.Services.Repositories;
+using Core.DataAccess.Repositories;
 using Domain.Models;
 using MediatR;
 using System;
@@ -16,10 +17,12 @@ namespace Application.Features.Colors.Commands.Create
         public class CreateColorCommandHandler : IRequestHandler<CreateColorCommand, CreatedColorResponse>
         {
             private readonly IColorRepository _colorRepository;
+            private readonly IUnitOfWork _unitOfWork;
 
-            public CreateColorCommandHandler(IColorRepository colorRepository)
+            public CreateColorCommandHandler(IColorRepository colorRepository, IUnitOfWork unitOfWork)
             {
                 _colorRepository = colorRepository;
+                _unitOfWork = unitOfWork;
             }
 
             public async Task<CreatedColorResponse> Handle(CreateColorCommand request, CancellationToken cancellationToken)
@@ -29,14 +32,15 @@ namespace Application.Features.Colors.Commands.Create
                     Name = request.Name
                 };
 
-                await _colorRepository.AddAsync(color);
+                Color addedColor = await _colorRepository.AddAsync(color);
 
                 CreatedColorResponse response = new()
                 {
-                    Id = color.Id,
-                    Name = color.Name,
+                    Id = addedColor.Id,
+                    Name = addedColor.Name,
                 };
 
+                await _unitOfWork.Save();
                 return response;
             }
         }
