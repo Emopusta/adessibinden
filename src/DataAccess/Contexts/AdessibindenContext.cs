@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace DataAccess.Contexts;
 
-public partial class AdessibindenContext : DbContext
+public class AdessibindenContext : DbContext
 {
     protected IConfiguration Configuration { get; set; }
     public DbSet<CarBrand> CarBrands { get; set; }

@@ -1,7 +1,7 @@
 ﻿using Core.DataAccess.Entities;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
-
 namespace Domain.Models;
 
 public partial class CarBrand : BaseEntity<Guid>
