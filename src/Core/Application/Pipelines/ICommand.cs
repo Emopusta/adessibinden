@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Application.Pipelines.UoW
+namespace Core.Application.Pipelines
 {
-    public interface ICommand<out TResponse> : IRequest<TResponse> 
+    public interface ICommand<out TResponse> : IRequest<TResponse>
     {
 
     }

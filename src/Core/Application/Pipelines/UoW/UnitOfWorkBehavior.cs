@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Core.Application.Pipelines.UoW
 {
@@ -12,7 +13,7 @@ namespace Core.Application.Pipelines.UoW
         where TRequest : ICommand<TResponse>
     {
         private readonly IUnitOfWork _unitOfWork;
-
+        
         public UnitOfWorkBehavior(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -27,7 +28,7 @@ namespace Core.Application.Pipelines.UoW
                 await _unitOfWork.Save();
             }
             catch (Exception)
-            { 
+            {
                 throw;
             }
 
