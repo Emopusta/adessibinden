@@ -5,8 +5,8 @@ using System.Linq.Expressions;
 
 namespace Core.Persistence.Repositories;
 
-public interface IAsyncRepository<TEntity, TEntityId> : IQuery<TEntity>
-    where TEntity : BaseEntity<TEntityId>
+public interface IAsyncRepository<TEntity> : IQuery<TEntity>
+    where TEntity : BaseEntity
 {
     Task<TEntity?> GetAsync(
         Expression<Func<TEntity, bool>> predicate,

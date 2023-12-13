@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public class User : BaseEntity<int>
+public class User : BaseEntity
 {
 
     public string Email { get; set; } = null!;

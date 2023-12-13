@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public class Color : BaseEntity<int>
+public class Color : BaseEntity
 {
 
     public string Name { get; set; } = null!;

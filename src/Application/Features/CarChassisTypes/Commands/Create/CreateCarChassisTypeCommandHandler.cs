@@ -7,9 +7,9 @@ namespace Application.Features.CarChassisTypes.Commands.Create
     
         public class CreateCarChassisTypeCommandHandler : IRequestHandler<CreateCarChassisTypeCommand, CreatedCarChassisTypeResponse>
         {
-            private readonly IGenericRepository<CarChassisType, int>  _repository;
+            private readonly IGenericRepository<CarChassisType>  _repository;
 
-            public CreateCarChassisTypeCommandHandler(IGenericRepository<CarChassisType, int> repository)
+            public CreateCarChassisTypeCommandHandler(IGenericRepository<CarChassisType> repository)
             {
                 _repository = repository;
             }

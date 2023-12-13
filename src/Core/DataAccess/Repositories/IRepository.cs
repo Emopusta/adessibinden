@@ -5,8 +5,8 @@ using System.Linq.Expressions;
 
 namespace Core.Persistence.Repositories;
 
-public interface IRepository<TEntity, TEntityId> : IQuery<TEntity>
-    where TEntity : BaseEntity<TEntityId>
+public interface IRepository<TEntity> : IQuery<TEntity>
+    where TEntity : BaseEntity
 {
     TEntity? Get(
         Expression<Func<TEntity, bool>> predicate,

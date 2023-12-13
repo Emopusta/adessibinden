@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public class ComputerSSDCapacity : BaseEntity<int>
+public class ComputerSSDCapacity : BaseEntity
 {
     public string Capacity { get; set; } = null!;
 

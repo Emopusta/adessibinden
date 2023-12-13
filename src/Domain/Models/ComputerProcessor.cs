@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public class ComputerProcessor : BaseEntity<int>
+public class ComputerProcessor : BaseEntity
 {
     
     public string Name { get; set; } = null!;

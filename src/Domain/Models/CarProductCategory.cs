@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public class CarProductCategory : BaseEntity<int>
+public class CarProductCategory : BaseEntity
 {
     
 

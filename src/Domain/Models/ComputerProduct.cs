@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public class ComputerProduct : BaseEntity<int>
+public class ComputerProduct : BaseEntity
 {
 
     public int ProductId { get; set; }

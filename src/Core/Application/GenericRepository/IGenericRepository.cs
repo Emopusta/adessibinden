@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Core.Application.GenericRepository
 {
-    public interface IGenericRepository<TEntity, TEntityId> : IRepository<TEntity, TEntityId>, IAsyncRepository<TEntity, TEntityId> where TEntity : BaseEntity<TEntityId>
+    public interface IGenericRepository<TEntity> : IRepository<TEntity>, IAsyncRepository<TEntity> where TEntity : BaseEntity
     {
     }
 }

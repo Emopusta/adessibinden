@@ -12,8 +12,8 @@ using System.Threading.Tasks;
 
 namespace Core.Application.Pipelines.GenericRepository
 {
-    public class GenericRepository<TEntity, TEntityId> : EfRepositoryBase<TEntity, TEntityId, AdessibindenContext>, IGenericRepository<TEntity, TEntityId>
-        where TEntity : BaseEntity<TEntityId>
+    public class GenericRepository<TEntity> : EfRepositoryBase<TEntity, AdessibindenContext>, IGenericRepository<TEntity>
+        where TEntity : BaseEntity
         
     {
         public GenericRepository(AdessibindenContext context) : base(context)

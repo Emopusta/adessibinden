@@ -9,8 +9,8 @@ using System.Reflection;
 
 namespace Core.Persistence.Repositories;
 
-public class EfRepositoryBase<TEntity, TEntityId, TContext> : IAsyncRepository<TEntity, TEntityId>, IRepository<TEntity, TEntityId>
-    where TEntity : BaseEntity<TEntityId>
+public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IRepository<TEntity>
+    where TEntity : BaseEntity
     where TContext : DbContext
 {
     protected readonly TContext Context;

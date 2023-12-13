@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public class UserProfile : BaseEntity<int>
+public class UserProfile : BaseEntity
 {
     public int UserId { get; set; }
 

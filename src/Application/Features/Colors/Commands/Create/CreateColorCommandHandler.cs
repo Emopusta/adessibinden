@@ -8,10 +8,10 @@ namespace Application.Features.Colors.Commands.Create
 
     public class CreateColorCommandHandler : IRequestHandler<CreateColorCommand, CreatedColorResponse>
         {
-            private readonly IGenericRepository<Color, int> _colorRepository;
+            private readonly IGenericRepository<Color> _colorRepository;
         
 
-        public CreateColorCommandHandler(IGenericRepository<Color, int> colorRepository, IUnitOfWork unitOfWork)
+        public CreateColorCommandHandler(IGenericRepository<Color> colorRepository, IUnitOfWork unitOfWork)
         {
             _colorRepository = colorRepository;  
         }

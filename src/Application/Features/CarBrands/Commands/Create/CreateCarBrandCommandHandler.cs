@@ -7,9 +7,9 @@ namespace Application.Features.CarBrands.Commands.Create
 
     public class CreateCarBrandCommandHandler : IRequestHandler<CreateCarBrandCommand, CreatedCarBrandResponse>
         {
-            private readonly IGenericRepository<CarBrand, int> _repository;
+            private readonly IGenericRepository<CarBrand> _repository;
 
-            public CreateCarBrandCommandHandler(IGenericRepository<CarBrand, int> repository)
+            public CreateCarBrandCommandHandler(IGenericRepository<CarBrand> repository)
             {
                 _repository = repository;
             }

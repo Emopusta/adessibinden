@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public class Product : BaseEntity<int>
-{
+public class Product : BaseEntity
+{   
     
     public int CreatorUserId { get; set; }
 
