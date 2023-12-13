@@ -30,7 +30,6 @@ namespace DataAccess.EntityConfigurations
             builder.Property(e => e.FuelTypeId).HasColumnName("FuelTypeId").IsRequired();
             builder.Property(e => e.ModelId).HasColumnName("ModelId").IsRequired();
 
-            builder.Property(e => e.Id).ValueGeneratedNever();
 
             builder.HasOne(d => d.CarProductCategory).WithMany(p => p.CarProducts)
                     .HasForeignKey(d => d.CarProductCategoryId)

@@ -4,22 +4,22 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public partial class ComputerProduct : BaseEntity<Guid>
+public class ComputerProduct : BaseEntity<int>
 {
 
-    public Guid ProductId { get; set; }
+    public int ProductId { get; set; }
 
-    public Guid BrandId { get; set; }
+    public int BrandId { get; set; }
 
-    public Guid RAMId { get; set; }
+    public int RAMId { get; set; }
 
-    public Guid VideoCardId { get; set; }
+    public int VideoCardId { get; set; }
 
-    public Guid ProcessorId { get; set; }
+    public int ProcessorId { get; set; }
 
-    public Guid SSDCapacityId { get; set; }
+    public int SSDCapacityId { get; set; }
 
-    public Guid OperatingSystemId { get; set; }
+    public int OperatingSystemId { get; set; }
 
     public virtual ComputerBrand Brand { get; set; } = null!;
 

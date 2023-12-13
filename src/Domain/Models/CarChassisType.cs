@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public partial class CarChassisType : BaseEntity<Guid>
+public class CarChassisType : BaseEntity<int>
 {
     
     public string Name { get; set; } = null!;

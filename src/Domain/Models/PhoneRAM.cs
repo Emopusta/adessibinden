@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public partial class PhoneRAM : BaseEntity<Guid>
+public class PhoneRAM : BaseEntity<int>
 {
 
     public string Memory { get; set; } = null!;

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public partial class UserProfile : BaseEntity<Guid>
+public class UserProfile : BaseEntity<int>
 {
-    public Guid UserId { get; set; }
+    public int UserId { get; set; }
 
     public string FirstName { get; set; } = null!;
 

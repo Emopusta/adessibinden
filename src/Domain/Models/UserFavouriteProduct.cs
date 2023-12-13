@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public partial class UserFavouriteProduct : BaseEntity<Guid>
+public class UserFavouriteProduct : BaseEntity<int>
 {
 
-    public Guid ProductId { get; set; }
+    public int ProductId { get; set; }
 
-    public Guid UserId { get; set; }
+    public int UserId { get; set; }
 
     public virtual Product Product { get; set; } = null!;
 

@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public partial class Product : BaseEntity<Guid>
+public class Product : BaseEntity<int>
 {
     
-    public Guid CreatorUserId { get; set; }
+    public int CreatorUserId { get; set; }
 
-    public Guid ProductCategoryId { get; set; }
+    public int ProductCategoryId { get; set; }
 
 
     public virtual ICollection<CarProduct> CarProducts { get; set; } = new List<CarProduct>();

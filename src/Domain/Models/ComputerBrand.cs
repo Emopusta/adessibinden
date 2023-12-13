@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public partial class ComputerBrand : BaseEntity<Guid>
+public class ComputerBrand : BaseEntity<int>
 {
  
     public string Name { get; set; } = null!;

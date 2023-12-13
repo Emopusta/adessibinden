@@ -4,31 +4,31 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public partial class CarProduct : BaseEntity<Guid>
+public class CarProduct : BaseEntity<int>
 {
   
 
-    public Guid ProductId { get; set; }
+    public int ProductId { get; set; }
 
-    public Guid CarProductCategoryId { get; set; }
+    public int CarProductCategoryId { get; set; }
 
-    public Guid ColorId { get; set; }
+    public int ColorId { get; set; }
 
-    public Guid ModelId { get; set; }
+    public int ModelId { get; set; }
 
-    public Guid FuelTypeId { get; set; }
+    public int FuelTypeId { get; set; }
 
-    public Guid ChassisTypeId { get; set; }
+    public int ChassisTypeId { get; set; }
 
     public int Kilometer { get; set; }
 
-    public short Gear { get; set; }
+    public int Gear { get; set; }
 
     public bool Status { get; set; }
 
-    public short EnginePower { get; set; }
+    public int EnginePower { get; set; }
 
-    public short EngineDisplacement { get; set; }
+    public int EngineDisplacement { get; set; }
 
     public bool Warranty { get; set; }
 

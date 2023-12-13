@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public partial class ProductCategory : BaseEntity<Guid>
+public class ProductCategory : BaseEntity<int>
 {
     public string Name { get; set; } = null!;
 

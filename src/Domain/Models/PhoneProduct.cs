@@ -4,17 +4,17 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public partial class PhoneProduct : BaseEntity<Guid>
+public class PhoneProduct : BaseEntity<int>
 {
-    public Guid ProductId { get; set; }
+    public int ProductId { get; set; }
 
-    public Guid ColorId { get; set; }
+    public int ColorId { get; set; }
 
-    public Guid ModelId { get; set; }
+    public int ModelId { get; set; }
 
-    public Guid InternalMemoryId { get; set; }
+    public int InternalMemoryId { get; set; }
 
-    public Guid RAMId { get; set; }
+    public int RAMId { get; set; }
 
     public bool UsageStatus { get; set; }
 

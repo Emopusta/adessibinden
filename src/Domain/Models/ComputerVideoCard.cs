@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public partial class ComputerVideoCard : BaseEntity<Guid>
+public class ComputerVideoCard : BaseEntity<int>
 {
 
     public string Memory { get; set; } = null!;

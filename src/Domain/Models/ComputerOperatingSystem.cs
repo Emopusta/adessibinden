@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public partial class ComputerOperatingSystem : BaseEntity<Guid>
+public class ComputerOperatingSystem : BaseEntity<int>
 {
 
 

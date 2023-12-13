@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public partial class PhoneModel : BaseEntity<Guid>
+public class PhoneModel : BaseEntity<int>
 {
-    public Guid BrandId { get; set; }
+    public int BrandId { get; set; }
 
     public string Name { get; set; } = null!;
 

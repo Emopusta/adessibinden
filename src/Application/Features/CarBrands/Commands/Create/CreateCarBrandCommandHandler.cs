@@ -7,9 +7,9 @@ namespace Application.Features.CarBrands.Commands.Create
 
     public class CreateCarBrandCommandHandler : IRequestHandler<CreateCarBrandCommand, CreatedCarBrandResponse>
         {
-            private readonly IGenericRepository<CarBrand, Guid> _repository;
+            private readonly IGenericRepository<CarBrand, int> _repository;
 
-            public CreateCarBrandCommandHandler(IGenericRepository<CarBrand, Guid> repository)
+            public CreateCarBrandCommandHandler(IGenericRepository<CarBrand, int> repository)
             {
                 _repository = repository;
             }
@@ -18,7 +18,6 @@ namespace Application.Features.CarBrands.Commands.Create
             {
                 CarBrand carBrand = new()
                 {
-                    Id = Guid.NewGuid(),
                     Name = request.Name
                 };
 
@@ -27,7 +26,6 @@ namespace Application.Features.CarBrands.Commands.Create
 
                 CreatedCarBrandResponse response = new()
                 {
-                    Id = addedCarBrand.Id,
                     Name = addedCarBrand.Name,
                 };
 

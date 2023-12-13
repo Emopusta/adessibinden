@@ -24,16 +24,19 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.CarBrand", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
                     b.Property<string>("Name")
@@ -41,27 +44,27 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying")
                         .HasColumnName("Name");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.ToTable("CarBrands", (string)null);
+                    b.ToTable("carBrands", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.CarChassisType", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
                     b.Property<string>("Name")
@@ -69,27 +72,30 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying")
                         .HasColumnName("Name");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.ToTable("CarChassisTypes", (string)null);
+                    b.ToTable("carChassisTypes", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.CarFuelType", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
                     b.Property<string>("Name")
@@ -97,107 +103,113 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying")
                         .HasColumnName("Name");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.ToTable("CarFuelTypes", (string)null);
+                    b.ToTable("carFuelTypes", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.CarModel", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    b.Property<Guid>("BrandId")
-                        .HasColumnType("uuid")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BrandId")
+                        .HasColumnType("integer")
                         .HasColumnName("BrandId");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
-                    b.Property<short>("ModelYear")
-                        .HasColumnType("smallint");
+                    b.Property<int>("ModelYear")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("character varying")
                         .HasColumnName("Name");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BrandId");
 
-                    b.ToTable("CarModels", (string)null);
+                    b.ToTable("carModels", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.CarProduct", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    b.Property<Guid>("CarProductCategoryId")
-                        .HasColumnType("uuid")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CarProductCategoryId")
+                        .HasColumnType("integer")
                         .HasColumnName("CarProductCategoryId");
 
-                    b.Property<Guid>("ChassisTypeId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("ChassisTypeId")
+                        .HasColumnType("integer")
                         .HasColumnName("ChassisTypeId");
 
-                    b.Property<Guid>("ColorId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("ColorId")
+                        .HasColumnType("integer")
                         .HasColumnName("ColorId");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
-                    b.Property<short>("EngineDisplacement")
-                        .HasColumnType("smallint");
+                    b.Property<int>("EngineDisplacement")
+                        .HasColumnType("integer");
 
-                    b.Property<short>("EnginePower")
-                        .HasColumnType("smallint");
+                    b.Property<int>("EnginePower")
+                        .HasColumnType("integer");
 
-                    b.Property<Guid>("FuelTypeId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("FuelTypeId")
+                        .HasColumnType("integer")
                         .HasColumnName("FuelTypeId");
 
-                    b.Property<short>("Gear")
-                        .HasColumnType("smallint");
+                    b.Property<int>("Gear")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Kilometer")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("ModelId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("ModelId")
+                        .HasColumnType("integer")
                         .HasColumnName("ModelId");
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer")
                         .HasColumnName("ProductId");
 
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.Property<bool>("Warranty")
@@ -217,21 +229,24 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CarProducts", (string)null);
+                    b.ToTable("carProducts", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.CarProductCategory", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
                     b.Property<string>("Name")
@@ -239,27 +254,30 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying")
                         .HasColumnName("Name");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.ToTable("CarProductCategories");
+                    b.ToTable("carProductCategories", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Color", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
                     b.Property<string>("Name")
@@ -267,27 +285,30 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying")
                         .HasColumnName("Name");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Colors", (string)null);
+                    b.ToTable("colors", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.ComputerBrand", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
                     b.Property<string>("Name")
@@ -295,27 +316,30 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying")
                         .HasColumnName("Name");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ComputerBrands", (string)null);
+                    b.ToTable("computerBrands", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.ComputerOperatingSystem", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
                     b.Property<string>("Name")
@@ -323,90 +347,96 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying")
                         .HasColumnName("Name");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ComputerOperatingSystems", (string)null);
+                    b.ToTable("computerOperatingSystems", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.ComputerProcessor", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
-                    b.Property<short?>("Gen")
-                        .HasColumnType("smallint");
+                    b.Property<int?>("Gen")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("character varying")
                         .HasColumnName("Name");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ComputerProcessors", (string)null);
+                    b.ToTable("computerProcessors", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.ComputerProduct", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    b.Property<Guid>("BrandId")
-                        .HasColumnType("uuid")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BrandId")
+                        .HasColumnType("integer")
                         .HasColumnName("BrandId");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
-                    b.Property<Guid>("OperatingSystemId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("OperatingSystemId")
+                        .HasColumnType("integer")
                         .HasColumnName("OperatingSystemId");
 
-                    b.Property<Guid>("ProcessorId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("ProcessorId")
+                        .HasColumnType("integer")
                         .HasColumnName("ProcessorId");
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer")
                         .HasColumnName("ProductId");
 
-                    b.Property<Guid>("RAMId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("RAMId")
+                        .HasColumnType("integer")
                         .HasColumnName("RAMId");
 
-                    b.Property<Guid>("SSDCapacityId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("SSDCapacityId")
+                        .HasColumnType("integer")
                         .HasColumnName("SSDCapacityId");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
-                    b.Property<Guid>("VideoCardId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("VideoCardId")
+                        .HasColumnType("integer")
                         .HasColumnName("VideoCardId");
 
                     b.HasKey("Id");
@@ -425,21 +455,24 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("VideoCardId");
 
-                    b.ToTable("ComputerProducts", (string)null);
+                    b.ToTable("computerProducts", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.ComputerRAM", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
                     b.Property<string>("Memory")
@@ -447,55 +480,61 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying")
                         .HasColumnName("Memory");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ComputerRAMs", (string)null);
+                    b.ToTable("computerRAMs", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.ComputerSSDCapacity", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Capacity")
                         .IsRequired()
                         .HasColumnType("character varying")
                         .HasColumnName("Capacity");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ComputerSSDCapacities", (string)null);
+                    b.ToTable("computerSSDCapacities", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.ComputerVideoCard", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
                     b.Property<string>("Memory")
@@ -503,27 +542,30 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying")
                         .HasColumnName("Memory");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ComputerVideoCards", (string)null);
+                    b.ToTable("computerVideoCards", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.PhoneBrand", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
                     b.Property<string>("Name")
@@ -531,59 +573,65 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying")
                         .HasColumnName("Name");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.ToTable("PhoneBrands", (string)null);
+                    b.ToTable("phoneBrands", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.PhoneInternalMemory", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Capacity")
                         .IsRequired()
                         .HasColumnType("character varying")
                         .HasColumnName("Capacity");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.ToTable("PhoneInternalMemories", (string)null);
+                    b.ToTable("phoneInternalMemories", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.PhoneModel", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    b.Property<Guid>("BrandId")
-                        .HasColumnType("uuid")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BrandId")
+                        .HasColumnType("integer")
                         .HasColumnName("BrandId");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
                     b.Property<string>("Name")
@@ -591,57 +639,60 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying")
                         .HasColumnName("Name");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BrandId");
 
-                    b.ToTable("PhoneModels", (string)null);
+                    b.ToTable("phoneModels", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.PhoneProduct", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    b.Property<Guid>("ColorId")
-                        .HasColumnType("uuid")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ColorId")
+                        .HasColumnType("integer")
                         .HasColumnName("ColorId");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
-                    b.Property<Guid>("InternalMemoryId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("InternalMemoryId")
+                        .HasColumnType("integer")
                         .HasColumnName("InternalMemoryId");
 
-                    b.Property<Guid>("ModelId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("ModelId")
+                        .HasColumnType("integer")
                         .HasColumnName("ModelId");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("money")
                         .HasColumnName("Price");
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer")
                         .HasColumnName("ProductId");
 
-                    b.Property<Guid>("RAMId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("RAMId")
+                        .HasColumnType("integer")
                         .HasColumnName("RAMId");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.Property<bool>("UsageStatus")
@@ -660,21 +711,24 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("RAMId");
 
-                    b.ToTable("PhoneProducts", (string)null);
+                    b.ToTable("phoneProducts", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.PhoneRAM", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
                     b.Property<string>("Memory")
@@ -682,39 +736,42 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying")
                         .HasColumnName("Memory");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.ToTable("PhoneRAMs", (string)null);
+                    b.ToTable("phoneRAMs", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Product", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<Guid>("CreatorUserId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("CreatorUserId")
+                        .HasColumnType("integer")
                         .HasColumnName("CreatorUserId");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
-                    b.Property<Guid>("ProductCategoryId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("ProductCategoryId")
+                        .HasColumnType("integer")
                         .HasColumnName("ProductCategoryId");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
@@ -723,21 +780,24 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("ProductCategoryId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("products", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.ProductCategory", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
                     b.Property<string>("Name")
@@ -745,27 +805,30 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying")
                         .HasColumnName("Name");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductCategories", (string)null);
+                    b.ToTable("productCategories", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.User", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
                     b.Property<string>("Email")
@@ -778,39 +841,42 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying")
                         .HasColumnName("PasswordHash");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("users", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.UserFavouriteProduct", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer")
                         .HasColumnName("ProductId");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer")
                         .HasColumnName("UserId");
 
                     b.HasKey("Id");
@@ -819,29 +885,32 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserFavouriteProducts", (string)null);
+                    b.ToTable("userFavouriteProducts", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.UserProfile", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("Id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
                         .HasColumnType("character varying")
                         .HasColumnName("Address");
 
-                    b.Property<DateOnly?>("BirthDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("BirthDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("BirthDate");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<DateOnly?>("DeletedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDate");
 
                     b.Property<string>("FirstName")
@@ -854,19 +923,19 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying")
                         .HasColumnName("LastName");
 
-                    b.Property<DateOnly?>("UpdatedDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer")
                         .HasColumnName("UserId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserProfiles", (string)null);
+                    b.ToTable("userProfiles", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.CarModel", b =>

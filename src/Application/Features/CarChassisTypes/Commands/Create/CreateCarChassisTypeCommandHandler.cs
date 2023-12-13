@@ -7,9 +7,9 @@ namespace Application.Features.CarChassisTypes.Commands.Create
     
         public class CreateCarChassisTypeCommandHandler : IRequestHandler<CreateCarChassisTypeCommand, CreatedCarChassisTypeResponse>
         {
-            private readonly IGenericRepository<CarChassisType, Guid>  _repository;
+            private readonly IGenericRepository<CarChassisType, int>  _repository;
 
-            public CreateCarChassisTypeCommandHandler(IGenericRepository<CarChassisType, Guid> repository)
+            public CreateCarChassisTypeCommandHandler(IGenericRepository<CarChassisType, int> repository)
             {
                 _repository = repository;
             }
@@ -18,7 +18,6 @@ namespace Application.Features.CarChassisTypes.Commands.Create
             {
                 CarChassisType carChassisType = new()
                 {
-                    Id = Guid.NewGuid(),
                     Name = request.Name
                 };
 
@@ -27,7 +26,6 @@ namespace Application.Features.CarChassisTypes.Commands.Create
 
                 CreatedCarChassisTypeResponse response = new()
                 {
-                    Id = addedcarChassisType.Id,
                     Name = addedcarChassisType.Name,
                 };
 

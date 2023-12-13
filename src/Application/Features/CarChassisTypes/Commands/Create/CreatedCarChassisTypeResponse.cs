@@ -9,7 +9,6 @@ namespace Application.Features.CarChassisTypes.Commands.Create
 {
     public class CreatedCarChassisTypeResponse : IResponse
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
     }
 }

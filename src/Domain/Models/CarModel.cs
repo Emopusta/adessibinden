@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public partial class CarModel : BaseEntity<Guid>
+public class CarModel : BaseEntity<int>
 {
    
 
-    public Guid BrandId { get; set; }
+    public int BrandId { get; set; }
 
     public string Name { get; set; } = null!;
 
-    public short ModelYear { get; set; }
+    public int ModelYear { get; set; }
 
     public virtual CarBrand Brand { get; set; } = null!;
 

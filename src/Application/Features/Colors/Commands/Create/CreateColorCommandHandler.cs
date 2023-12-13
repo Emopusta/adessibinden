@@ -8,10 +8,10 @@ namespace Application.Features.Colors.Commands.Create
 
     public class CreateColorCommandHandler : IRequestHandler<CreateColorCommand, CreatedColorResponse>
         {
-            private readonly IGenericRepository<Color, Guid> _colorRepository;
+            private readonly IGenericRepository<Color, int> _colorRepository;
         
 
-        public CreateColorCommandHandler(IGenericRepository<Color, Guid> colorRepository, IUnitOfWork unitOfWork)
+        public CreateColorCommandHandler(IGenericRepository<Color, int> colorRepository, IUnitOfWork unitOfWork)
         {
             _colorRepository = colorRepository;  
         }
@@ -20,7 +20,6 @@ namespace Application.Features.Colors.Commands.Create
         {
                     
             Color color = new() {
-                Id = Guid.NewGuid(),
                 Name = request.Name
             };
 
@@ -29,7 +28,6 @@ namespace Application.Features.Colors.Commands.Create
             
             CreatedColorResponse response = new()
             {
-                Id = addedColor.Id,
                 Name = addedColor.Name,
             };
 

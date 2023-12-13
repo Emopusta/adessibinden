@@ -20,7 +20,6 @@ namespace DataAccess.EntityConfigurations
             builder.Property(e => e.CreatedDate).HasColumnName("CreatedDate").IsRequired();
             builder.Property(e => e.UpdatedDate).HasColumnName("UpdatedDate");
             builder.Property(e => e.DeletedDate).HasColumnName("DeletedDate");
-            builder.Property(e => e.Id).ValueGeneratedNever();
             builder.Property(e => e.Address).HasColumnType("character varying").HasColumnName("Address");
             builder.Property(e => e.FirstName).HasColumnType("character varying").HasColumnName("FirstName").IsRequired();
             builder.Property(e => e.LastName).HasColumnType("character varying").HasColumnName("LastName").IsRequired();
