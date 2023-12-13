@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using System.Runtime.Loader;
 
 namespace DataAccess
 {
@@ -24,35 +25,38 @@ namespace DataAccess
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            services.AddScoped<IGenericRepository<Color, int>, GenericRepository<Color, int>>();
-            services.AddScoped<IGenericRepository<CarBrand, int>, GenericRepository<CarBrand, int>>();
-            services.AddScoped<IGenericRepository<CarChassisType, int>, GenericRepository<CarChassisType, int>>();
+            RegisterGenericRepositories(services);
 
 
-
-            string domainFullName = "Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
-
-            var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-            //var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => assembly.FullName.Equals(domainFullName)).ToList();
-            //var interfaceGeneric = AppDomain.CurrentDomain.GetAssemblies()[88].DefinedTypes.ToList()[20];
-            //var generic = AppDomain.CurrentDomain.GetAssemblies()[30].DefinedTypes.ToList()[13];
-
-            //foreach (var loadedAssembly in loadedAssemblies[0].DefinedTypes)
-            //{
-            //    Type type = loadedAssembly.AsType();
-            //    Type interfaceGenericTypeDefinition = interfaceGeneric.GetGenericTypeDefinition();
-            //    Type genericTypeDefinition = generic.GetGenericTypeDefinition();
-            //    interfaceGenericTypeDefinition.MakeGenericType(type, typeof(Guid));
-            //    genericTypeDefinition.MakeGenericType(type, typeof(Guid));
-
-            //    services.AddScoped(interfaceGenericTypeDefinition, genericTypeDefinition);
-
-            //}
 
             return services;
         }
 
- 
+    private static void RegisterGenericRepositories(IServiceCollection services)
+        {
+            var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
+            var domainAssembly = Directory.GetFiles(path, "Domain.dll").Select(AssemblyLoadContext.Default.LoadFromAssemblyPath).FirstOrDefault();
+            var coreAssembly = Directory.GetFiles(path, "Core.dll").Select(AssemblyLoadContext.Default.LoadFromAssemblyPath).FirstOrDefault();
+            var dataAccessAssembly = Directory.GetFiles(path, "DataAccess.dll").Select(AssemblyLoadContext.Default.LoadFromAssemblyPath).FirstOrDefault();
+
+            var iGenericRepository = coreAssembly.DefinedTypes.FirstOrDefault(p => p.Name.Equals("IGenericRepository`1"));
+            var genericRepository = dataAccessAssembly.DefinedTypes.FirstOrDefault(p => p.Name.Equals("GenericRepository`1"));
+
+
+            foreach (var domain in domainAssembly.DefinedTypes)
+            {
+                Type domainEntityType = domain.AsType();
+                Type iGenericTypeDefinition = iGenericRepository.GetGenericTypeDefinition();
+                Type genericTypeDefinition = genericRepository.GetGenericTypeDefinition();
+
+                iGenericTypeDefinition.MakeGenericType(domainEntityType);
+                genericTypeDefinition.MakeGenericType(domainEntityType);
+
+                services.AddScoped(iGenericTypeDefinition, genericTypeDefinition);
+
+            }
+        }
 
     }
 }
