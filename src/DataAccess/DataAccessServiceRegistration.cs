@@ -25,14 +25,14 @@ namespace DataAccess
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            RegisterGenericRepositories(services);
+            services.RegisterGenericRepositories();
 
 
 
             return services;
         }
 
-    private static void RegisterGenericRepositories(IServiceCollection services)
+    private static IServiceCollection RegisterGenericRepositories(this IServiceCollection services)
         {
             var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
@@ -56,6 +56,8 @@ namespace DataAccess
                 services.AddScoped(iGenericTypeDefinition, genericTypeDefinition);
 
             }
+
+            return services;
         }
 
     }
