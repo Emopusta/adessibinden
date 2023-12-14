@@ -25,7 +25,7 @@ namespace Application.Features.Colors.Commands.Create
             Color color = new() {
                 Name = request.Name
             };
- 
+
             Color addedColor = await _colorRepository.AddAsync(color);
 
             CreatedColorResponse response = new()
