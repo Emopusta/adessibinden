@@ -9,7 +9,6 @@ namespace DataAccess.Contexts;
 
 public class AdessibindenContext : DbContext
 {
-    protected IConfiguration Configuration { get; set; }
     public DbSet<CarBrand> CarBrands { get; set; }
 
     public DbSet<CarChassisType> CarChassisTypes { get; set; }
@@ -57,10 +56,9 @@ public class AdessibindenContext : DbContext
     public DbSet<UserFavouriteProduct> UserFavouriteProducts { get; set; }
 
     public DbSet<UserProfile> UserProfiles { get; set; }
-    public AdessibindenContext(DbContextOptions options, IConfiguration configuration)
+    public AdessibindenContext(DbContextOptions options)
         : base(options)
     {
-        Configuration = configuration;
         Database.EnsureCreated();
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
