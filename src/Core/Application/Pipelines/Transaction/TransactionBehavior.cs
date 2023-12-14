@@ -10,7 +10,7 @@ using System.Transactions;
 namespace Core.Application.Pipelines.Transaction
 {
     public class TransactionBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : ICommand<TResponse>
+        where TRequest : ICommandRequest<TResponse>
     {
         private readonly IUnitOfWork _unitOfWork;
 

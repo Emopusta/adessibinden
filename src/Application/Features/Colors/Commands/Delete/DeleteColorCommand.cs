@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Colors.Commands.Delete
 {
-    public class DeleteColorCommand : ICommand<DeletedColorResponse>
+    public class DeleteColorCommand : ICommandRequest<DeletedColorResponse>
     {
         public int Id { get; set; }
 

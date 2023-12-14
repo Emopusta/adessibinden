@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.Application.Pipelines
 {
-    public interface ICommand<out TResponse> : IRequest<TResponse>
+    public interface ICommandRequest<out TResponse> : IRequest<TResponse>
     {
 
     }

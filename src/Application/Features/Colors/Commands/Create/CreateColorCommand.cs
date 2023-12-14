@@ -3,7 +3,7 @@
 namespace Application.Features.Colors.Commands.Create
 {
 
-    public class CreateColorCommand : ICommand<CreatedColorResponse>
+    public class CreateColorCommand : ICommandRequest<CreatedColorResponse>
     {
         public string Name { get; set; }
         
