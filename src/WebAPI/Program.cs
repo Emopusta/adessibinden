@@ -1,4 +1,5 @@
 using Application;
+using Core.CrossCuttingConcerns.Exceptions.Extensions;
 using DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,12 +9,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDataAccessServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.ConfigureCustomExceptionMiddleware();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
