@@ -17,7 +17,6 @@ namespace DataAccess.EntityConfigurations
             builder.ToTable("carChassisTypes").HasKey(e => e.Id);
 
             builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
-            builder.Property(e => e.Id).ValueGeneratedNever();
 
             builder.Property(e => e.CreatedDate).HasColumnName("CreatedDate").IsRequired();
             builder.Property(e => e.UpdatedDate).HasColumnName("UpdatedDate");
