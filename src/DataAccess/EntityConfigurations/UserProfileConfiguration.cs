@@ -31,6 +31,8 @@ namespace DataAccess.EntityConfigurations
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("UserId");
+
+            builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
         }
     }
 }

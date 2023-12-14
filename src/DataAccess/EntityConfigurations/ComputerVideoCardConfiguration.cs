@@ -21,6 +21,9 @@ namespace DataAccess.EntityConfigurations
             builder.Property(e => e.UpdatedDate).HasColumnName("UpdatedDate");
             builder.Property(e => e.DeletedDate).HasColumnName("DeletedDate"); 
             builder.Property(e => e.Memory).HasColumnType("character varying").HasColumnName("Memory").IsRequired();
+
+            builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
+
         }
     }
 }

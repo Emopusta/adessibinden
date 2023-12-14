@@ -22,6 +22,9 @@ namespace DataAccess.EntityConfigurations
             builder.Property(e => e.DeletedDate).HasColumnName("DeletedDate");
             builder.Property(e => e.Email).HasColumnType("character varying").HasColumnName("Email").IsRequired();
             builder.Property(e => e.PasswordHash).HasColumnType("character varying").HasColumnName("PasswordHash").IsRequired();
+
+            builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
+
         }
     }
 }

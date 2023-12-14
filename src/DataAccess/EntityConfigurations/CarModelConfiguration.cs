@@ -30,7 +30,9 @@ namespace DataAccess.EntityConfigurations
                     .HasForeignKey(d => d.BrandId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("BrandId_fkey");
-            
+
+            builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
+
         }
     }
 }

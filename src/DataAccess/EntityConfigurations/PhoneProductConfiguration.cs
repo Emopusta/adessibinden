@@ -54,6 +54,9 @@ namespace DataAccess.EntityConfigurations
                 .HasForeignKey(d => d.RAMId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("RAMId_fkey");
+
+            builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
+
         }
     }
 }
