@@ -14,11 +14,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\corePackages\Core.Application\Core.Application.csproj" />
+    <ProjectReference Include="..\corePackages\Core.Security\Core.Security.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Repositories\" />
+    <Folder Include="Features\Users\Commands\" />
+    <Folder Include="Features\Users\Constants\" />
+    <Folder Include="Features\Users\Profiles\" />
+    <Folder Include="Features\Users\Queries\" />
   </ItemGroup>
 
 </Project>

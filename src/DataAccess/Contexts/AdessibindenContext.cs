@@ -57,6 +57,10 @@ public class AdessibindenContext : DbContext
     public DbSet<UserFavouriteProduct> UserFavouriteProducts { get; set; }
 
     public DbSet<UserProfile> UserProfiles { get; set; }
+    public DbSet<OperationClaim> OperationClaims { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
+    public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+
     public AdessibindenContext(DbContextOptions options)
         : base(options)
     {
