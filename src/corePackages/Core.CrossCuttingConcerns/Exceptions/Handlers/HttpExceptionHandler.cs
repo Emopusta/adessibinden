@@ -30,7 +30,12 @@ public class HttpExceptionHandler : ExceptionHandler
         string details = new InternalServerErrorProblemDetails(exception.Message).AsJson();
         return Response.WriteAsync(details);
     }
-
+    protected override Task HandleException(AuthException authorizationException)
+    {
+        Response.StatusCode = StatusCodes.Status401Unauthorized;
+        string details = new AuthProblemDetails(authorizationException.Message).AsJson();
+        return Response.WriteAsync(details);
+    }
     protected override Task HandleException(ValidationException validationException)
     {
         Response.StatusCode = StatusCodes.Status400BadRequest;
