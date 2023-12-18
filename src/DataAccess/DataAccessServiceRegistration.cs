@@ -32,7 +32,7 @@ namespace DataAccess
             var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
             var domainAssembly = Directory.GetFiles(path, "Domain.dll").Select(AssemblyLoadContext.Default.LoadFromAssemblyPath).FirstOrDefault();
-            var coreAssembly = Directory.GetFiles(path, "Core.dll").Select(AssemblyLoadContext.Default.LoadFromAssemblyPath).FirstOrDefault();
+            var coreAssembly = Directory.GetFiles(path, "Core.Application.dll").Select(AssemblyLoadContext.Default.LoadFromAssemblyPath).FirstOrDefault();
             var dataAccessAssembly = Directory.GetFiles(path, "DataAccess.dll").Select(AssemblyLoadContext.Default.LoadFromAssemblyPath).FirstOrDefault();
 
             if (domainAssembly == null || coreAssembly == null || dataAccessAssembly == null) throw new Exception("Assemblies could not found.");
