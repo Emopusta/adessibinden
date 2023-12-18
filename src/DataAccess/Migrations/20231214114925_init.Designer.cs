@@ -3,6 +3,7 @@ using System;
 using DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(AdessibindenContext))]
-    partial class AdessibindenContextModelSnapshot : ModelSnapshot
+    [Migration("20231214114925_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -554,45 +557,6 @@ namespace DataAccess.Migrations
                     b.ToTable("computerVideoCards", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Models.OperationClaim", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("Id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("CreatedDate");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("DeletedDate");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Name");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("UpdatedDate");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("operationClaims", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Admin"
-                        });
-                });
-
             modelBuilder.Entity("Domain.Models.PhoneBrand", b =>
                 {
                     b.Property<int>("Id")
@@ -856,68 +820,6 @@ namespace DataAccess.Migrations
                     b.ToTable("productCategories", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Models.RefreshToken", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("Id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CreatedByIp")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("CreatedByIp");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("CreatedDate");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("DeletedDate");
-
-                    b.Property<DateTime>("Expires")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("Expires");
-
-                    b.Property<string>("ReasonRevoked")
-                        .HasColumnType("text")
-                        .HasColumnName("ReasonRevoked");
-
-                    b.Property<string>("ReplacedByToken")
-                        .HasColumnType("text")
-                        .HasColumnName("ReplacedByToken");
-
-                    b.Property<DateTime?>("Revoked")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("Revoked");
-
-                    b.Property<string>("RevokedByIp")
-                        .HasColumnType("text")
-                        .HasColumnName("RevokedByIp");
-
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Token");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("UpdatedDate");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer")
-                        .HasColumnName("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("refreshTokens", (string)null);
-                });
-
             modelBuilder.Entity("Domain.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -945,17 +847,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying")
                         .HasColumnName("PasswordHash");
 
-                    b.Property<string>("PasswordSalt")
-                        .IsRequired()
-                        .HasColumnType("character varying")
-                        .HasColumnName("PasswordSalt");
-
-                    b.Property<bool>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(true)
-                        .HasColumnName("Status");
-
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("UpdatedDate");
@@ -963,17 +854,6 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("users", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "admin@admin.com",
-                            PasswordHash = "TaGD8yFtY3R/AB3hdgV/lK9QqpzYMc2lo78DzBmrPEwbrq1IRI4RvtbfdE7oX7RbpHVSMk6w+J6bKR/N7UWZiQ==",
-                            PasswordSalt = "rrWiUOJzWmyfExEIZuJpbAYtEojSoYIZiMX7c5fVJE2drzmyNc8SGEvegrbYYB2cHqnWpLzQ+TRxRZ9ygt8EI4rOrDlQByJIoEdqoONni9ZiPUtf1fl9rJCwk59Gf5VAhkw+/mqBl9EyXKORRJX5Jdb6+5iQWvhj+gnGyAMP378=",
-                            Status = true
-                        });
                 });
 
             modelBuilder.Entity("Domain.Models.UserFavouriteProduct", b =>
@@ -1012,53 +892,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("userFavouriteProducts", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Models.UserOperationClaim", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("Id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("CreatedDate");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("DeletedDate");
-
-                    b.Property<int>("OperationClaimId")
-                        .HasColumnType("integer")
-                        .HasColumnName("OperationClaimId");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("UpdatedDate");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer")
-                        .HasColumnName("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OperationClaimId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("userOperationClaims", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OperationClaimId = 1,
-                            UserId = 1
-                        });
                 });
 
             modelBuilder.Entity("Domain.Models.UserProfile", b =>
@@ -1305,17 +1138,6 @@ namespace DataAccess.Migrations
                     b.Navigation("ProductCategory");
                 });
 
-            modelBuilder.Entity("Domain.Models.RefreshToken", b =>
-                {
-                    b.HasOne("Domain.Models.User", "User")
-                        .WithMany("RefreshTokens")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Domain.Models.UserFavouriteProduct", b =>
                 {
                     b.HasOne("Domain.Models.Product", "Product")
@@ -1331,25 +1153,6 @@ namespace DataAccess.Migrations
                         .HasConstraintName("UserId_fkey");
 
                     b.Navigation("Product");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Domain.Models.UserOperationClaim", b =>
-                {
-                    b.HasOne("Domain.Models.OperationClaim", "OperationClaim")
-                        .WithMany("UserOperationClaims")
-                        .HasForeignKey("OperationClaimId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.User", "User")
-                        .WithMany("UserOperationClaims")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("OperationClaim");
 
                     b.Navigation("User");
                 });
@@ -1427,11 +1230,6 @@ namespace DataAccess.Migrations
                     b.Navigation("ComputerProducts");
                 });
 
-            modelBuilder.Entity("Domain.Models.OperationClaim", b =>
-                {
-                    b.Navigation("UserOperationClaims");
-                });
-
             modelBuilder.Entity("Domain.Models.PhoneBrand", b =>
                 {
                     b.Navigation("PhoneModels");
@@ -1472,11 +1270,7 @@ namespace DataAccess.Migrations
                 {
                     b.Navigation("Products");
 
-                    b.Navigation("RefreshTokens");
-
                     b.Navigation("UserFavouriteProducts");
-
-                    b.Navigation("UserOperationClaims");
 
                     b.Navigation("UserProfiles");
                 });
