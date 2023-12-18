@@ -61,10 +61,6 @@ public class AuthController : BaseController
         return Ok(result);
     }
 
-    
-
-  
-
     private string getRefreshTokenFromCookies() =>
         Request.Cookies["refreshToken"] ?? throw new ArgumentException("Refresh token is not found in request cookies.");
 
