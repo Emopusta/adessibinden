@@ -13,15 +13,6 @@ namespace WebAPI.Controllers;
 [ApiController]
 public class AuthController : BaseController
 {
-    private readonly WebApiConfiguration _configuration;
-
-    public AuthController(IConfiguration configuration)
-    {
-        const string configurationSection = "WebAPIConfiguration";
-        _configuration =
-            configuration.GetSection(configurationSection).Get<WebApiConfiguration>()
-            ?? throw new NullReferenceException($"\"{configurationSection}\" section cannot found in configuration.");
-    }
 
     [HttpPost("Login")]
     public async Task<IActionResult> Login([FromBody] UserForLoginDto userForLoginDto)
