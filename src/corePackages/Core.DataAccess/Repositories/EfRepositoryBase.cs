@@ -26,7 +26,6 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
     {
         entity.CreatedDate = DateTime.UtcNow;
         await Context.AddAsync(entity);
-        await Context.SaveChangesAsync();
         return entity;
     }
 
@@ -35,7 +34,6 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         foreach (TEntity entity in entities)
             entity.CreatedDate = DateTime.UtcNow;
         await Context.AddRangeAsync(entities);
-        await Context.SaveChangesAsync();
         return entities;
     }
 
@@ -43,7 +41,6 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
     {
         entity.UpdatedDate = DateTime.UtcNow;
         Context.Update(entity);
-        await Context.SaveChangesAsync();
         return entity;
     }
 
@@ -52,21 +49,18 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         foreach (TEntity entity in entities)
             entity.UpdatedDate = DateTime.UtcNow;
         Context.UpdateRange(entities);
-        await Context.SaveChangesAsync();
         return entities;
     }
 
     public async Task<TEntity> DeleteAsync(TEntity entity, bool permanent = false)
     {
         await SetEntityAsDeletedAsync(entity, permanent);
-        await Context.SaveChangesAsync();
         return entity;
     }
 
     public async Task<ICollection<TEntity>> DeleteRangeAsync(ICollection<TEntity> entities, bool permanent = false)
     {
         await SetEntityAsDeletedAsync(entities, permanent);
-        await Context.SaveChangesAsync();
         return entities;
     }
 
@@ -135,7 +129,6 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
     {
         entity.CreatedDate = DateTime.UtcNow;
         Context.Add(entity);
-        Context.SaveChanges();
         return entity;
     }
 
@@ -144,7 +137,6 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         foreach (TEntity entity in entities)
             entity.CreatedDate = DateTime.UtcNow;
         Context.AddRange(entities);
-        Context.SaveChanges();
         return entities;
     }
 
@@ -152,7 +144,6 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
     {
         entity.UpdatedDate = DateTime.UtcNow;
         Context.Update(entity);
-        Context.SaveChanges();
         return entity;
     }
 
@@ -161,21 +152,18 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         foreach (TEntity entity in entities)
             entity.UpdatedDate = DateTime.UtcNow;
         Context.UpdateRange(entities);
-        Context.SaveChanges();
         return entities;
     }
 
     public TEntity Delete(TEntity entity, bool permanent = false)
     {
         SetEntityAsDeleted(entity, permanent);
-        Context.SaveChanges();
         return entity;
     }
 
     public ICollection<TEntity> DeleteRange(ICollection<TEntity> entities, bool permanent = false)
     {
         SetEntityAsDeleted(entities, permanent);
-        Context.SaveChanges();
         return entities;
     }
 
