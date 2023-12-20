@@ -18,7 +18,7 @@ namespace DataAccess.UoW
             _dbContext = dbContext;
         }
 
-        public async Task<bool> Save()
+        public async Task<bool> SaveAsync()
         {
             var result = await _dbContext.SaveChangesAsync()>0;
 
@@ -30,6 +30,11 @@ namespace DataAccess.UoW
             _dbContext.Dispose();
         }
 
+        public bool Save()
+        {
+            var result = _dbContext.SaveChanges() > 0;
 
+            return result;
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace Core.DataAccess.Repositories
 {
     public interface IUnitOfWork
     {
-        Task<bool> Save();
+        Task<bool> SaveAsync();
+        bool Save();
     }
 }

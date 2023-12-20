@@ -26,7 +26,7 @@ namespace Core.Application.Pipelines.Transaction
             try
             {
                 response = await next();
-                await _unitOfWork.Save();
+                await _unitOfWork.SaveAsync();
                 transactionScope.Complete();
             }
             catch (Exception)
