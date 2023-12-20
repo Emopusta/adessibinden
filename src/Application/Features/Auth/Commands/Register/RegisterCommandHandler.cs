@@ -1,6 +1,7 @@
 ﻿using Application.Features.Auth.Rules;
 using Application.Services.AuthService;
 using Core.Application.GenericRepository;
+using Core.DataAccess.Repositories;
 using Core.Security.Hashing;
 using Core.Security.JWT;
 using Domain.Models;
@@ -13,12 +14,14 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Registere
     private readonly IGenericRepository<User> _userRepository;
     private readonly IAuthService _authService;
     private readonly AuthBusinessRules _authBusinessRules;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public RegisterCommandHandler(IGenericRepository<User> userRepository, IAuthService authService, AuthBusinessRules authBusinessRules)
+    public RegisterCommandHandler(IGenericRepository<User> userRepository, IAuthService authService, AuthBusinessRules authBusinessRules, IUnitOfWork unitOfWork)
     {
         _userRepository = userRepository;
         _authService = authService;
         _authBusinessRules = authBusinessRules;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<RegisteredResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
@@ -39,6 +42,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Registere
                 Status = true
             };
         User createdUser = await _userRepository.AddAsync(newUser);
+        await _unitOfWork.SaveAsync();
 
         AccessToken createdAccessToken = await _authService.CreateAccessToken(createdUser);
 
