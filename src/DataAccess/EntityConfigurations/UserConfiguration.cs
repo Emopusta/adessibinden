@@ -26,7 +26,6 @@ namespace DataAccess.EntityConfigurations
             builder.Property(e => e.PasswordHash).HasColumnType("character varying").HasColumnName("PasswordHash").IsRequired();
             builder.Property(u => u.Status).HasColumnName("Status").HasDefaultValue(true);
 
-            builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
 
             builder.HasMany(u => u.UserOperationClaims);
             builder.HasMany(u => u.RefreshTokens);

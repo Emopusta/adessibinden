@@ -25,7 +25,6 @@ namespace DataAccess.EntityConfigurations
 
             builder.Property(e => e.Name).HasColumnType("character varying").HasColumnName("Name");
 
-            builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
 
         }
     }

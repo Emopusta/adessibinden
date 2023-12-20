@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.Loader;
 using Core.CrossCuttingConcerns.Interceptors;
+using Core.DataAccess.Entities;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Extensions.Configuration;
 
 namespace DataAccess.Contexts;
@@ -69,6 +73,8 @@ public class AdessibindenContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 
+        AddGlobalSoftDeleteFilter(modelBuilder);
+
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 
@@ -76,5 +82,22 @@ public class AdessibindenContext : DbContext
         optionsBuilder
         .AddInterceptors(new LoggingInterceptor());
 
+    private static void AddGlobalSoftDeleteFilter(ModelBuilder modelBuilder)
+    {
+        Expression<Func<BaseEntity, bool>> softDeleteGlobalFilterExpression = x => !x.DeletedDate.HasValue;
 
+        foreach (var entity in modelBuilder.Model.GetEntityTypes())
+        {
+            if (entity.ClrType.IsAssignableTo(typeof(BaseEntity)))
+            {
+            var parameter = Expression.Parameter(entity.ClrType);
+            var body = ReplacingExpressionVisitor.Replace(softDeleteGlobalFilterExpression.Parameters.First(), parameter, softDeleteGlobalFilterExpression.Body);
+            var lambdaExpression = Expression.Lambda(body, parameter);
+
+            entity.SetQueryFilter(lambdaExpression);
+            }
+        }
+
+      
+    }
 }

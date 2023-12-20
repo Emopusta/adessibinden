@@ -61,7 +61,6 @@ namespace DataAccess.EntityConfigurations
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("ProductId_fkey");
 
-            builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
 
         }
     }

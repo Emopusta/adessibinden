@@ -64,7 +64,6 @@ namespace DataAccess.EntityConfigurations
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("VideoCardId_fkey");
 
-            builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
 
 
         }
