@@ -1,6 +1,5 @@
 ﻿using Application.Features.CarBrands.Commands.Create;
-using Application.Features.Colors.Commands.Create;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -9,6 +8,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CarBrandsController : BaseController
     {
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateCarBrandCommand createCarBrandCommand)
         {
