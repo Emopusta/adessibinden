@@ -44,16 +44,15 @@ namespace DataAccess
 
             foreach (var domain in domainAssembly.DefinedTypes)
             {
-                Type domainEntityType = domain.AsType();
-                Type iGenericTypeDefinition = iGenericRepository.GetGenericTypeDefinition();
-                Type genericTypeDefinition = genericRepository.GetGenericTypeDefinition();
-
+                var domainEntityType = domain.AsType();
+                
                 if (domainEntityType == null) { continue; }
 
-                iGenericTypeDefinition.MakeGenericType(domainEntityType);
-                genericTypeDefinition.MakeGenericType(domainEntityType);
+                iGenericRepository.MakeGenericType(domainEntityType);
+                genericRepository.MakeGenericType(domainEntityType);
+  
 
-                services.AddScoped(iGenericTypeDefinition, genericTypeDefinition);
+                services.AddScoped(iGenericRepository, genericRepository);
 
             }
 
