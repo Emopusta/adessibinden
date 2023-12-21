@@ -1,6 +1,5 @@
 using Application.Services.AuthService;
 using Application.Services.UsersService;
-using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Transaction;
 using Core.Application.Pipelines.Validation;
 using Core.Application.Rules;
@@ -21,7 +20,6 @@ public static class ApplicationServiceRegistration
             configuration.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             configuration.AddOpenBehavior(typeof(TransactionBehavior<,>));
             configuration.AddOpenBehavior(typeof(FluentValidationBehavior<,>));
-            configuration.AddOpenBehavior(typeof(AuthorizationBehavior<,>));
         });
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
