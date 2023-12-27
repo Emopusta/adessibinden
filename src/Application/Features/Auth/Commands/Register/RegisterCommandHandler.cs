@@ -4,6 +4,7 @@ using Core.Application.GenericRepository;
 using Core.DataAccess.Repositories;
 using Core.Security.Hashing;
 using Core.Security.JWT;
+using Core.Utilities.Cookies;
 using Domain.Models;
 using MediatR;
 
@@ -49,7 +50,9 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Registere
         var createdRefreshToken = await _authService.CreateRefreshToken(createdUser, request.IpAddress);
         var addedRefreshToken = await _authService.AddRefreshToken(createdRefreshToken);
 
-        RegisteredResponse registeredResponse = new() { AccessToken = createdAccessToken, RefreshToken = addedRefreshToken };
+        RefreshTokenCookieHelper.SetRefreshTokenToCookie(request.Response, addedRefreshToken);
+
+        RegisteredResponse registeredResponse = new() { AccessToken = createdAccessToken };
         return registeredResponse;
     }
 }

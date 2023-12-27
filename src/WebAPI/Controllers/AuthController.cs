@@ -3,6 +3,7 @@ using Application.Features.Auth.Commands.RefreshToken;
 using Application.Features.Auth.Commands.Register;
 using Application.Features.Auth.Commands.RevokeToken;
 using Core.Application.Dtos;
+using Core.Utilities.Cookies;
 using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -17,47 +18,33 @@ public class AuthController : BaseController
     [HttpPost("Login")]
     public async Task<IActionResult> Login([FromBody] UserForLoginDto userForLoginDto)
     {
-        LoginCommand loginCommand = new() { UserForLoginDto = userForLoginDto, IpAddress = GetIpAddress() };
-        LoggedResponse result = await Mediator.Send(loginCommand);
-
-        if (result.RefreshToken is not null)
-            setRefreshTokenToCookie(result.RefreshToken);
-
-        return Ok(result.ToHttpResponse());
+        LoginCommand loginCommand = new() { UserForLoginDto = userForLoginDto, IpAddress = GetIpAddress(), Response = Response};
+        var result = await Mediator.Send(loginCommand);
+        return Ok(result);
     }
 
     [HttpPost("Register")]
     public async Task<IActionResult> Register([FromBody] UserForRegisterDto userForRegisterDto)
     {
-        RegisterCommand registerCommand = new() { UserForRegisterDto = userForRegisterDto, IpAddress = GetIpAddress() };
+        RegisterCommand registerCommand = new() { UserForRegisterDto = userForRegisterDto, IpAddress = GetIpAddress(), Response = Response };
         RegisteredResponse result = await Mediator.Send(registerCommand);
-        setRefreshTokenToCookie(result.RefreshToken);
         return Created(uri: "", result.AccessToken);
     }
 
     [HttpGet("RefreshToken")]
     public async Task<IActionResult> RefreshToken()
     {
-        RefreshTokenCommand refreshTokenCommand = new() { RefreshToken = getRefreshTokenFromCookies(), IpAddress = GetIpAddress() };
+        RefreshTokenCommand refreshTokenCommand = new() { RefreshToken = RefreshTokenCookieHelper.GetRefreshTokenFromCookies(Request), IpAddress = GetIpAddress(), Response = Response };
         RefreshedTokensResponse result = await Mediator.Send(refreshTokenCommand);
-        setRefreshTokenToCookie(result.RefreshToken);
         return Created(uri: "", result.AccessToken);
     }
 
     [HttpPut("RevokeToken")]
     public async Task<IActionResult> RevokeToken([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)] string? refreshToken)
     {
-        RevokeTokenCommand revokeTokenCommand = new() { Token = refreshToken ?? getRefreshTokenFromCookies(), IpAddress = GetIpAddress() };
+        RevokeTokenCommand revokeTokenCommand = new() { Token = refreshToken ?? RefreshTokenCookieHelper.GetRefreshTokenFromCookies(Request), IpAddress = GetIpAddress() };
         RevokedTokenResponse result = await Mediator.Send(revokeTokenCommand);
         return Ok(result);
     }
 
-    private string getRefreshTokenFromCookies() =>
-        Request.Cookies["refreshToken"] ?? throw new ArgumentException("Refresh token is not found in request cookies.");
-
-    private void setRefreshTokenToCookie(RefreshToken refreshToken)
-    {
-        CookieOptions cookieOptions = new() { HttpOnly = true, Expires = DateTime.UtcNow.AddDays(7) };
-        Response.Cookies.Append(key: "refreshToken", refreshToken.Token, cookieOptions);
-    }
 }

@@ -2,12 +2,15 @@
 using Application.Services.AuthService;
 using Application.Services.UsersService;
 using Core.Security.JWT;
+using Core.Utilities.Cookies;
+using Core.Utilities.Results;
 using Domain.Models;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace Application.Features.Auth.Commands.Login;
 
-public class LoginCommandHandler : IRequestHandler<LoginCommand, LoggedResponse>
+public class LoginCommandHandler : IRequestHandler<LoginCommand, IDataResult<LoggedResponse>>
 {
     private readonly AuthBusinessRules _authBusinessRules;
     private readonly IAuthService _authService;
@@ -24,7 +27,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, LoggedResponse>
         _authBusinessRules = authBusinessRules;
     }
 
-    public async Task<LoggedResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
+    public async Task<IDataResult<LoggedResponse>> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
         User? user = await _userService.GetAsync(
             predicate: u => u.Email == request.UserForLoginDto.Email,
@@ -43,7 +46,10 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, LoggedResponse>
         await _authService.DeleteOldRefreshTokens(user.Id);
 
         loggedResponse.AccessToken = createdAccessToken;
-        loggedResponse.RefreshToken = addedRefreshToken;
-        return loggedResponse;
+        RefreshTokenCookieHelper.SetRefreshTokenToCookie(request.Response, addedRefreshToken);
+
+        return new SuccessDataResult<LoggedResponse>(loggedResponse, "Logged In");
     }
+
+    
 }

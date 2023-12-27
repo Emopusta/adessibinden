@@ -2,6 +2,7 @@
 using Application.Services.AuthService;
 using Application.Services.UsersService;
 using Core.Security.JWT;
+using Core.Utilities.Cookies;
 using Domain.Models;
 using MediatR;
 
@@ -43,6 +44,7 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, R
         );
         Domain.Models.RefreshToken addedRefreshToken = await _authService.AddRefreshToken(newRefreshToken);
         await _authService.DeleteOldRefreshTokens(refreshToken.UserId);
+        RefreshTokenCookieHelper.SetRefreshTokenToCookie(request.Response, addedRefreshToken);
 
         AccessToken createdAccessToken = await _authService.CreateAccessToken(user!);
 
