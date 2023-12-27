@@ -1,4 +1,5 @@
 ﻿using Core.CrossCuttingConcerns.Exceptions.Types.ValidationException;
+using Core.Utilities.Exceptions;
 using FluentValidation;
 using MediatR;
 using ValidationException = Core.CrossCuttingConcerns.Exceptions.Types.ValidationException.ValidationException;

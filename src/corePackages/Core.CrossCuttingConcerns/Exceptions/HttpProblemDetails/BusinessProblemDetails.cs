@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Core.Utilities.Exceptions;
+using Microsoft.AspNetCore.Http;
 
 namespace Core.CrossCuttingConcerns.Exceptions.HttpProblemDetails;
 
-internal class BusinessProblemDetails : ProblemDetails
+internal class BusinessProblemDetails : ExceptionDetails
 {
     public BusinessProblemDetails(string detail)
     {

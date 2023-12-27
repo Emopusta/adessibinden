@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.CrossCuttingConcerns.Exceptions.Types.ValidationException
+namespace Core.Utilities.Exceptions
 {
     public class ValidationExceptionModel
     {

@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Core.Utilities.Exceptions;
+using Microsoft.AspNetCore.Http;
 
 namespace Core.CrossCuttingConcerns.Exceptions.HttpProblemDetails;
 
-internal class AuthProblemDetails : ProblemDetails
+internal class AuthProblemDetails : ExceptionDetails
 {
     public AuthProblemDetails(string detail)
     {

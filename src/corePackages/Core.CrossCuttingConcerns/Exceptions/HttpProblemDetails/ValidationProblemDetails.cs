@@ -1,23 +1,18 @@
 ﻿using Core.CrossCuttingConcerns.Exceptions.Types.ValidationException;
+using Core.Utilities.Exceptions;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.CrossCuttingConcerns.Exceptions.HttpProblemDetails
 {
-    internal class ValidationProblemDetails : ProblemDetails
+    internal class ValidationProblemDetails : ExceptionDetails
     {
-        public IEnumerable<ValidationExceptionModel> Errors{ get; set; }
 
         public ValidationProblemDetails(IEnumerable<ValidationExceptionModel> errors)
         {
+            Type = "https://example.com/probs/validation";
             Title = "Validation error(s)";
             Detail = "One or more validation errors occurred.";
-            Errors = errors;
+            ValidationErrors = errors;
             Status = StatusCodes.Status400BadRequest;
             
         }

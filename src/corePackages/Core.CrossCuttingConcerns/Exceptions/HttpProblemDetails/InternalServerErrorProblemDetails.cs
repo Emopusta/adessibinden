@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Core.Utilities.Exceptions;
+using Microsoft.AspNetCore.Http;
 
 namespace Core.CrossCuttingConcerns.Exceptions.HttpProblemDetails;
 
-internal class InternalServerErrorProblemDetails : ProblemDetails
+internal class InternalServerErrorProblemDetails : ExceptionDetails
 {
     public InternalServerErrorProblemDetails(string detail)
     {

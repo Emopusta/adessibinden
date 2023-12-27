@@ -1,17 +1,22 @@
-﻿namespace Core.Utilities.Results
+﻿using Core.Utilities.Exceptions;
+
+namespace Core.Utilities.Results
 {
     public class DataResult<T> : Result, IDataResult<T>
     {
         public T Data { get; }
-
-        public DataResult(T data, bool success, string message) : base(success, message)
+        public ExceptionDetails Error { get; }
+        public DataResult(T data, ExceptionDetails error, bool success, string message) : base(success, message)
         {
             Data = data;
+            Error = error;
         }
 
-        public DataResult(T data, bool success) : base(success)
+        public DataResult(T data, ExceptionDetails error, bool success) : base(success)
         {
             Data = data;
+            Error = error;
         }
+        
     }
 }
