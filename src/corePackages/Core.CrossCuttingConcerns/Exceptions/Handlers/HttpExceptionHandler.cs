@@ -1,8 +1,9 @@
-﻿using Core.CrossCuttingConcerns.Exceptions.Extensions;
-using Core.CrossCuttingConcerns.Exceptions.HttpProblemDetails;
+﻿using Core.CrossCuttingConcerns.Exceptions.HttpProblemDetails;
 using Core.CrossCuttingConcerns.Exceptions.Types;
 using Core.CrossCuttingConcerns.Exceptions.Types.ValidationException;
+using Core.Utilities.Results;
 using Microsoft.AspNetCore.Http;
+using System.Text.Json;
 
 namespace Core.CrossCuttingConcerns.Exceptions.Handlers;
 
@@ -19,27 +20,27 @@ public class HttpExceptionHandler : ExceptionHandler
     protected override Task HandleException(BusinessException businessException)
     {
         Response.StatusCode = StatusCodes.Status400BadRequest;
-        string details = new BusinessProblemDetails(businessException.Message).AsJson();
-        return Response.WriteAsync(details);
+        var problemDetails = new BusinessProblemDetails(businessException.Message);
+        return Response.WriteAsync(JsonSerializer.Serialize(new ErrorDataResult<BusinessProblemDetails>(problemDetails, problemDetails.Detail)));
     }
 
 
     protected override Task HandleException(Exception exception)
     {
         Response.StatusCode = StatusCodes.Status500InternalServerError;
-        string details = new InternalServerErrorProblemDetails(exception.Message).AsJson();
-        return Response.WriteAsync(details);
+        var details = new InternalServerErrorProblemDetails(exception.Message);
+        return Response.WriteAsync(JsonSerializer.Serialize(new ErrorDataResult<InternalServerErrorProblemDetails>(details, details.Detail)));
     }
     protected override Task HandleException(AuthException authorizationException)
     {
         Response.StatusCode = StatusCodes.Status401Unauthorized;
-        string details = new AuthProblemDetails(authorizationException.Message).AsJson();
-        return Response.WriteAsync(details);
+        var details = new AuthProblemDetails(authorizationException.Message);
+        return Response.WriteAsync(JsonSerializer.Serialize(new ErrorDataResult<AuthProblemDetails>(details, details.Detail)));
     }
     protected override Task HandleException(ValidationException validationException)
     {
         Response.StatusCode = StatusCodes.Status400BadRequest;
-        string details = new ValidationProblemDetails(validationException.Errors).AsJson();
-        return Response.WriteAsync(details);
+        ValidationProblemDetails details = new ValidationProblemDetails(validationException.Errors);
+        return Response.WriteAsync(JsonSerializer.Serialize(new ErrorDataResult<ValidationProblemDetails>(details, details.Detail)));
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Core.CrossCuttingConcerns.Exceptions.Handlers;
 using Microsoft.AspNetCore.Http;
-using System.Text.Json;
+
 
 namespace Core.CrossCuttingConcerns.Exceptions;
 
@@ -24,7 +24,7 @@ public class ExceptionMiddleware
         }
         catch (Exception exception)
         {
-            await HandleExceptionAsync(context.Response, exception);
+            HandleExceptionAsync(context.Response, exception);
         }
     }
 
