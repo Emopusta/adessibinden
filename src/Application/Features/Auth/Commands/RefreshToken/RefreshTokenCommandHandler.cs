@@ -3,12 +3,13 @@ using Application.Services.AuthService;
 using Application.Services.UsersService;
 using Core.Security.JWT;
 using Core.Utilities.Cookies;
+using Core.Utilities.Results;
 using Domain.Models;
 using MediatR;
 
 namespace Application.Features.Auth.Commands.RefreshToken;
 
-public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, RefreshedTokensResponse>
+public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, IDataResult<RefreshedTokensResponse>>
 {
     private readonly IAuthService _authService;
     private readonly IUserService _userService;
@@ -21,7 +22,7 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, R
         _authBusinessRules = authBusinessRules;
     }
 
-    public async Task<RefreshedTokensResponse> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
+    public async Task<IDataResult<RefreshedTokensResponse>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
     {
         Domain.Models.RefreshToken? refreshToken = await _authService.GetRefreshTokenByToken(request.RefreshToken);
         await _authBusinessRules.RefreshTokenShouldBeExists(refreshToken);
@@ -49,6 +50,6 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, R
         AccessToken createdAccessToken = await _authService.CreateAccessToken(user!);
 
         RefreshedTokensResponse refreshedTokensResponse = new() { AccessToken = createdAccessToken, RefreshToken = addedRefreshToken };
-        return refreshedTokensResponse;
+        return new SuccessDataResult<RefreshedTokensResponse>(refreshedTokensResponse, "Tokens Refreshed.");
     }
 }

@@ -1,16 +1,18 @@
-﻿using Application.Features.Auth.Rules;
+﻿using Application.Features.Auth.Commands.RefreshToken;
+using Application.Features.Auth.Rules;
 using Application.Services.AuthService;
 using Core.Application.GenericRepository;
 using Core.DataAccess.Repositories;
 using Core.Security.Hashing;
 using Core.Security.JWT;
 using Core.Utilities.Cookies;
+using Core.Utilities.Results;
 using Domain.Models;
 using MediatR;
 
 namespace Application.Features.Auth.Commands.Register;
 
-public class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisteredResponse>
+public class RegisterCommandHandler : IRequestHandler<RegisterCommand, IDataResult<RegisteredResponse>>
 {
     private readonly IGenericRepository<User> _userRepository;
     private readonly IAuthService _authService;
@@ -25,7 +27,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Registere
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<RegisteredResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
+    public async Task<IDataResult<RegisteredResponse>> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
         await _authBusinessRules.UserEmailShouldBeNotExists(request.UserForRegisterDto.Email);
 
@@ -53,6 +55,6 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Registere
         RefreshTokenCookieHelper.SetRefreshTokenToCookie(request.Response, addedRefreshToken);
 
         RegisteredResponse registeredResponse = new() { AccessToken = createdAccessToken };
-        return registeredResponse;
+        return new SuccessDataResult<RegisteredResponse>(registeredResponse, "User successfully registered.");
     }
 }

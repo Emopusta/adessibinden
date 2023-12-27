@@ -27,23 +27,23 @@ public class AuthController : BaseController
     public async Task<IActionResult> Register([FromBody] UserForRegisterDto userForRegisterDto)
     {
         RegisterCommand registerCommand = new() { UserForRegisterDto = userForRegisterDto, IpAddress = GetIpAddress(), Response = Response };
-        RegisteredResponse result = await Mediator.Send(registerCommand);
-        return Created(uri: "", result.AccessToken);
+        var result = await Mediator.Send(registerCommand);
+        return Created(uri: "", result);
     }
 
     [HttpGet("RefreshToken")]
     public async Task<IActionResult> RefreshToken()
     {
         RefreshTokenCommand refreshTokenCommand = new() { RefreshToken = RefreshTokenCookieHelper.GetRefreshTokenFromCookies(Request), IpAddress = GetIpAddress(), Response = Response };
-        RefreshedTokensResponse result = await Mediator.Send(refreshTokenCommand);
-        return Created(uri: "", result.AccessToken);
+        var result = await Mediator.Send(refreshTokenCommand);
+        return Created(uri: "", result);
     }
 
     [HttpPut("RevokeToken")]
     public async Task<IActionResult> RevokeToken([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)] string? refreshToken)
     {
         RevokeTokenCommand revokeTokenCommand = new() { Token = refreshToken ?? RefreshTokenCookieHelper.GetRefreshTokenFromCookies(Request), IpAddress = GetIpAddress() };
-        RevokedTokenResponse result = await Mediator.Send(revokeTokenCommand);
+        var result = await Mediator.Send(revokeTokenCommand);
         return Ok(result);
     }
 
