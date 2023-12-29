@@ -5,23 +5,19 @@ using Microsoft.AspNetCore.Http;
 
 namespace Application.Features.Auth.Commands.RefreshToken;
 
-public class RefreshTokenCommand : ICommandRequest<IDataResult<RefreshedTokensResponse>>
+public class RefreshTokenCommand : ICommandRequest<RefreshedTokensResponse>
 {
     public string RefreshToken { get; set; }
-    public string IpAddress { get; set; }
-    public HttpResponse Response { get; set; }
 
 
     public RefreshTokenCommand()
     {
         RefreshToken = string.Empty;
-        IpAddress = string.Empty;
     }
 
-    public RefreshTokenCommand(string refreshToken, string ipAddress)
+    public RefreshTokenCommand(string refreshToken)
     {
         RefreshToken = refreshToken;
-        IpAddress = ipAddress;
     }
 
 }

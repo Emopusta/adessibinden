@@ -6,11 +6,6 @@ namespace Core.Utilities.Results
     {
         public T Data { get; }
         public ExceptionDetails Error { get; }
-        public DataResult(T data, ExceptionDetails error, bool success, string message) : base(success, message)
-        {
-            Data = data;
-            Error = error;
-        }
 
         public DataResult(T data, ExceptionDetails error, bool success) : base(success)
         {

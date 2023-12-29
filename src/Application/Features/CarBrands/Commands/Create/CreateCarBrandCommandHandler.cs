@@ -6,7 +6,7 @@ using MediatR;
 namespace Application.Features.CarBrands.Commands.Create
 {
 
-    public class CreateCarBrandCommandHandler : IRequestHandler<CreateCarBrandCommand, IDataResult<CreatedCarBrandResponse>>
+    public class CreateCarBrandCommandHandler : IRequestHandler<CreateCarBrandCommand, CreatedCarBrandResponse>
         {
             private readonly IGenericRepository<CarBrand> _repository;
 
@@ -15,7 +15,7 @@ namespace Application.Features.CarBrands.Commands.Create
                 _repository = repository;
             }
 
-            public async Task<IDataResult<CreatedCarBrandResponse>> Handle(CreateCarBrandCommand request, CancellationToken cancellationToken)
+            public async Task<CreatedCarBrandResponse> Handle(CreateCarBrandCommand request, CancellationToken cancellationToken)
             {
                 CarBrand carBrand = new()
                 {
@@ -25,12 +25,12 @@ namespace Application.Features.CarBrands.Commands.Create
 
                 CarBrand addedCarBrand = await _repository.AddAsync(carBrand);
 
-                CreatedCarBrandResponse response = new()
+                CreatedCarBrandResponse result = new()
                 {
                     Name = addedCarBrand.Name,
                 };
 
-                return new SuccessDataResult<CreatedCarBrandResponse>(response, "Car brand created.");
+                return result;
             }
         
     }

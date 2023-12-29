@@ -21,7 +21,7 @@ public class HttpExceptionHandler : ExceptionHandler
     {
         Response.StatusCode = StatusCodes.Status400BadRequest;
         var details = new BusinessProblemDetails(businessException.Message);
-        return Response.WriteAsync(JsonSerializer.Serialize(new ErrorDataResult<BusinessProblemDetails>(details, ErrorMessage), Options()));
+        return Response.WriteAsync(JsonSerializer.Serialize(new ErrorDataResult<BusinessProblemDetails>(details), Options()));
     }
 
 
@@ -29,19 +29,19 @@ public class HttpExceptionHandler : ExceptionHandler
     {
         Response.StatusCode = StatusCodes.Status500InternalServerError;
         var details = new InternalServerErrorProblemDetails(exception.Message);
-        return Response.WriteAsync(JsonSerializer.Serialize(new ErrorDataResult<InternalServerErrorProblemDetails>(details, ErrorMessage), Options()));
+        return Response.WriteAsync(JsonSerializer.Serialize(new ErrorDataResult<InternalServerErrorProblemDetails>(details), Options()));
     }
     protected override Task HandleException(AuthException authorizationException)
     {
         Response.StatusCode = StatusCodes.Status401Unauthorized;
         var details = new AuthProblemDetails(authorizationException.Message);
-        return Response.WriteAsync(JsonSerializer.Serialize(new ErrorDataResult<AuthProblemDetails>(details, ErrorMessage), Options()));
+        return Response.WriteAsync(JsonSerializer.Serialize(new ErrorDataResult<AuthProblemDetails>(details), Options()));
     }
     protected override Task HandleException(ValidationException validationException)
     {
         Response.StatusCode = StatusCodes.Status400BadRequest;
         ValidationProblemDetails details = new ValidationProblemDetails(validationException.Errors);
-        return Response.WriteAsync(JsonSerializer.Serialize(new ErrorDataResult<ValidationProblemDetails>(details, ErrorMessage), Options()));
+        return Response.WriteAsync(JsonSerializer.Serialize(new ErrorDataResult<ValidationProblemDetails>(details), Options()));
     }
 
     private static JsonSerializerOptions Options()
@@ -53,5 +53,4 @@ public class HttpExceptionHandler : ExceptionHandler
         return options;
     }
 
-    private const string ErrorMessage = "Error occured.";
 }

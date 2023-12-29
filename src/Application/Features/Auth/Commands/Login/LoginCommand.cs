@@ -6,23 +6,18 @@ using Microsoft.AspNetCore.Http;
 
 namespace Application.Features.Auth.Commands.Login;
 
-public class LoginCommand : ICommandRequest<IDataResult<LoggedResponse>>
+public class LoginCommand : ICommandRequest<LoggedResponse>
 {
     public UserForLoginDto UserForLoginDto { get; set; }
-    public string IpAddress { get; set; }
-    public HttpResponse Response { get; set; }
 
     public LoginCommand()
     {
         UserForLoginDto = null!;
-        IpAddress = string.Empty;
     }
 
-    public LoginCommand(UserForLoginDto userForLoginDto, string ipAddress, HttpResponse response)
+    public LoginCommand(UserForLoginDto userForLoginDto)
     {
         UserForLoginDto = userForLoginDto;
-        IpAddress = ipAddress;
-        Response = response;
     }
 
 }

@@ -8,7 +8,7 @@ using MediatR;
 namespace Application.Features.Colors.Commands.Create
 {
 
-    public class CreateColorCommandHandler : IRequestHandler<CreateColorCommand, IDataResult<CreatedColorResponse>>
+    public class CreateColorCommandHandler : IRequestHandler<CreateColorCommand, CreatedColorResponse>
         {
         private readonly IGenericRepository<Color> _colorRepository;
         private readonly ColorBusinessRules _colorBusinessRules;
@@ -19,7 +19,7 @@ namespace Application.Features.Colors.Commands.Create
             _colorBusinessRules = colorBusinessRules;
         }
 
-        public async Task<IDataResult<CreatedColorResponse>> Handle(CreateColorCommand request, CancellationToken cancellationToken)
+        public async Task<CreatedColorResponse> Handle(CreateColorCommand request, CancellationToken cancellationToken)
         {
             await _colorBusinessRules.ColorNameCannotDuplicate(request.Name);
             
@@ -34,7 +34,7 @@ namespace Application.Features.Colors.Commands.Create
                 Name = addedColor.Name,
             };
 
-            return new SuccessDataResult<CreatedColorResponse>(response);
+            return response;
             
         }
     }

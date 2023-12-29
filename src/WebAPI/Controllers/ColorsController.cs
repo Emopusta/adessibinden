@@ -1,8 +1,12 @@
 ﻿using Application.Features.Colors.Commands.Create;
 using Application.Features.Colors.Commands.Delete;
 using Application.Features.Colors.Queries.GetAll;
+using Application.Features.Colors.Queries.GetById;
 using Core.Application.Requests;
+using Core.Application.Responses;
+using Core.Utilities.Results;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,34 +18,35 @@ namespace WebAPI.Controllers
     {
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateColorCommand createColorCommand)
+        public async Task<IDataResult<CreatedColorResponse>> Create([FromBody] CreateColorCommand createColorCommand)
         {
             var response = await Mediator.Send(createColorCommand);
 
-            return Ok(response);
+            return ReturnResult(response);
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete([FromBody] DeleteColorCommand deleteColorCommand)
+        public async Task<IDataResult<DeletedColorResponse>> Delete([FromBody] DeleteColorCommand deleteColorCommand)
         {
             var response = await Mediator.Send(deleteColorCommand);
 
-            return Ok(response);
+            return ReturnResult(response);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] PageRequest pageRequest)
+        [Authorize(Roles ="Admin")]
+        public async Task<IDataResult<GetListResponse<GetAllColorsListItemDto>>> GetAll([FromQuery] PageRequest pageRequest)
         {
-            GetAllColorsQuery getAllColorQuery = new() { PageRequest = pageRequest };
+            var getAllColorQuery = new GetAllColorsQuery() { PageRequest = pageRequest };
             var result = await Mediator.Send(getAllColorQuery);
-            return Ok(result);
+            return ReturnResult(result);
         }
 
         [HttpGet("getById")]
-        public async Task<IActionResult> GetById([FromQuery] GetByIdColorQuery getByIdColorQuery)
+        public async Task<IDataResult<GetByIdColorResponse>> GetById([FromQuery] GetByIdColorQuery getByIdColorQuery)
         {
             var result = await Mediator.Send(getByIdColorQuery);
-            return Ok(result);
+            return ReturnResult(result);
         }
     }
 }

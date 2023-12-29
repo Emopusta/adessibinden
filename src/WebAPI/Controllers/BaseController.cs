@@ -1,4 +1,5 @@
 ﻿using Core.Security.Extensions;
+using Core.Utilities.Results;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,14 +14,9 @@ public class BaseController : ControllerBase
 
     private IMediator? _mediator;
 
-    protected string GetIpAddress()
+    protected SuccessDataResult<T> ReturnResult<T>(T result)
     {
-        string ipAddress = Request.Headers.ContainsKey("X-Forwarded-For")
-            ? Request.Headers["X-Forwarded-For"].ToString()
-            : HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString()
-                ?? throw new InvalidOperationException("IP address cannot be retrieved from request.");
-        return ipAddress;
+        return new SuccessDataResult<T>(result);
     }
-
     
 }

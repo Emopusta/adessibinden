@@ -5,6 +5,5 @@
     {
         bool Success { get; }
 
-        string Message { get; }
     }
 }

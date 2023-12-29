@@ -10,15 +10,15 @@ namespace Core.Utilities.Cookies
 {
     public static class RefreshTokenCookieHelper
     {
-
-        public static void SetRefreshTokenToCookie(HttpResponse response, RefreshToken refreshToken)
+        
+        public static void SetRefreshTokenToCookie(HttpContext httpContext, RefreshToken refreshToken)
         {
             CookieOptions cookieOptions = new() { HttpOnly = true, Expires = DateTime.UtcNow.AddDays(7) };
-            response.Cookies.Append(key: "refreshToken", refreshToken.Token, cookieOptions);
+            httpContext.Response.Cookies.Append(key: "refreshToken", refreshToken.Token, cookieOptions);
         }
 
-        public static string GetRefreshTokenFromCookies(HttpRequest request) =>
-        request.Cookies["refreshToken"] ?? throw new ArgumentException("Refresh token is not found in request cookies.");
+        public static string GetRefreshTokenFromCookies(HttpContext httpContext) =>
+        httpContext.Request.Cookies["refreshToken"] ?? throw new ArgumentException("Refresh token is not found in request cookies.");
 
     }
 

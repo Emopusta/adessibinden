@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Application.Features.Colors.Commands.Delete
 {
-    public class DeleteColorCommandHandler : IRequestHandler<DeleteColorCommand, IDataResult<DeletedColorResponse>>
+    public class DeleteColorCommandHandler : IRequestHandler<DeleteColorCommand, DeletedColorResponse>
     {
         private readonly IGenericRepository<Color> _colorRepository;
 
@@ -14,7 +14,7 @@ namespace Application.Features.Colors.Commands.Delete
             _colorRepository = colorRepository;
         }
 
-        public async Task<IDataResult<DeletedColorResponse>> Handle(DeleteColorCommand request, CancellationToken cancellationToken)
+        public async Task<DeletedColorResponse> Handle(DeleteColorCommand request, CancellationToken cancellationToken)
         {
             Color? color = await _colorRepository.GetAsync(c => c.Id ==  request.Id);
 
@@ -26,7 +26,7 @@ namespace Application.Features.Colors.Commands.Delete
                 Name = deletedColor.Name,
             };
 
-            return new SuccessDataResult<DeletedColorResponse>(result, "Color successfully deleted.");
+            return result;
         }
     }
 }

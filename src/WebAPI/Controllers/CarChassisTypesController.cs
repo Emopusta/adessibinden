@@ -1,5 +1,6 @@
 ﻿using Application.Features.CarBrands.Commands.Create;
 using Application.Features.CarChassisTypes.Commands.Create;
+using Core.Utilities.Results;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +12,11 @@ namespace WebAPI.Controllers
     public class CarChassisTypesController : BaseController
     {
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateCarChassisTypeCommand createCarChassisTypeCommand)
+        public async Task<IDataResult<CreatedCarChassisTypeResponse>> Create([FromBody] CreateCarChassisTypeCommand createCarChassisTypeCommand)
         {
             var response = await Mediator.Send(createCarChassisTypeCommand);
 
-            return Ok(response);
+            return ReturnResult(response);
         }
     }
 }

@@ -3,6 +3,7 @@ using Application.Services.AuthService;
 using Application.Services.UsersService;
 using Core.Security.JWT;
 using Core.Utilities.Cookies;
+using Core.Utilities.Network;
 using Core.Utilities.Results;
 using Domain.Models;
 using MediatR;
@@ -10,24 +11,22 @@ using Microsoft.AspNetCore.Http;
 
 namespace Application.Features.Auth.Commands.Login;
 
-public class LoginCommandHandler : IRequestHandler<LoginCommand, IDataResult<LoggedResponse>>
+public class LoginCommandHandler : IRequestHandler<LoginCommand, LoggedResponse>
 {
     private readonly AuthBusinessRules _authBusinessRules;
     private readonly IAuthService _authService;
     private readonly IUserService _userService;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public LoginCommandHandler(
-        IUserService userService,
-        IAuthService authService,
-        AuthBusinessRules authBusinessRules
-    )
+    public LoginCommandHandler(AuthBusinessRules authBusinessRules, IAuthService authService, IUserService userService, IHttpContextAccessor httpContextAccessor)
     {
-        _userService = userService;
-        _authService = authService;
         _authBusinessRules = authBusinessRules;
+        _authService = authService;
+        _userService = userService;
+        _httpContextAccessor = httpContextAccessor;
     }
 
-    public async Task<IDataResult<LoggedResponse>> Handle(LoginCommand request, CancellationToken cancellationToken)
+    public async Task<LoggedResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
         User? user = await _userService.GetAsync(
             predicate: u => u.Email == request.UserForLoginDto.Email,
@@ -40,15 +39,16 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, IDataResult<Log
 
         AccessToken createdAccessToken = await _authService.CreateAccessToken(user);
 
-        var createdRefreshToken = await _authService.CreateRefreshToken(user, request.IpAddress);
+        var ipAddress = IpAddressHelper.GetIpAddress(_httpContextAccessor.HttpContext);
+        var createdRefreshToken = await _authService.CreateRefreshToken(user, ipAddress);
         var addedRefreshToken = await _authService.AddRefreshToken(createdRefreshToken);
 
         await _authService.DeleteOldRefreshTokens(user.Id);
 
         loggedResponse.AccessToken = createdAccessToken;
-        RefreshTokenCookieHelper.SetRefreshTokenToCookie(request.Response, addedRefreshToken);
+        RefreshTokenCookieHelper.SetRefreshTokenToCookie(_httpContextAccessor.HttpContext, addedRefreshToken);
 
-        return new SuccessDataResult<LoggedResponse>(loggedResponse, "Logged In");
+        return loggedResponse;
     }
 
     

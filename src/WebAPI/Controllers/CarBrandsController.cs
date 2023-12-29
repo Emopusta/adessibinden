@@ -1,4 +1,5 @@
 ﻿using Application.Features.CarBrands.Commands.Create;
+using Core.Utilities.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,11 +11,11 @@ namespace WebAPI.Controllers
     {
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateCarBrandCommand createCarBrandCommand)
+        public async Task<IDataResult<CreatedCarBrandResponse>> Create([FromBody] CreateCarBrandCommand createCarBrandCommand)
         {
             var response = await Mediator.Send(createCarBrandCommand);
 
-            return Ok(response);
+            return ReturnResult(response);
         }
     }
 }

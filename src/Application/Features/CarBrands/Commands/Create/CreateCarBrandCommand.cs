@@ -4,7 +4,7 @@ using Core.Utilities.Results;
 
 namespace Application.Features.CarBrands.Commands.Create
 {
-    public partial class CreateCarBrandCommand : ICommandRequest<IDataResult<CreatedCarBrandResponse>>
+    public partial class CreateCarBrandCommand : ICommandRequest<CreatedCarBrandResponse>
     {
         public string Name { get; set; }
     }

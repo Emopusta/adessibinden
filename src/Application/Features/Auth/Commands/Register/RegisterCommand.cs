@@ -6,23 +6,19 @@ using Microsoft.AspNetCore.Http;
 
 namespace Application.Features.Auth.Commands.Register;
 
-public class RegisterCommand : ICommandRequest<IDataResult<RegisteredResponse>>
+public class RegisterCommand : ICommandRequest<RegisteredResponse>
 {
     public UserForRegisterDto UserForRegisterDto { get; set; }
-    public string IpAddress { get; set; }
-    public HttpResponse Response { get; set; }
 
 
     public RegisterCommand()
     {
         UserForRegisterDto = null!;
-        IpAddress = string.Empty;
     }
 
-    public RegisterCommand(UserForRegisterDto userForRegisterDto, string ipAddress)
+    public RegisterCommand(UserForRegisterDto userForRegisterDto)
     {
         UserForRegisterDto = userForRegisterDto;
-        IpAddress = ipAddress;
     }
 
     

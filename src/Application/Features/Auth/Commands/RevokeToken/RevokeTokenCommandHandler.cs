@@ -2,33 +2,42 @@
 using Application.Features.Auth.Rules;
 using Application.Services.AuthService;
 using AutoMapper;
+using Core.Utilities.Cookies;
+using Core.Utilities.Network;
 using Core.Utilities.Results;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace Application.Features.Auth.Commands.RevokeToken;
 
-public class RevokeTokenCommandHandler : IRequestHandler<RevokeTokenCommand, IDataResult<RevokedTokenResponse>>
+public class RevokeTokenCommandHandler : IRequestHandler<RevokeTokenCommand, RevokedTokenResponse>
 {
     private readonly IAuthService _authService;
     private readonly AuthBusinessRules _authBusinessRules;
     private readonly IMapper _mapper;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public RevokeTokenCommandHandler(IAuthService authService, AuthBusinessRules authBusinessRules, IMapper mapper)
+    public RevokeTokenCommandHandler(IAuthService authService, AuthBusinessRules authBusinessRules, IMapper mapper, IHttpContextAccessor httpContextAccessor)
     {
         _authService = authService;
         _authBusinessRules = authBusinessRules;
         _mapper = mapper;
+        _httpContextAccessor = httpContextAccessor;
     }
 
-    public async Task<IDataResult<RevokedTokenResponse>> Handle(RevokeTokenCommand request, CancellationToken cancellationToken)
+    public async Task<RevokedTokenResponse> Handle(RevokeTokenCommand request, CancellationToken cancellationToken)
     {
+        request.Token ??= RefreshTokenCookieHelper.GetRefreshTokenFromCookies(_httpContextAccessor.HttpContext);
+
         var refreshToken = await _authService.GetRefreshTokenByToken(request.Token);
         await _authBusinessRules.RefreshTokenShouldBeExists(refreshToken);
         await _authBusinessRules.RefreshTokenShouldBeActive(refreshToken!);
 
-        await _authService.RevokeRefreshToken(token: refreshToken!, request.IpAddress, reason: "Revoked without replacement");
+        var ipAddress = IpAddressHelper.GetIpAddress(_httpContextAccessor.HttpContext);
+
+        await _authService.RevokeRefreshToken(token: refreshToken!, ipAddress, reason: "Revoked without replacement");
 
         RevokedTokenResponse revokedTokenResponse = _mapper.Map<RevokedTokenResponse>(refreshToken);
-        return new SuccessDataResult<RevokedTokenResponse>(revokedTokenResponse, "Refresh token revoked.");
+        return revokedTokenResponse;
     }
 }

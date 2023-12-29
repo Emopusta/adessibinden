@@ -4,21 +4,18 @@ using MediatR;
 
 namespace Application.Features.Auth.Commands.RevokeToken;
 
-public class RevokeTokenCommand : ICommandRequest<IDataResult<RevokedTokenResponse>>
+public class RevokeTokenCommand : ICommandRequest<RevokedTokenResponse>
 {
     public string Token { get; set; }
-    public string IpAddress { get; set; }
 
     public RevokeTokenCommand()
     {
         Token = string.Empty;
-        IpAddress = string.Empty;
     }
 
-    public RevokeTokenCommand(string token, string ipAddress)
+    public RevokeTokenCommand(string token)
     {
         Token = token;
-        IpAddress = ipAddress;
     }
 
 }
