@@ -35,7 +35,7 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, R
 
         var ipAddress = IpAddressHelper.GetIpAddress(_httpContextAccessor.HttpContext);
 
-        if (refreshToken!.Revoked != null)
+        if (refreshToken!.Revoked != null && refreshToken!.ReplacedByToken != null)
             await _authService.RevokeDescendantRefreshTokens(
                 refreshToken,
                 ipAddress,
