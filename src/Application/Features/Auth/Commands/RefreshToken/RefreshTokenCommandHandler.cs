@@ -28,7 +28,7 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, R
 
     public async Task<RefreshedTokensResponse> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
     {
-        request.RefreshToken = RefreshTokenCookieHelper.GetRefreshTokenFromCookies(_httpContextAccessor.HttpContext);
+        request.RefreshToken ??= RefreshTokenCookieHelper.GetRefreshTokenFromCookies(_httpContextAccessor.HttpContext);
 
         Domain.Models.RefreshToken? refreshToken = await _authService.GetRefreshTokenByToken(request.RefreshToken);
         await _authBusinessRules.RefreshTokenShouldBeExists(refreshToken);
