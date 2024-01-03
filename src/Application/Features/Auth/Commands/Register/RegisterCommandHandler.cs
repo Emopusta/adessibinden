@@ -5,7 +5,7 @@ using Core.Application.GenericRepository;
 using Core.DataAccess.Repositories;
 using Core.Security.Hashing;
 using Core.Security.JWT;
-using Core.Utilities.Cookies;
+using Core.CrossCuttingConcerns.Cookies;
 using Core.Utilities.Network;
 using Core.Utilities.Results;
 using Domain.Models;

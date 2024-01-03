@@ -2,7 +2,7 @@
 using Application.Services.AuthService;
 using Application.Services.UsersService;
 using Core.Security.JWT;
-using Core.Utilities.Cookies;
+using Core.CrossCuttingConcerns.Cookies;
 using Core.Utilities.Network;
 using Core.Utilities.Results;
 using Domain.Models;
@@ -28,7 +28,7 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, R
 
     public async Task<RefreshedTokensResponse> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
     {
-        request.RefreshToken ??= RefreshTokenCookieHelper.GetRefreshTokenFromCookies(_httpContextAccessor.HttpContext);
+        request.RefreshToken = RefreshTokenCookieHelper.GetRefreshTokenFromCookies(_httpContextAccessor.HttpContext);
 
         Domain.Models.RefreshToken? refreshToken = await _authService.GetRefreshTokenByToken(request.RefreshToken);
         await _authBusinessRules.RefreshTokenShouldBeExists(refreshToken);

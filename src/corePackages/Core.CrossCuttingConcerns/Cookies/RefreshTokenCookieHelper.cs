@@ -1,12 +1,8 @@
-﻿using Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Core.CrossCuttingConcerns.Exceptions.Types;
+using Domain.Models;
 using Microsoft.AspNetCore.Http;
 
-namespace Core.Utilities.Cookies
+namespace Core.CrossCuttingConcerns.Cookies
 {
     public static class RefreshTokenCookieHelper
     {
@@ -17,8 +13,10 @@ namespace Core.Utilities.Cookies
             httpContext.Response.Cookies.Append(key: "refreshToken", refreshToken.Token, cookieOptions);
         }
 
-        public static string GetRefreshTokenFromCookies(HttpContext httpContext) =>
-        httpContext.Request.Cookies["refreshToken"] ?? throw new ArgumentException("Refresh token is not found in request cookies.");
+        public static string GetRefreshTokenFromCookies(HttpContext httpContext)
+        {
+            return httpContext.Request.Cookies["refreshToken"] ?? throw new BusinessException("Refresh token is not found in request cookies.");
+        }
 
     }
 

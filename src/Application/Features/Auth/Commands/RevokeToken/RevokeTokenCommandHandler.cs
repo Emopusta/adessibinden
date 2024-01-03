@@ -2,7 +2,7 @@
 using Application.Features.Auth.Rules;
 using Application.Services.AuthService;
 using AutoMapper;
-using Core.Utilities.Cookies;
+using Core.CrossCuttingConcerns.Cookies;
 using Core.Utilities.Network;
 using Core.Utilities.Results;
 using MediatR;
