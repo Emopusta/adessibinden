@@ -13,7 +13,7 @@ namespace Core.Utilities.Cookies
         
         public static void SetRefreshTokenToCookie(HttpContext httpContext, RefreshToken refreshToken)
         {
-            CookieOptions cookieOptions = new() { HttpOnly = true, Expires = DateTime.UtcNow.AddDays(7) };
+            CookieOptions cookieOptions = new() { Expires = DateTime.UtcNow.AddDays(7), Secure=true, HttpOnly=true };
             httpContext.Response.Cookies.Append(key: "refreshToken", refreshToken.Token, cookieOptions);
         }
 
