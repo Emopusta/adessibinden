@@ -18,6 +18,11 @@ namespace Core.CrossCuttingConcerns.Cookies
             return httpContext.Request.Cookies["refreshToken"] ?? throw new BusinessException("Refresh token is not found in request cookies.");
         }
 
+        public static void DeleteRefreshTokenFromCookies(HttpContext httpContext)
+        {
+            httpContext.Response.Cookies.Delete(key: "refreshToken");
+        }
+
     }
 
 
