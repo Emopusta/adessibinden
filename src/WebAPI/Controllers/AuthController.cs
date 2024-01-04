@@ -1,4 +1,5 @@
 ﻿using Application.Features.Auth.Commands.Login;
+using Application.Features.Auth.Commands.Logout;
 using Application.Features.Auth.Commands.RefreshToken;
 using Application.Features.Auth.Commands.Register;
 using Application.Features.Auth.Commands.RevokeToken;
@@ -21,7 +22,13 @@ public class AuthController : BaseController
         var result = await Mediator.Send(loginCommand);
         return ReturnResult(result);
     }
-
+    [HttpGet("Logout")]
+    public async Task<IDataResult<LoggedOutResponse>> Logout()
+    {
+        var logoutCommand = new LogoutCommand();
+        var result = await Mediator.Send(logoutCommand);
+        return ReturnResult(result);
+    }
     [HttpPost("Register")]
     public async Task<IDataResult<RegisteredResponse>> Register([FromBody] UserForRegisterDto userForRegisterDto)
     {
