@@ -1,5 +1,6 @@
 ﻿using Application.Features.Colors.Commands.Create;
 using Application.Features.UserProfiles.Commands.Create;
+using Application.Features.UserProfiles.Commands.Dtos;
 using Application.Features.UserProfiles.Commands.Update;
 using Core.Utilities.Results;
 using MediatR;
@@ -21,8 +22,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<IDataResult<UpdatedUserProfileResponse>> Update([FromBody] UpdateUserProfileCommand updateUserProfileCommand)
+        public async Task<IDataResult<UpdatedUserProfileResponse>> Update([FromBody] UpdateUserProfileDto updateUserProfileDto)
         {
+            var updateUserProfileCommand = new UpdateUserProfileCommand { UpdateUserProfileDto = updateUserProfileDto };
             var response = await Mediator.Send(updateUserProfileCommand);
 
             return ReturnResult(response);
