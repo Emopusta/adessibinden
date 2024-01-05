@@ -1,6 +1,7 @@
 ﻿using Application.Features.UserProfiles.Commands.Create;
 using Application.Features.UserProfiles.Commands.Dtos;
 using Application.Features.UserProfiles.Commands.Update;
+using Application.Features.UserProfiles.Queries.GetById;
 using AutoMapper;
 using Domain.Models;
 using System;
@@ -22,6 +23,8 @@ namespace Application.Features.UserProfiles.Profiles
             CreateMap<UpdateUserProfileCommand, UserProfile>().ReverseMap();
             CreateMap<UpdateUserProfileDto, UserProfile>().ReverseMap();
             CreateMap<UpdatedUserProfileResponse, UserProfile>().ReverseMap();
+
+            CreateMap<GetUserProfileResponse, UserProfile>().ReverseMap();
 
         }
     }
