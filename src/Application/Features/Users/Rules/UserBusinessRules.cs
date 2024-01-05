@@ -22,6 +22,10 @@ public class UserBusinessRules : BaseBusinessRules
             throw new BusinessException(AuthMessages.UserDontExists);
         return Task.CompletedTask;
     }
+    public async Task UserMustExistById(int userId)
+    {
+        var user = await _userRepository.GetAsync(u => u.Id == userId) ?? throw new BusinessException(AuthMessages.UserDontExists);
+    }
 
     public async Task UserIdShouldBeExistsWhenSelected(int id)
     {
