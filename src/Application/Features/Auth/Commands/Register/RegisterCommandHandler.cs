@@ -53,13 +53,13 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Registere
 
         AccessToken createdAccessToken = await _authService.CreateAccessToken(createdUser);
         var ipAddress = IpAddressHelper.GetIpAddress(_httpContextAccessor.HttpContext);
-
+         
         var createdRefreshToken = await _authService.CreateRefreshToken(createdUser, ipAddress);
         var addedRefreshToken = await _authService.AddRefreshToken(createdRefreshToken);
 
         RefreshTokenCookieHelper.SetRefreshTokenToCookie(_httpContextAccessor.HttpContext, addedRefreshToken);
 
-        RegisteredResponse registeredResponse = new() { AccessToken = createdAccessToken };
+        RegisteredResponse registeredResponse = new() { AccessToken = createdAccessToken , UserId = createdUser.Id };
         return registeredResponse;
     }
 }
