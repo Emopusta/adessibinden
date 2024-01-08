@@ -1,15 +1,9 @@
-﻿using Application.Features.UserProfiles.Commands.Create;
-using Application.Features.UserProfiles.Rules;
+﻿using Application.Features.UserProfiles.Rules;
 using Application.Features.Users.Rules;
 using AutoMapper;
 using Core.Application.GenericRepository;
 using Domain.Models;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.UserProfiles.Commands.Update
 {

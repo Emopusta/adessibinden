@@ -4,7 +4,6 @@ using Application.Services.UsersService;
 using Core.Security.JWT;
 using Core.CrossCuttingConcerns.Cookies;
 using Core.Utilities.Network;
-using Core.Utilities.Results;
 using Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;

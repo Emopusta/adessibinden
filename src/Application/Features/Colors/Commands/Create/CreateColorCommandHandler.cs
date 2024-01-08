@@ -1,7 +1,5 @@
 ﻿using Application.Features.Colors.Rules;
 using Core.Application.GenericRepository;
-using Core.DataAccess.Repositories;
-using Core.Utilities.Results;
 using Domain.Models;
 using MediatR;
 

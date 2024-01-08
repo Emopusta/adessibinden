@@ -1,5 +1,4 @@
-﻿using Application.Features.ProductCategories.Commands.Create;
-using Application.Features.ProductCategories.Rules;
+﻿using Application.Features.ProductCategories.Rules;
 using Application.Features.Users.Rules;
 using Core.Application.GenericRepository;
 using Domain.Models;

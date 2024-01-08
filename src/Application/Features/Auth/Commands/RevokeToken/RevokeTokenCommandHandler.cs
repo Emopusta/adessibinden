@@ -1,10 +1,8 @@
-﻿using Application.Features.Auth.Commands.Register;
-using Application.Features.Auth.Rules;
+﻿using Application.Features.Auth.Rules;
 using Application.Services.AuthService;
 using AutoMapper;
 using Core.CrossCuttingConcerns.Cookies;
 using Core.Utilities.Network;
-using Core.Utilities.Results;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 

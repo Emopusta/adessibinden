@@ -1,5 +1,4 @@
-﻿using Application.Features.Auth.Commands.RefreshToken;
-using Application.Features.Auth.Rules;
+﻿using Application.Features.Auth.Rules;
 using Application.Services.AuthService;
 using Core.Application.GenericRepository;
 using Core.DataAccess.Repositories;
@@ -7,7 +6,6 @@ using Core.Security.Hashing;
 using Core.Security.JWT;
 using Core.CrossCuttingConcerns.Cookies;
 using Core.Utilities.Network;
-using Core.Utilities.Results;
 using Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
