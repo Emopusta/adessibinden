@@ -1,4 +1,5 @@
 using Application.Services.AuthService;
+using Application.Services.ProductService;
 using Application.Services.UserProfileService;
 using Application.Services.UsersService;
 using Core.Application.Pipelines.Transaction;
@@ -29,6 +30,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IAuthService, AuthManager>();
         services.AddScoped<IUserService, UserManager>();
         services.AddScoped<IUserProfileService, UserProfileManager>();
+        services.AddScoped<IProductService, ProductManager>();
 
         services.AddSubClassesOfType(Assembly.GetExecutingAssembly(), typeof(BaseBusinessRules));
 
