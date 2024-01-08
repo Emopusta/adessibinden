@@ -1,4 +1,4 @@
-﻿using Application.Features.PhoneProductFeatures.PhoneInternalMemories.Commands.Rules;
+﻿using Application.Features.PhoneProductFeatures.PhoneInternalMemories.Rules;
 using Core.Application.GenericRepository;
 using Domain.Models;
 using MediatR;

@@ -4,7 +4,7 @@ using Core.Application.Rules;
 using Core.CrossCuttingConcerns.Exceptions.Types;
 using Domain.Models;
 
-namespace Application.Features.PhoneProductFeatures.PhoneInternalMemories.Commands.Rules
+namespace Application.Features.PhoneProductFeatures.PhoneInternalMemories.Rules
 {
     public class PhoneInternalMemoryBusinessRules : BaseBusinessRules
     {
