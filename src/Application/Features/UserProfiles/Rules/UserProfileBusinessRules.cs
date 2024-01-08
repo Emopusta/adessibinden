@@ -28,5 +28,12 @@ namespace Application.Features.UserProfiles.Rules
             if (userProfile != null) throw new BusinessException(UserProfilesBusinessMessages.UserHasUserProfile);
 
         }
+
+        public async Task UserProfileMustExist(int userId)
+        {
+            var userProfile = await _repository.GetAsync(c => c.UserId == userId);
+            if (userProfile == null) throw new BusinessException(UserProfilesBusinessMessages.UserProfileMustExist);
+
+        }
     }
 }
