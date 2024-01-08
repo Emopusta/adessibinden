@@ -12,8 +12,6 @@ namespace Application.Features.UserProfiles.Commands.Create
         public CreateUserProfileValidator() {
             
             RuleFor(p => p.UserId).NotEmpty();
-            RuleFor(p => p.FirstName).NotEmpty();
-            RuleFor(p => p.LastName).NotEmpty();
         
         }
     }
