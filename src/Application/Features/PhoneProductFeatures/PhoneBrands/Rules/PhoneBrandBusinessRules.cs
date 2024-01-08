@@ -18,8 +18,8 @@ namespace Application.Features.PhoneProductFeatures.PhoneBrands.Rules
 
         public async Task PhoneBrandNameCannotDuplicate(string name)
         {
-            var color = await _phoneBrandRepository.GetAsync(c => c.Name == name);
-            if (color != null) throw new BusinessException(PhoneBrandsBusinessMessages.PhoneBrandNameDuplicated);
+            var phoneBrand = await _phoneBrandRepository.GetAsync(c => c.Name == name);
+            if (phoneBrand != null) throw new BusinessException(PhoneBrandsBusinessMessages.PhoneBrandNameDuplicated);
 
         }
     }

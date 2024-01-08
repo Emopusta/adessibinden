@@ -17,8 +17,8 @@ namespace Application.Features.PhoneProductFeatures.PhoneInternalMemories.Rules
 
         public async Task PhoneInternalMemoryCapacityCannotDuplicate(string capacity)
         {
-            var color = await _phoneInternalMemoryRepository.GetAsync(c => c.Capacity == capacity);
-            if (color != null) throw new BusinessException(PhoneInternalMemoryBusinessMessages.PhoneInternalMemoryCapacityDuplicated);
+            var phoneInternalMemory = await _phoneInternalMemoryRepository.GetAsync(c => c.Capacity == capacity);
+            if (phoneInternalMemory != null) throw new BusinessException(PhoneInternalMemoryBusinessMessages.PhoneInternalMemoryCapacityDuplicated);
 
         }
     }

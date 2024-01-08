@@ -17,14 +17,14 @@ namespace Application.Features.ProductCategories.Rules
 
         public async Task ProductCategoryNameCannotDuplicate(string name)
         {
-            var color = await _productCategoryRepository.GetAsync(c => c.Name == name);
-            if (color != null) throw new BusinessException(ProductCategoryBusinessMessages.ProductCategoryNameDuplicated);
+            var productCategory = await _productCategoryRepository.GetAsync(c => c.Name == name);
+            if (productCategory != null) throw new BusinessException(ProductCategoryBusinessMessages.ProductCategoryNameDuplicated);
 
         }
         public async Task ProductCategoryMustExistById(int productCategoryId)
         {
-            var color = await _productCategoryRepository.GetAsync(c => c.Id == productCategoryId);
-            if (color == null) throw new BusinessException(ProductCategoryBusinessMessages.ProductCategoryMustExist);
+            var productCategory = await _productCategoryRepository.GetAsync(c => c.Id == productCategoryId);
+            if (productCategory == null) throw new BusinessException(ProductCategoryBusinessMessages.ProductCategoryMustExist);
 
         }
     }
