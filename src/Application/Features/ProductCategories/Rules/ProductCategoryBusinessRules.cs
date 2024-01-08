@@ -21,5 +21,11 @@ namespace Application.Features.ProductCategories.Rules
             if (color != null) throw new BusinessException(ProductCategoryBusinessMessages.ProductCategoryNameDuplicated);
 
         }
+        public async Task ProductCategoryMustExistById(int productCategoryId)
+        {
+            var color = await _productCategoryRepository.GetAsync(c => c.Id == productCategoryId);
+            if (color == null) throw new BusinessException(ProductCategoryBusinessMessages.ProductCategoryMustExist);
+
+        }
     }
 }
