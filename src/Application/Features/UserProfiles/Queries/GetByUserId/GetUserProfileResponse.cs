@@ -1,4 +1,4 @@
-﻿namespace Application.Features.UserProfiles.Queries.GetById
+﻿namespace Application.Features.UserProfiles.Queries.GetByUserId
 {
     public class GetUserProfileResponse
     {

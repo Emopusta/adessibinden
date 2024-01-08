@@ -1,13 +1,8 @@
-﻿using Application.Features.Colors.Commands.Create;
-using Application.Features.Colors.Queries.GetAll;
-using Application.Features.Colors.Queries.GetById;
-using Application.Features.UserProfiles.Commands.Create;
+﻿using Application.Features.UserProfiles.Commands.Create;
 using Application.Features.UserProfiles.Commands.Dtos;
 using Application.Features.UserProfiles.Commands.Update;
-using Application.Features.UserProfiles.Queries.GetById;
+using Application.Features.UserProfiles.Queries.GetByUserId;
 using Core.Utilities.Results;
-using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -34,7 +29,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getById")]
-        public async Task<IDataResult<GetUserProfileResponse>> GetById([FromQuery] GetByIdUserProfileQuery getByIdColorQuery)
+        public async Task<IDataResult<GetUserProfileResponse>> GetById([FromQuery] GetByUserIdUserProfileQuery getByIdColorQuery)
         {
             var result = await Mediator.Send(getByIdColorQuery);
 
