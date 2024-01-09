@@ -11,6 +11,8 @@ public class Product : BaseEntity
 
     public int ProductCategoryId { get; set; }
 
+    public string Description { get; set; }
+
 
     public virtual ICollection<CarProduct> CarProducts { get; set; } = new List<CarProduct>();
 

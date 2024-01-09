@@ -27,7 +27,8 @@ namespace Application.Features.Products.Commands.Create
             Product product = new()
             {
                 CreatorUserId= request.CreatorUserId,
-                ProductCategoryId = request.ProductCategoryId
+                ProductCategoryId = request.ProductCategoryId,
+                Description = request.Description,
             };
 
             Product addedProduct = await _productRepository.AddAsync(product);
@@ -35,7 +36,8 @@ namespace Application.Features.Products.Commands.Create
             CreatedProductResponse response = new()
             {
                 CreatorUserId = addedProduct.CreatorUserId,
-                ProductCategoryId = addedProduct.ProductCategoryId
+                ProductCategoryId = addedProduct.ProductCategoryId,
+                Description = addedProduct.Description,
             };
 
             return response;

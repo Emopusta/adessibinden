@@ -6,5 +6,7 @@ namespace Application.Features.Products.Commands.Create
     {
         public int CreatorUserId { get; set; }
         public int ProductCategoryId { get; set; }
+        public string Description { get; set; }
+
     }
 }

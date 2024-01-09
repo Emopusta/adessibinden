@@ -17,13 +17,15 @@ namespace DataAccess.EntityConfigurations
 
             builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
 
+            builder.Property(e => e.CreatorUserId).HasColumnName("CreatorUserId").IsRequired();
+            builder.Property(e => e.ProductCategoryId).HasColumnName("ProductCategoryId").IsRequired();
+            builder.Property(e => e.Description).HasColumnType("character varying").HasColumnName("Description");
+
             builder.Property(e => e.CreatedDate).HasColumnName("CreatedDate").IsRequired();
             builder.Property(e => e.UpdatedDate).HasColumnName("UpdatedDate");
             builder.Property(e => e.DeletedDate).HasColumnName("DeletedDate");
 
-
-            builder.Property(e => e.CreatorUserId).HasColumnName("CreatorUserId").IsRequired();
-            builder.Property(e => e.ProductCategoryId).HasColumnName("ProductCategoryId").IsRequired();
+            
 
             builder.HasOne(d => d.CreatorUser).WithMany(p => p.Products)
                 .HasForeignKey(d => d.CreatorUserId)
