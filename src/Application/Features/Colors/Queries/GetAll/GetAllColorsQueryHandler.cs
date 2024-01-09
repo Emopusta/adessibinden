@@ -26,13 +26,13 @@ namespace Application.Features.Colors.Queries.GetAll
         
         public async Task<GetListResponse<GetAllColorsListItemDto>> Handle(GetAllColorsQuery request, CancellationToken cancellationToken)
         {
-            IPaginate<Color> colors = await _colorRepository.GetListAsync(
+            var colors = await _colorRepository.GetPaginateListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,
                 cancellationToken: cancellationToken
                 );
 
-            GetListResponse<GetAllColorsListItemDto> response = _mapper.Map<GetListResponse<GetAllColorsListItemDto>>(colors);
+            var response = _mapper.Map<GetListResponse<GetAllColorsListItemDto>>(colors);
             return response;
         }
     }

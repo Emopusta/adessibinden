@@ -41,7 +41,7 @@ public class UserManager : IUserService
         CancellationToken cancellationToken = default
     )
     {
-        IPaginate<User> userList = await _userRepository.GetListAsync(
+        IPaginate<User> userList = await _userRepository.GetPaginateListAsync(
             predicate,
             orderBy,
             include,
