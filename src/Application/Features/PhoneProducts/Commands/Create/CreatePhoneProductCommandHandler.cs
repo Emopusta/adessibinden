@@ -1,5 +1,6 @@
 ﻿using Application.Services.ProductService;
 using Core.Application.GenericRepository;
+using Core.CrossCuttingConcerns.Exceptions.Types;
 using Domain.Models;
 using MediatR;
 
@@ -10,6 +11,7 @@ namespace Application.Features.PhoneProducts.Commands.Create
         private readonly IGenericRepository<PhoneProduct> _phoneProductRepository;
         private readonly IProductService _productService;
 
+
         public CreatePhoneProductCommandHandler(IGenericRepository<PhoneProduct> phoneProductRepository, IProductService productService)
         {
             _phoneProductRepository = phoneProductRepository;
@@ -18,17 +20,19 @@ namespace Application.Features.PhoneProducts.Commands.Create
 
         public async Task<CreatedPhoneProductResponse> Handle(CreatePhoneProductCommand request, CancellationToken cancellationToken)
         {
-            var createdProduct = await _productService.CreateProduct(request.CreatorUserId, request.ProductCategoryId);
+
+            var createdProduct = await _productService.CreateProduct(request.CreatePhoneProductDto.CreatorUserId, request.CreatePhoneProductDto.ProductCategoryId, request.CreatePhoneProductDto.Description, request.CreatePhoneProductDto.Title);
+
 
             var phone = new PhoneProduct()
             {
                 ProductId = createdProduct.Id,
-                ColorId = request.ColorId,
-                ModelId = request.ModelId,
-                InternalMemoryId = request.InternalMemoryId,
-                RAMId = request.RAMId,
-                UsageStatus = request.UsageStatus,
-                Price = request.Price,
+                ColorId = request.CreatePhoneProductDto.ColorId,
+                ModelId = request.CreatePhoneProductDto.ModelId,
+                InternalMemoryId = request.CreatePhoneProductDto.InternalMemoryId,
+                RAMId = request.CreatePhoneProductDto.RAMId,
+                UsageStatus = request.CreatePhoneProductDto.UsageStatus,
+                Price = request.CreatePhoneProductDto.Price,
             };
 
             var addedPhone = await _phoneProductRepository.AddAsync(phone);

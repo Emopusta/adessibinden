@@ -12,8 +12,9 @@ namespace WebAPI.Controllers
     {
 
         [HttpPost]
-        public async Task<IDataResult<CreatedPhoneProductResponse>> Create([FromBody] CreatePhoneProductCommand createPhoneProductCommand)
+        public async Task<IDataResult<CreatedPhoneProductResponse>> Create([FromBody] CreatePhoneProductDto createPhoneProductDto)
         {
+            var createPhoneProductCommand = new CreatePhoneProductCommand() { CreatePhoneProductDto = createPhoneProductDto};
             var response = await Mediator.Send(createPhoneProductCommand);
 
             return ReturnResult(response);
