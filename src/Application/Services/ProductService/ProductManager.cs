@@ -22,13 +22,15 @@ namespace Application.Services.ProductService
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<CreatedProductServiceResponse> CreateProduct(int creatorUserId, int productCategoryId)
+        public async Task<CreatedProductServiceResponse> CreateProduct(int creatorUserId, int productCategoryId, string description, string title)
         {
             await _userBusinessRules.UserMustExistById(creatorUserId);
             await _productCategoryBusinessRules.ProductCategoryMustExistById(productCategoryId);
 
             Product product = new()
             {
+                Description = description,
+                Title = title,
                 CreatorUserId = creatorUserId,
                 ProductCategoryId = productCategoryId
             };
@@ -39,6 +41,8 @@ namespace Application.Services.ProductService
             CreatedProductServiceResponse response = new()
             {
                 Id = addedProduct.Id,
+                Description = addedProduct.Description,
+                Title = addedProduct.Title,
                 CreatorUserId = addedProduct.CreatorUserId,
                 ProductCategoryId = addedProduct.ProductCategoryId
             };

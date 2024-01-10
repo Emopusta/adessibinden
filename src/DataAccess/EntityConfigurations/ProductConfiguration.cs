@@ -20,6 +20,7 @@ namespace DataAccess.EntityConfigurations
             builder.Property(e => e.CreatorUserId).HasColumnName("CreatorUserId").IsRequired();
             builder.Property(e => e.ProductCategoryId).HasColumnName("ProductCategoryId").IsRequired();
             builder.Property(e => e.Description).HasColumnType("character varying").HasColumnName("Description");
+            builder.Property(e => e.Title).HasColumnType("character varying").HasColumnName("Title");
 
             builder.Property(e => e.CreatedDate).HasColumnName("CreatedDate").IsRequired();
             builder.Property(e => e.UpdatedDate).HasColumnName("UpdatedDate");

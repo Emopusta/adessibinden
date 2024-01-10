@@ -13,6 +13,7 @@ public class Product : BaseEntity
 
     public string Description { get; set; }
 
+    public string Title { get; set; }
 
     public virtual ICollection<CarProduct> CarProducts { get; set; } = new List<CarProduct>();
 
