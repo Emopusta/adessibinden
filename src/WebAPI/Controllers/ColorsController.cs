@@ -34,7 +34,6 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles ="Admin")]
         public async Task<IDataResult<GetListResponse<GetAllColorsListItemDto>>> GetAll([FromQuery] PageRequest pageRequest)
         {
             var getAllColorQuery = new GetAllColorsQuery() { PageRequest = pageRequest };
