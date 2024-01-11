@@ -1,6 +1,7 @@
 ﻿using Application.Features.PhoneProducts.Commands.Create;
 using Application.Features.PhoneProducts.Dtos;
 using Application.Features.PhoneProducts.Queries.GetAllPhoneProductFeatures;
+using Application.Features.PhoneProducts.Queries.GetByIdDetails;
 using Core.Utilities.Results;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,14 @@ namespace WebAPI.Controllers
         public async Task<IDataResult<GetAllPhoneProductFeaturesDto>> GetAllPhoneProductFeatures()
         {
             var getAllPhoneProductFeaturesQuery = new GetAllPhoneProductFeaturesQuery();
+            var result = await Mediator.Send(getAllPhoneProductFeaturesQuery);
+            return ReturnResult(result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IDataResult<GetByIdDetailsPhoneProductResponse>> GetByIdDetails([FromRoute] int id)
+        {
+            var getAllPhoneProductFeaturesQuery = new GetByIdDetailsPhoneProductQuery() { PhoneProductId = id};
             var result = await Mediator.Send(getAllPhoneProductFeaturesQuery);
             return ReturnResult(result);
         }

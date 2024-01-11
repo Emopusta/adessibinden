@@ -1,4 +1,5 @@
 ﻿using Application.Features.PhoneProducts.Dtos;
+using Application.Features.PhoneProducts.Queries.GetByIdDetails;
 using AutoMapper;
 using Domain.Models;
 
@@ -18,6 +19,9 @@ namespace Application.Features.PhoneProducts.Profiles
             CreateMap<List<GetAllPhoneModelPhoneProductFeatureDto>, GetAllPhoneProductFeaturesDto>().ForMember(dest => dest.Models, opt => opt.MapFrom(src => src));
             CreateMap<List<GetAllPhoneInternalMemoryPhoneProductFeatureDto>, GetAllPhoneProductFeaturesDto>().ForMember(dest => dest.InternalMemories, opt => opt.MapFrom(src => src));
             CreateMap<List<GetAllPhoneRAMPhoneProductFeatureDto>, GetAllPhoneProductFeaturesDto>().ForMember(dest => dest.PhoneRAMs, opt => opt.MapFrom(src => src));
+
+
+            CreateMap<PhoneProduct, GetByIdDetailsPhoneProductResponse>().ReverseMap();
 
         }
     }
