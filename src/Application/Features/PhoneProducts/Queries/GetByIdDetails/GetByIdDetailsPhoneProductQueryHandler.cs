@@ -19,7 +19,7 @@ namespace Application.Features.PhoneProducts.Queries.GetByIdDetails
 
         public async Task<GetByIdDetailsPhoneProductResponse> Handle(GetByIdDetailsPhoneProductQuery request, CancellationToken cancellationToken)
         {
-            var phoneProduct = await _phoneProductRepository.GetAsync(p => p.ProductId == request.PhoneProductId,
+            var phoneProduct = await _phoneProductRepository.GetAsync(p => p.ProductId == request.ProductId,
                 include: i => i
                 .Include(p => p.Color)
                 .Include(p => p.RAM)

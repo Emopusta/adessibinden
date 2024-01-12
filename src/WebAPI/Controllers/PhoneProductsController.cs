@@ -29,10 +29,10 @@ namespace WebAPI.Controllers
             return ReturnResult(result);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IDataResult<GetByIdDetailsPhoneProductResponse>> GetByIdDetails([FromRoute] int id)
+        [HttpGet("{productId}")]
+        public async Task<IDataResult<GetByIdDetailsPhoneProductResponse>> GetByIdDetails([FromRoute] int productId)
         {
-            var getAllPhoneProductFeaturesQuery = new GetByIdDetailsPhoneProductQuery() { PhoneProductId = id};
+            var getAllPhoneProductFeaturesQuery = new GetByIdDetailsPhoneProductQuery() { ProductId = productId };
             var result = await Mediator.Send(getAllPhoneProductFeaturesQuery);
             return ReturnResult(result);
         }
