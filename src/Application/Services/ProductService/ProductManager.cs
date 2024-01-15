@@ -49,5 +49,15 @@ namespace Application.Services.ProductService
 
             return response;
         }
+
+        public async Task<DeletedProductServiceResponse> DeleteProduct(int productId)
+        {
+            var productToDelete = await _productRepository.GetAsync(p => p.Id == productId);
+
+            var deletedProduct = await _productRepository.DeleteAsync(productToDelete);
+            await _unitOfWork.SaveAsync();
+
+            return new DeletedProductServiceResponse() { ProductId = deletedProduct.Id };
+        }
     }
 }
