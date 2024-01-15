@@ -22,8 +22,7 @@
   <ItemGroup>
     <Folder Include="Features\PhoneProductFeatures\PhoneBrands\Profiles\" />
     <Folder Include="Features\PhoneProductFeatures\PhoneBrands\Queries\" />
-    <Folder Include="Features\PhoneProducts\Constants\" />
-    <Folder Include="Features\PhoneProducts\Rules\" />
+    <Folder Include="Features\PhoneProducts\Commands\Update\" />
     <Folder Include="Features\Users\Commands\" />
     <Folder Include="Features\Users\Constants\" />
     <Folder Include="Features\Users\Profiles\" />
