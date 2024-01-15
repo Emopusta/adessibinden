@@ -78,17 +78,46 @@ public class AdessibindenContext : DbContext
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+    {
+        var now = DateTime.UtcNow;
+        foreach (var entity in ChangeTracker.Entries())
+        {
+            if (entity.Entity is Entity baseEntity)
+            switch (entity.State)
+            {
+                case EntityState.Detached:
+                    break;
+                case EntityState.Unchanged:
+                    break;
+                case EntityState.Deleted:
+                    baseEntity.DeletedDate = now;
+                    break;
+                case EntityState.Modified:
+                    baseEntity.UpdatedDate = now;
+                    break;
+                case EntityState.Added:
+                    baseEntity.CreatedDate = now;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return base.SaveChangesAsync(cancellationToken);
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
         optionsBuilder
         .AddInterceptors(new LoggingInterceptor());
 
     private static void AddGlobalSoftDeleteFilter(ModelBuilder modelBuilder)
     {
-        Expression<Func<BaseEntity, bool>> softDeleteGlobalFilterExpression = x => !x.DeletedDate.HasValue;
+        Expression<Func<Entity, bool>> softDeleteGlobalFilterExpression = x => !x.DeletedDate.HasValue;
 
         foreach (var entity in modelBuilder.Model.GetEntityTypes())
         {
-            if (entity.ClrType.IsAssignableTo(typeof(BaseEntity)))
+            if (entity.ClrType.IsAssignableTo(typeof(Entity)))
             {
             var parameter = Expression.Parameter(entity.ClrType);
             var body = ReplacingExpressionVisitor.Replace(softDeleteGlobalFilterExpression.Parameters.First(), parameter, softDeleteGlobalFilterExpression.Body);

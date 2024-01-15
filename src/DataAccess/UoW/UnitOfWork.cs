@@ -18,23 +18,19 @@ namespace DataAccess.UoW
             _dbContext = dbContext;
         }
 
-        public async Task<bool> SaveAsync()
+        public async Task<int> SaveAsync(CancellationToken cancellationToken)
         {
-            var result = await _dbContext.SaveChangesAsync()>0;
-
-            return result;
-
+            return await _dbContext.SaveChangesAsync(cancellationToken);
         }
         public void Dispose()
         {
             _dbContext.Dispose();
         }
 
-        public bool Save()
+        public int Save()
         {
-            var result = _dbContext.SaveChanges() > 0;
+            return _dbContext.SaveChanges();
 
-            return result;
         }
     }
 }

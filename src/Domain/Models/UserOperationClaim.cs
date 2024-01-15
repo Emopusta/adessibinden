@@ -2,7 +2,7 @@
 
 namespace Domain.Models;
 
-public class UserOperationClaim : BaseEntity
+public class UserOperationClaim : Entity
 {
     public int UserId { get; set; }
     public int OperationClaimId { get; set; }

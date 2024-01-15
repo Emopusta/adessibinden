@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public class PhoneBrand : BaseEntity
+public class PhoneBrand : Entity
 {
   
     public string Name { get; set; } = null!;

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 namespace Domain.Models;
 
-public class CarBrand : BaseEntity
+public class CarBrand : Entity
 {
     public string Name { get; set; } = null!;
     public virtual ICollection<CarModel> CarModels { get; set; } = new List<CarModel>();

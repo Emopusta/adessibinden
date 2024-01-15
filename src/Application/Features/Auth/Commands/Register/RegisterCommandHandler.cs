@@ -50,7 +50,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Registere
                 Status = true
             };
         User createdUser = await _userRepository.AddAsync(newUser);
-        await _unitOfWork.SaveAsync();
+        await _unitOfWork.SaveAsync(cancellationToken);
 
         await _userProfileService.CreateDefaultUserProfile(createdUser.Id);
 

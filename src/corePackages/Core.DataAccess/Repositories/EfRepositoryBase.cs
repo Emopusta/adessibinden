@@ -24,30 +24,24 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
 
     public async Task<TEntity> AddAsync(TEntity entity)
     {
-        entity.CreatedDate = DateTime.UtcNow;
         await Context.AddAsync(entity);
         return entity;
     }
 
     public async Task<ICollection<TEntity>> AddRangeAsync(ICollection<TEntity> entities)
     {
-        foreach (TEntity entity in entities)
-            entity.CreatedDate = DateTime.UtcNow;
         await Context.AddRangeAsync(entities);
         return entities;
     }
 
     public async Task<TEntity> UpdateAsync(TEntity entity)
     {
-        entity.UpdatedDate = DateTime.UtcNow;
         Context.Update(entity);
         return entity;
     }
 
     public async Task<ICollection<TEntity>> UpdateRangeAsync(ICollection<TEntity> entities)
     {
-        foreach (TEntity entity in entities)
-            entity.UpdatedDate = DateTime.UtcNow;
         Context.UpdateRange(entities);
         return entities;
     }
@@ -141,30 +135,24 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
 
     public TEntity Add(TEntity entity)
     {
-        entity.CreatedDate = DateTime.UtcNow;
         Context.Add(entity);
         return entity;
     }
 
     public ICollection<TEntity> AddRange(ICollection<TEntity> entities)
     {
-        foreach (TEntity entity in entities)
-            entity.CreatedDate = DateTime.UtcNow;
         Context.AddRange(entities);
         return entities;
     }
 
     public TEntity Update(TEntity entity)
     {
-        entity.UpdatedDate = DateTime.UtcNow;
         Context.Update(entity);
         return entity;
     }
 
     public ICollection<TEntity> UpdateRange(ICollection<TEntity> entities)
     {
-        foreach (TEntity entity in entities)
-            entity.UpdatedDate = DateTime.UtcNow;
         Context.UpdateRange(entities);
         return entities;
     }
@@ -241,7 +229,7 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         if (!permanent)
         {
             CheckHasEntityHaveOneToOneRelation(entity);
-            await setEntityAsSoftDeletedAsync(entity);
+            await setEntityAsSoftDeletedAsync(entity as Entity);
         }
         else
         {
@@ -251,7 +239,7 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
 
     protected async Task SetEntityAsDeletedAsync(IEnumerable<TEntity> entities, bool permanent)
     {
-        foreach (TEntity entity in entities)
+        foreach (var entity in entities)
             await SetEntityAsDeletedAsync(entity, permanent);
     }
 
@@ -260,7 +248,7 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         if (!permanent)
         {
             CheckHasEntityHaveOneToOneRelation(entity);
-            setEntityAsSoftDeleted(entity);
+            setEntityAsSoftDeleted(entity as Entity);
         }
         else
         {
@@ -306,8 +294,8 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
             );
     }
 
-    private async Task setEntityAsSoftDeletedAsync(IEntityTimestamps entity)
-    {
+    private async Task setEntityAsSoftDeletedAsync(Entity entity)
+    {   
         if (entity.DeletedDate.HasValue)
             return;
         entity.DeletedDate = DateTime.UtcNow;
@@ -335,7 +323,7 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
                         continue;
                 }
 
-                foreach (IEntityTimestamps navValueItem in (IEnumerable)navValue)
+                foreach (Entity navValueItem in (IEnumerable)navValue)
                     await setEntityAsSoftDeletedAsync(navValueItem);
             }
             else
@@ -349,14 +337,14 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
                         continue;
                 }
 
-                await setEntityAsSoftDeletedAsync((IEntityTimestamps)navValue);
+                await setEntityAsSoftDeletedAsync((Entity)navValue);
             }
         }
 
         Context.Update(entity);
     }
 
-    private void setEntityAsSoftDeleted(IEntityTimestamps entity)
+    private void setEntityAsSoftDeleted(Entity entity)
     {
         if (entity.DeletedDate.HasValue)
             return;
@@ -385,7 +373,7 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
                         continue;
                 }
 
-                foreach (IEntityTimestamps navValueItem in (IEnumerable)navValue)
+                foreach (Entity navValueItem in (IEnumerable)navValue)
                     setEntityAsSoftDeleted(navValueItem);
             }
             else
@@ -398,7 +386,7 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
                         continue;
                 }
 
-                setEntityAsSoftDeleted((IEntityTimestamps)navValue);
+                setEntityAsSoftDeleted((Entity)navValue);
             }
         }
 

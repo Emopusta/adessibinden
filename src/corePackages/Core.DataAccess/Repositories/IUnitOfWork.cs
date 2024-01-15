@@ -8,7 +8,7 @@ namespace Core.DataAccess.Repositories
 {
     public interface IUnitOfWork
     {
-        Task<bool> SaveAsync();
-        bool Save();
+        Task<int> SaveAsync(CancellationToken cancellationToken);
+        int Save();
     }
 }

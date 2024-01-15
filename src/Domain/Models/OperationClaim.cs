@@ -2,7 +2,7 @@
 
 namespace Domain.Models;
 
-public class OperationClaim : BaseEntity
+public class OperationClaim : Entity
 {
     public string Name { get; set; }
 

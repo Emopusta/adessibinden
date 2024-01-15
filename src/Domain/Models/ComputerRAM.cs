@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Models;
 
-public class ComputerRAM : BaseEntity
+public class ComputerRAM : Entity
 {
 
     public string Memory { get; set; } = null!;

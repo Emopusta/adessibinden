@@ -26,7 +26,7 @@ namespace Core.Application.Pipelines.Transaction
             try
             {
                 response = await next();
-                await _unitOfWork.SaveAsync();
+                await _unitOfWork.SaveAsync(cancellationToken);
                 transactionScope.Complete();
             }
             catch (Exception)

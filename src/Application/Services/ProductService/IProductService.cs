@@ -5,8 +5,8 @@ namespace Application.Services.ProductService
 {
     public interface IProductService
     {
-        Task<CreatedProductServiceResponse> CreateProduct(int creatorUserId, int productCategoryId, string description, string title);
-        Task<DeletedProductServiceResponse> DeleteProduct(int productId);
+        Task<CreatedProductServiceResponse> CreateProduct(int creatorUserId, int productCategoryId, string description, string title, CancellationToken cancellationToken);
+        Task<DeletedProductServiceResponse> DeleteProduct(int productId, CancellationToken cancellationToken);
       
     }
 }

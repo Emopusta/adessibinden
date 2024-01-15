@@ -29,7 +29,7 @@ namespace Application.Features.PhoneProducts.Commands.Delete
             await _phoneProductBusinessRules.PhoneProductMustExist(phoneProductToDelete);
 
             var deletedPhoneProduct = await _phoneProductRepository.DeleteAsync(phoneProductToDelete);
-            await _productService.DeleteProduct(phoneProductToDelete.ProductId);
+            await _productService.DeleteProduct(phoneProductToDelete.ProductId, cancellationToken);
             await _userFavouriteProductService.DeleteFavouritesByProduct(phoneProductToDelete.ProductId);
 
             var response = new DeletedPhoneProductResponse()

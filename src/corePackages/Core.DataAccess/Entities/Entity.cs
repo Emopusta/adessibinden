@@ -7,12 +7,23 @@ using System.Threading.Tasks;
 
 namespace Core.DataAccess.Entities
 {
-    public class BaseEntity : IEntityTimestamps
+    public class Entity : EntityOnlyId, IEntityTimestamps
     {
-        public int Id { get; set; }
+        
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public DateTime? DeletedDate { get; set; }
 
     }
+
+    public class EntityOnlyId : BaseEntity
+    {
+        public int Id { get; set; }
+    }
+
+    public class BaseEntity
+    {
+
+    }
+
 }

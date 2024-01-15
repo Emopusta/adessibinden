@@ -2,7 +2,7 @@
 
 namespace Domain.Models;
 
-public class User : BaseEntity
+public class User : Entity
 {
 
     public string Email { get; set; } = null!;

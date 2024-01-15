@@ -22,7 +22,7 @@ namespace Application.Services.ProductService
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<CreatedProductServiceResponse> CreateProduct(int creatorUserId, int productCategoryId, string description, string title)
+        public async Task<CreatedProductServiceResponse> CreateProduct(int creatorUserId, int productCategoryId, string description, string title, CancellationToken cancellationToken)
         {
             await _userBusinessRules.UserMustExistById(creatorUserId);
             await _productCategoryBusinessRules.ProductCategoryMustExistById(productCategoryId);
@@ -36,7 +36,7 @@ namespace Application.Services.ProductService
             };
 
             Product addedProduct = await _productRepository.AddAsync(product);
-            await _unitOfWork.SaveAsync();
+            await _unitOfWork.SaveAsync(cancellationToken);
 
             CreatedProductServiceResponse response = new()
             {
@@ -50,12 +50,12 @@ namespace Application.Services.ProductService
             return response;
         }
 
-        public async Task<DeletedProductServiceResponse> DeleteProduct(int productId)
+        public async Task<DeletedProductServiceResponse> DeleteProduct(int productId, CancellationToken cancellationToken)
         {
             var productToDelete = await _productRepository.GetAsync(p => p.Id == productId);
 
             var deletedProduct = await _productRepository.DeleteAsync(productToDelete);
-            await _unitOfWork.SaveAsync();
+            await _unitOfWork.SaveAsync(cancellationToken);
 
             return new DeletedProductServiceResponse() { ProductId = deletedProduct.Id };
         }
