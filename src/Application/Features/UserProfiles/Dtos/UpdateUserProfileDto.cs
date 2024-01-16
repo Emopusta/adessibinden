@@ -1,11 +1,6 @@
 ﻿using Core.Application.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application.Features.UserProfiles.Commands.Dtos
+namespace Application.Features.UserProfiles.Dtos
 {
     public class UpdateUserProfileDto : IDto
     {

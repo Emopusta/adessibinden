@@ -1,5 +1,4 @@
-﻿using Application.Features.ProductCategories.Rules;
-using Application.Features.Users.Rules;
+﻿using Application.Features.Users.Rules;
 using Application.Services.ProductService.Responses;
 using Core.Application.GenericRepository;
 using Core.DataAccess.Repositories;
@@ -11,43 +10,13 @@ namespace Application.Services.ProductService
     {
         private readonly IGenericRepository<Product> _productRepository;
         private readonly UserBusinessRules _userBusinessRules;
-        private readonly ProductCategoryBusinessRules _productCategoryBusinessRules;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ProductManager(IGenericRepository<Product> productRepository, UserBusinessRules userBusinessRules, ProductCategoryBusinessRules productCategoryBusinessRules, IUnitOfWork unitOfWork)
+        public ProductManager(IGenericRepository<Product> productRepository, UserBusinessRules userBusinessRules, IUnitOfWork unitOfWork)
         {
             _productRepository = productRepository;
             _userBusinessRules = userBusinessRules;
-            _productCategoryBusinessRules = productCategoryBusinessRules;
             _unitOfWork = unitOfWork;
-        }
-
-        public async Task<CreatedProductServiceResponse> CreateProduct(int creatorUserId, int productCategoryId, string description, string title, CancellationToken cancellationToken)
-        {
-            await _userBusinessRules.UserMustExistById(creatorUserId);
-            await _productCategoryBusinessRules.ProductCategoryMustExistById(productCategoryId);
-
-            Product product = new()
-            {
-                Description = description,
-                Title = title,
-                CreatorUserId = creatorUserId,
-                ProductCategoryId = productCategoryId
-            };
-
-            Product addedProduct = await _productRepository.AddAsync(product);
-            await _unitOfWork.SaveAsync(cancellationToken);
-
-            CreatedProductServiceResponse response = new()
-            {
-                Id = addedProduct.Id,
-                Description = addedProduct.Description,
-                Title = addedProduct.Title,
-                CreatorUserId = addedProduct.CreatorUserId,
-                ProductCategoryId = addedProduct.ProductCategoryId
-            };
-
-            return response;
         }
 
         public async Task<DeletedProductServiceResponse> DeleteProduct(int productId, CancellationToken cancellationToken)

@@ -8,17 +8,14 @@ namespace Application.Features.PhoneProductFeatures.PhoneBrands.Commands.Create
     public class CreatePhoneBrandCommandHandler : IRequestHandler<CreatePhoneBrandCommand, CreatedPhoneBrandResponse>
     {
         private readonly IGenericRepository<PhoneBrand> _phoneBrandRepository;
-        private readonly PhoneBrandBusinessRules _phoneBrandBusinessRules;
 
-        public CreatePhoneBrandCommandHandler(IGenericRepository<PhoneBrand> phoneBrandRepository, PhoneBrandBusinessRules phoneBrandBusinessRules)
+        public CreatePhoneBrandCommandHandler(IGenericRepository<PhoneBrand> phoneBrandRepository)
         {
             _phoneBrandRepository = phoneBrandRepository;
-            _phoneBrandBusinessRules = phoneBrandBusinessRules;
         }
 
         public async Task<CreatedPhoneBrandResponse> Handle(CreatePhoneBrandCommand request, CancellationToken cancellationToken)
         {
-            await _phoneBrandBusinessRules.PhoneBrandNameCannotDuplicate(request.Name);
 
             PhoneBrand phoneBrand = new()
             {

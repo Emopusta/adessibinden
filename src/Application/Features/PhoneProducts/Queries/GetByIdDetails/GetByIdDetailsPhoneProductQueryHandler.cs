@@ -1,5 +1,4 @@
-﻿using Application.Features.PhoneProducts.Rules;
-using AutoMapper;
+﻿using AutoMapper;
 using Core.Application.GenericRepository;
 using Domain.Models;
 using MediatR;
@@ -10,13 +9,11 @@ namespace Application.Features.PhoneProducts.Queries.GetByIdDetails
     public class GetByIdDetailsPhoneProductQueryHandler : IRequestHandler<GetByIdDetailsPhoneProductQuery, GetByIdDetailsPhoneProductResponse>
     {
         private readonly IGenericRepository<PhoneProduct> _phoneProductRepository;
-        private readonly PhoneProductBusinessRules _phoneProductBusinessRules;
         private readonly IMapper _mapper;
 
-        public GetByIdDetailsPhoneProductQueryHandler(IGenericRepository<PhoneProduct> phoneProductRepository, PhoneProductBusinessRules phoneProductBusinessRules, IMapper mapper)
+        public GetByIdDetailsPhoneProductQueryHandler(IGenericRepository<PhoneProduct> phoneProductRepository, IMapper mapper)
         {
             _phoneProductRepository = phoneProductRepository;
-            _phoneProductBusinessRules = phoneProductBusinessRules;
             _mapper = mapper;
         }
 
@@ -31,8 +28,6 @@ namespace Application.Features.PhoneProducts.Queries.GetByIdDetails
                 .Include(p => p.InternalMemory)
                 .Include(p => p.Model)          
                 );
-
-            await _phoneProductBusinessRules.PhoneProductMustExist(phoneProduct);
 
             var result = _mapper.Map<GetByIdDetailsPhoneProductResponse>(phoneProduct);
 

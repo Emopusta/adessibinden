@@ -1,5 +1,4 @@
-﻿using Application.Features.UserProfiles.Rules;
-using Application.Features.Users.Rules;
+﻿using Application.Features.Users.Rules;
 using AutoMapper;
 using Core.Application.GenericRepository;
 using Domain.Models;
@@ -11,14 +10,12 @@ namespace Application.Features.UserProfiles.Commands.Update
     {
         private readonly IGenericRepository<UserProfile> _userProfileRepository;
         private readonly IMapper _mapper;
-        private readonly UserProfileBusinessRules _userProfileBusinessRules;
         private readonly UserBusinessRules _userBusinessRules;
 
-        public UpdateUserProfileCommandHandler(IGenericRepository<UserProfile> userProfileRepository, IMapper mapper, UserProfileBusinessRules userProfileBusinessRules, UserBusinessRules userBusinessRules)
+        public UpdateUserProfileCommandHandler(IGenericRepository<UserProfile> userProfileRepository, IMapper mapper, UserBusinessRules userBusinessRules)
         {
             _userProfileRepository = userProfileRepository;
             _mapper = mapper;
-            _userProfileBusinessRules = userProfileBusinessRules;
             _userBusinessRules = userBusinessRules;
         }
 

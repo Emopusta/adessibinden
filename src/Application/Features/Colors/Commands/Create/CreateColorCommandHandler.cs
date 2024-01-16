@@ -1,5 +1,4 @@
-﻿using Application.Features.Colors.Rules;
-using Core.Application.GenericRepository;
+﻿using Core.Application.GenericRepository;
 using Domain.Models;
 using MediatR;
 
@@ -9,17 +8,14 @@ namespace Application.Features.Colors.Commands.Create
     public class CreateColorCommandHandler : IRequestHandler<CreateColorCommand, CreatedColorResponse>
         {
         private readonly IGenericRepository<Color> _colorRepository;
-        private readonly ColorBusinessRules _colorBusinessRules;
 
-        public CreateColorCommandHandler(IGenericRepository<Color> colorRepository, ColorBusinessRules colorBusinessRules)
+        public CreateColorCommandHandler(IGenericRepository<Color> colorRepository)
         {
             _colorRepository = colorRepository;
-            _colorBusinessRules = colorBusinessRules;
         }
 
         public async Task<CreatedColorResponse> Handle(CreateColorCommand request, CancellationToken cancellationToken)
         {
-            await _colorBusinessRules.ColorNameCannotDuplicate(request.Name);
             
             Color color = new() {
                 Name = request.Name

@@ -20,8 +20,6 @@ namespace Application.Features.ProductCategories.Queries.GetAllList
         {
             var productCategories = await _productCategoryRepository.GetListAsync();
 
-            // business
-
             var mappedProductCategories = _mapper.Map<List<GetAllListProductCategoryDto>>(productCategories);
 
             return mappedProductCategories;
