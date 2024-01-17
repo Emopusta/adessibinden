@@ -1,5 +1,6 @@
 ﻿using Application.Features.PhoneProducts.Commands.Create;
 using Application.Features.PhoneProducts.Commands.Delete;
+using Application.Features.PhoneProducts.Commands.Update;
 using Application.Features.PhoneProducts.Queries.GetByIdDetails;
 using Core.Utilities.Results;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,14 @@ namespace WebAPI.Controllers
         public async Task<IDataResult<CreatedPhoneProductResponse>> Create([FromBody] CreatePhoneProductDto createPhoneProductDto)
         {
             var createPhoneProductCommand = new CreatePhoneProductCommand() { CreatePhoneProductDto = createPhoneProductDto};
+            var response = await Mediator.Send(createPhoneProductCommand);
+
+            return ReturnResult(response);
+        }
+        [HttpPut]
+        public async Task<IDataResult<UpdatedPhoneProductResponse>> Update([FromBody] UpdatePhoneProductDto updatePhoneProductDto)
+        {
+            var createPhoneProductCommand = new UpdatePhoneProductCommand() { UpdatePhoneProductDto = updatePhoneProductDto };
             var response = await Mediator.Send(createPhoneProductCommand);
 
             return ReturnResult(response);

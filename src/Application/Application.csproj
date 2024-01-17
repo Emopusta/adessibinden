@@ -20,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\PhoneProducts\Commands\Update\" />
     <Folder Include="Features\Users\Commands\" />
     <Folder Include="Features\Users\Constants\" />
     <Folder Include="Features\Users\Profiles\" />
