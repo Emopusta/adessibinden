@@ -14,15 +14,13 @@ namespace Application.Features.UserFavouriteProducts.Commands.Create
             _userFavouriteProductRepository = userFavouriteProductRepository;
 
 
-            RuleFor(p => new { p.ProductId, p.UserId }).MustAsync(async (compositeKeys, _) =>
-            {
-                return await UserFavouriteProductCannotDuplicate(compositeKeys.UserId, compositeKeys.ProductId);
-            }).WithMessage(UserFavouriteProductBusinessMessages.UserFavouriteProductDuplicated);
+            RuleFor(p => new UserFavouriteProduct(){ ProductId = p.ProductId, UserId = p.UserId })
+                .MustAsync(UserFavouriteProductCannotDuplicate).WithMessage(UserFavouriteProductBusinessMessages.UserFavouriteProductDuplicated);
         }
 
-        public async Task<bool> UserFavouriteProductCannotDuplicate(int userId, int productId)
+        public async Task<bool> UserFavouriteProductCannotDuplicate(UserFavouriteProduct favourite, CancellationToken cancellationToken)
         {
-            var userFavouriteProduct = await _userFavouriteProductRepository.GetAsync(predicate: p => (p.ProductId == productId) && (p.UserId == userId)); ;
+            var userFavouriteProduct = await _userFavouriteProductRepository.GetAsync(predicate: p => (p.ProductId == favourite.ProductId) && (p.UserId == favourite.UserId)); ;
             return userFavouriteProduct == null;
 
         }

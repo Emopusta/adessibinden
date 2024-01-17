@@ -13,14 +13,12 @@ namespace Application.Features.ProductCategories.Commands.Create
         {
             _productCategoryRepository = productCategoryRepository;
 
-            RuleFor(p => p.Name).MustAsync(async (productCategoryName, _) =>
-            {
-                return await ProductCategoryNameCannotDuplicate(productCategoryName);
-            }).WithMessage(ProductCategoryBusinessMessages.ProductCategoryNameDuplicated);
+            RuleFor(p => p.Name)
+                .MustAsync(ProductCategoryNameCannotDuplicate).WithMessage(ProductCategoryBusinessMessages.ProductCategoryNameDuplicated);
 
         }
 
-        private async Task<bool> ProductCategoryNameCannotDuplicate(string productCategoryName)
+        private async Task<bool> ProductCategoryNameCannotDuplicate(string productCategoryName, CancellationToken cancellationToken)
         {
             var productCategory = await _productCategoryRepository.GetAsync(c => c.Name == productCategoryName);
             return productCategory == null;

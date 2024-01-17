@@ -12,16 +12,12 @@ namespace Application.Features.Colors.Commands.Create
 
             _colorRepository = colorRepository;
 
-            RuleFor(c => c.Name).MustAsync(async (name, _) =>
-            {
-                return await ColorNameCannotDuplicate(name);
+            RuleFor(c => c.Name)
+                .MustAsync(ColorNameCannotDuplicate).WithMessage(ColorsBusinessMessages.ColorNameDuplicated);
 
-            }).WithMessage(ColorsBusinessMessages.ColorNameDuplicated);
-
-            
         }
 
-        private async Task<bool> ColorNameCannotDuplicate(string name)
+        private async Task<bool> ColorNameCannotDuplicate(string name,CancellationToken cancellationToken)
         {
             return (await _colorRepository.GetAsync(c => c.Name == name)) == null;
 

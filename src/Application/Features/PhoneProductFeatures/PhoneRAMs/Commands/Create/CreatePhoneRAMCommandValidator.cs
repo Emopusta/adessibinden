@@ -13,15 +13,12 @@ namespace Application.Features.PhoneProductFeatures.PhoneRAMs.Commands.Create
         {
             _phoneRAMRepository = phoneRAMRepository;
 
-            RuleFor(c => c.Memory).MustAsync(async (memory, _) =>
-            {
-                return await PhoneRAMMemoryCannotDuplicate(memory);
-
-            }).WithMessage(PhoneRAMBusinessMessages.PhoneRAMMemoryDuplicated);
+            RuleFor(c => c.Memory)
+                .MustAsync(PhoneRAMMemoryCannotDuplicate).WithMessage(PhoneRAMBusinessMessages.PhoneRAMMemoryDuplicated);
 
         }
 
-        private async Task<bool> PhoneRAMMemoryCannotDuplicate(string memory)
+        private async Task<bool> PhoneRAMMemoryCannotDuplicate(string memory, CancellationToken cancellationToken)
         {
             var phoneRAM = await _phoneRAMRepository.GetAsync(c => c.Memory == memory);
             return phoneRAM == null;

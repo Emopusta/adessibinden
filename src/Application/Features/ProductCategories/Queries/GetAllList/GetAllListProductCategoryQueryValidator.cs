@@ -13,14 +13,12 @@ namespace Application.Features.ProductCategories.Queries.GetAllList
         {
             _productCategoryRepository = productCategoryRepository;
 
-            RuleFor(p => p).MustAsync(async (_, _) =>
-            {
-                return await ProductCategoriesMustExist();
-            }).WithMessage(ProductCategoryBusinessMessages.ProductCategoryMustExist);
+            RuleFor(p => p)
+                .MustAsync(ProductCategoriesMustExist).WithMessage(ProductCategoryBusinessMessages.ProductCategoryMustExist);
 
         }
 
-        private async Task<bool> ProductCategoriesMustExist()
+        private async Task<bool> ProductCategoriesMustExist(object _, CancellationToken cancellationToken)
         {
             var productCategory = await _productCategoryRepository.AnyAsync();
             return productCategory;

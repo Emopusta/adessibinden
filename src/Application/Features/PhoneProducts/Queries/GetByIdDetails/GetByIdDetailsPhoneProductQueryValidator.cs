@@ -14,13 +14,11 @@ namespace Application.Features.PhoneProducts.Queries.GetByIdDetails
             _phoneProductRepository = phoneProductRepository;
 
 
-            RuleFor(p => p.ProductId).MustAsync(async (productId, _) =>
-            {
-                return await PhoneProductMustExist(productId);
-            }).WithMessage(PhoneProductBusinessMessages.PhoneProductMustExist);
+            RuleFor(p => p.ProductId)
+                .MustAsync(PhoneProductMustExist).WithMessage(PhoneProductBusinessMessages.PhoneProductMustExist);
         }
 
-        private async Task<bool> PhoneProductMustExist(int productId)
+        private async Task<bool> PhoneProductMustExist(int productId, CancellationToken cancellationToken)
         {
             return (await _phoneProductRepository.GetAsync(p => p.ProductId == productId)) != null;
         }

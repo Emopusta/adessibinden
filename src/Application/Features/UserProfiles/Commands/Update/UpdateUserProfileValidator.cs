@@ -13,15 +13,14 @@ namespace Application.Features.UserProfiles.Commands.Update
         {
             _userProfileRepository = userProfileRepository;
 
-            RuleFor(p => p.UpdateUserProfileDto.UserId).NotEmpty().MustAsync(async (userId, _) =>
-            {
-                return await UserProfileMustExist(userId);
-            }).WithMessage(UserProfilesBusinessMessages.UserProfileMustExist);
+            RuleFor(p => p.UpdateUserProfileDto.UserId)
+                .NotEmpty()
+                .MustAsync(UserProfileMustExist).WithMessage(UserProfilesBusinessMessages.UserProfileMustExist);
         }
 
 
 
-        private async Task<bool> UserProfileMustExist(int userId)
+        private async Task<bool> UserProfileMustExist(int userId, CancellationToken cancellationToken)
         {
             return (await _userProfileRepository.GetAsync(p => p.UserId == userId)) != null;
         }

@@ -13,14 +13,11 @@ namespace Application.Features.PhoneProductFeatures.PhoneInternalMemories.Comman
         {
             _phoneInternalMemoryRepository = phoneInternalMemoryRepository;
 
-            RuleFor(c => c.Capacity).MustAsync(async (capacity, _) =>
-            {
-                return await PhoneInternalMemoryCapacityCannotDuplicate(capacity);
-
-            }).WithMessage(PhoneInternalMemoryBusinessMessages.PhoneInternalMemoryCapacityDuplicated);
+            RuleFor(c => c.Capacity)
+                .MustAsync(PhoneInternalMemoryCapacityCannotDuplicate).WithMessage(PhoneInternalMemoryBusinessMessages.PhoneInternalMemoryCapacityDuplicated);
 
         }
-        private async Task<bool> PhoneInternalMemoryCapacityCannotDuplicate(string capacity)
+        private async Task<bool> PhoneInternalMemoryCapacityCannotDuplicate(string capacity, CancellationToken cancellationToken)
         {
             var phoneInternalMemory = await _phoneInternalMemoryRepository.GetAsync(c => c.Capacity == capacity);
             return phoneInternalMemory == null;

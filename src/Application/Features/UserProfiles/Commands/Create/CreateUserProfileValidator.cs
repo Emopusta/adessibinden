@@ -13,13 +13,12 @@ namespace Application.Features.UserProfiles.Commands.Create
         {
             _userProfileRepository = userProfileRepository;
 
-            RuleFor(p => p.UserId).NotEmpty().MustAsync(async (userId, _) =>
-            {
-                return await UserCanOnlyHaveOneUserProfile(userId);
-            }).WithMessage(UserProfilesBusinessMessages.UserHasUserProfile);
+            RuleFor(p => p.UserId)
+                .NotEmpty()
+                .MustAsync(UserCanOnlyHaveOneUserProfile).WithMessage(UserProfilesBusinessMessages.UserHasUserProfile);
         }
 
-        private async Task<bool> UserCanOnlyHaveOneUserProfile(int userId)
+        private async Task<bool> UserCanOnlyHaveOneUserProfile(int userId, CancellationToken cancellationToken)
         {
             return (await _userProfileRepository.GetAsync(p => p.UserId == userId)) == null;
         }

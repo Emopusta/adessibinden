@@ -13,17 +13,13 @@ namespace Application.Features.UserFavouriteProducts.Queries.GetByProductAndUser
         {
             _userFavouriteProductRepository = userFavouriteProductRepository;
 
-
-
-            RuleFor(p => new { p.ProductId, p.UserId }).MustAsync(async (compositeKeys, _) =>
-            {
-                return await UserFavouriteProductMustExist(compositeKeys.UserId, compositeKeys.ProductId);
-            }).WithMessage(UserFavouriteProductBusinessMessages.UserFavouriteProductMustExist);
+            RuleFor(p => new UserFavouriteProduct (){ ProductId = p.ProductId, UserId = p.UserId })
+                .MustAsync(UserFavouriteProductMustExist).WithMessage(UserFavouriteProductBusinessMessages.UserFavouriteProductMustExist);
         }
 
-        public async Task<bool> UserFavouriteProductMustExist(int userId, int productId)
+        public async Task<bool> UserFavouriteProductMustExist(UserFavouriteProduct favourite, CancellationToken cancellationToken)
         {
-            var userFavouriteProduct = await _userFavouriteProductRepository.GetAsync(predicate: p => (p.ProductId == productId) && (p.UserId == userId)); ;
+            var userFavouriteProduct = await _userFavouriteProductRepository.GetAsync(predicate: p => (p.ProductId == favourite.ProductId) && (p.UserId == favourite.UserId)); ;
             return userFavouriteProduct != null;
 
         }

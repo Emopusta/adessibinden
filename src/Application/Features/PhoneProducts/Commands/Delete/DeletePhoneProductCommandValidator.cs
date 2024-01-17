@@ -13,15 +13,12 @@ namespace Application.Features.PhoneProducts.Commands.Delete
         {
             _phoneProductRepository = phoneProductRepository;
 
-            RuleFor(c => c.ProductId).MustAsync(async (productId, _) =>
-            {
-                return await PhoneProductMustExist(productId);
-
-            }).WithMessage(PhoneProductBusinessMessages.PhoneProductMustExist);
+            RuleFor(c => c.ProductId)
+                .MustAsync(PhoneProductMustExist).WithMessage(PhoneProductBusinessMessages.PhoneProductMustExist);
 
         }
 
-        private async Task<bool> PhoneProductMustExist(int productId)
+        private async Task<bool> PhoneProductMustExist(int productId, CancellationToken cancellationToken)
         {
             return (await _phoneProductRepository.GetAsync(p => p.ProductId == productId)) != null;
         }

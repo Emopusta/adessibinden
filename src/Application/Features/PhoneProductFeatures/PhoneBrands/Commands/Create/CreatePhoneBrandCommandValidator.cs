@@ -13,14 +13,11 @@ namespace Application.Features.PhoneProductFeatures.PhoneBrands.Commands.Create
         {
             _phoneBrandRepository = phoneBrandRepository;
 
-            RuleFor(c => c.Name).MustAsync(async (name, _) =>
-            {
-                return await PhoneBrandNameCannotDuplicate(name);
-
-            }).WithMessage(PhoneBrandsBusinessMessages.PhoneBrandNameDuplicated);
+            RuleFor(c => c.Name)
+                .MustAsync(PhoneBrandNameCannotDuplicate).WithMessage(PhoneBrandsBusinessMessages.PhoneBrandNameDuplicated);
         }
 
-        private async Task<bool> PhoneBrandNameCannotDuplicate(string name)
+        private async Task<bool> PhoneBrandNameCannotDuplicate(string name, CancellationToken cancellationToken)
         {
             var phoneBrand = await _phoneBrandRepository.GetAsync(c => c.Name == name);
             return phoneBrand == null;
