@@ -1,5 +1,4 @@
-﻿using Core.CrossCuttingConcerns.Exceptions.Types.ValidationException;
-using Core.Utilities.Exceptions;
+﻿using Core.Utilities.Exceptions;
 using FluentValidation;
 using MediatR;
 using ValidationException = Core.CrossCuttingConcerns.Exceptions.Types.ValidationException.ValidationException;
@@ -19,13 +18,14 @@ namespace Core.Application.Pipelines.Validation
         {
             ValidationContext<object> context = new(request);
             IEnumerable<ValidationExceptionModel> errors = _validators
-                .Select(validator => validator.Validate(context))
-                .SelectMany(result => result.Errors)
+                .Select(async validator => await validator.ValidateAsync(context, cancellationToken))
+                .SelectMany(result => result.Result.Errors)
                 .Where(failure => failure != null)
                 .GroupBy(
                     keySelector: p => p.PropertyName,
                     resultSelector: (propertyName, errors) =>
-                        new ValidationExceptionModel { Property = propertyName, Errors = errors.Select(e => e.ErrorMessage) }).ToList();
+                        new ValidationExceptionModel { Property = propertyName, Errors = errors.Select(e => e.ErrorMessage) })
+                .ToList();
 
             if (errors.Any())
             {
