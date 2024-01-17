@@ -4,20 +4,20 @@ using Domain.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Features.PhoneProducts.Queries.GetByIdDetails
+namespace Application.Features.PhoneProducts.Queries.GetByIdDetailsForUpdate
 {
-    public class GetByIdDetailsPhoneProductQueryHandler : IRequestHandler<GetByIdDetailsPhoneProductQuery, GetByIdDetailsPhoneProductResponse>
+    public class GetByIdDetailsForUpdatePhoneProductQueryHandler : IRequestHandler<GetByIdDetailsForUpdatePhoneProductQuery, GetByIdDetailsForUpdatePhoneProductResponse>
     {
         private readonly IGenericRepository<PhoneProduct> _phoneProductRepository;
         private readonly IMapper _mapper;
 
-        public GetByIdDetailsPhoneProductQueryHandler(IGenericRepository<PhoneProduct> phoneProductRepository, IMapper mapper)
+        public GetByIdDetailsForUpdatePhoneProductQueryHandler(IGenericRepository<PhoneProduct> phoneProductRepository, IMapper mapper)
         {
             _phoneProductRepository = phoneProductRepository;
             _mapper = mapper;
         }
 
-        public async Task<GetByIdDetailsPhoneProductResponse> Handle(GetByIdDetailsPhoneProductQuery request, CancellationToken cancellationToken)
+        public async Task<GetByIdDetailsForUpdatePhoneProductResponse> Handle(GetByIdDetailsForUpdatePhoneProductQuery request, CancellationToken cancellationToken)
         {
             var phoneProduct = await _phoneProductRepository.GetAsync(p => p.ProductId == request.ProductId,
                 include: i => i
@@ -30,7 +30,7 @@ namespace Application.Features.PhoneProducts.Queries.GetByIdDetails
                 .Include(p => p.Model.Brand)
                 );
 
-            var result = _mapper.Map<GetByIdDetailsPhoneProductResponse>(phoneProduct);
+            var result = _mapper.Map<GetByIdDetailsForUpdatePhoneProductResponse>(phoneProduct);
 
             return result;
         }

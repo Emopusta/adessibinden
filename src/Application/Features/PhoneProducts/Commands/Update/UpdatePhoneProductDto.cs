@@ -1,14 +1,17 @@
 ﻿using Core.Application.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.PhoneProducts.Commands.Update
 {
     public class UpdatePhoneProductDto : IDto
     {
+        public int ProductCategoryId { get; set; }
+
+        public string Title { get; set; }
+
+        public string Description { get; set; }
+
+        public int CreatorUserId { get; set; }
+        
         public int ProductId { get; set; }
 
         public int ColorId { get; set; }

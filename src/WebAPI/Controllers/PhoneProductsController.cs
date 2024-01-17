@@ -2,6 +2,7 @@
 using Application.Features.PhoneProducts.Commands.Delete;
 using Application.Features.PhoneProducts.Commands.Update;
 using Application.Features.PhoneProducts.Queries.GetByIdDetails;
+using Application.Features.PhoneProducts.Queries.GetByIdDetailsForUpdate;
 using Core.Utilities.Results;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,6 +42,14 @@ namespace WebAPI.Controllers
         public async Task<IDataResult<GetByIdDetailsPhoneProductResponse>> GetByIdDetails([FromRoute] int productId)
         {
             var getAllPhoneProductFeaturesQuery = new GetByIdDetailsPhoneProductQuery() { ProductId = productId };
+            var result = await Mediator.Send(getAllPhoneProductFeaturesQuery);
+            return ReturnResult(result);
+        }
+
+        [HttpGet("{productId}/update-details")]
+        public async Task<IDataResult<GetByIdDetailsForUpdatePhoneProductResponse>> GetByIdForUpdateDetails([FromRoute] int productId)
+        {
+            var getAllPhoneProductFeaturesQuery = new GetByIdDetailsForUpdatePhoneProductQuery() { ProductId = productId };
             var result = await Mediator.Send(getAllPhoneProductFeaturesQuery);
             return ReturnResult(result);
         }
