@@ -86,18 +86,14 @@ public class AdessibindenContext : DbContext
             if (entity.Entity is Entity baseEntity)
             switch (entity.State)
             {
-                case EntityState.Detached:
-                    break;
-                case EntityState.Unchanged:
+                case EntityState.Added:
+                    baseEntity.CreatedDate = now;
                     break;
                 case EntityState.Deleted:
                     baseEntity.DeletedDate = now;
                     break;
                 case EntityState.Modified:
                     baseEntity.UpdatedDate = now;
-                    break;
-                case EntityState.Added:
-                    baseEntity.CreatedDate = now;
                     break;
                 default:
                     break;
