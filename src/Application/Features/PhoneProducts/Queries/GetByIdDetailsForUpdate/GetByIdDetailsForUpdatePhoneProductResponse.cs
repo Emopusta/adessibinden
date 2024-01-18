@@ -5,6 +5,7 @@
         public string ProductDescription { get; set; }
         public string ProductTitle { get; set; }
         public string ProductCreatorUserEmail { get; set; }
+        public int ProductCreatorUserId { get; set; }
         public int ProductProductCategoryId { get; set; }
         public int ColorId { get; set; }
         public string ColorName { get; set; }

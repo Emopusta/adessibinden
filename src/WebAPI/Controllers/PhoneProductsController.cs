@@ -29,8 +29,8 @@ namespace WebAPI.Controllers
 
             return ReturnResult(response);
         }
-        [HttpDelete]
-        public async Task<IDataResult<DeletedPhoneProductResponse>> Delete([FromBody] int productId)
+        [HttpDelete("ProductId={productId}")]
+        public async Task<IDataResult<DeletedPhoneProductResponse>> Delete([FromRoute] int productId)
         {
             var createPhoneProductCommand = new DeletePhoneProductCommand() { ProductId = productId};
             var response = await Mediator.Send(createPhoneProductCommand);
