@@ -29,7 +29,7 @@ namespace WebAPI.Controllers
 
             return ReturnResult(response);
         }
-        [HttpDelete("ProductId={productId}")]
+        [HttpDelete("{productId}")]
         public async Task<IDataResult<DeletedPhoneProductResponse>> Delete([FromRoute] int productId)
         {
             var createPhoneProductCommand = new DeletePhoneProductCommand() { ProductId = productId};
@@ -46,7 +46,7 @@ namespace WebAPI.Controllers
             return ReturnResult(result);
         }
 
-        [HttpGet("{productId}/update-details")]
+        [HttpGet("UpdateDetails/{productId}")]
         public async Task<IDataResult<GetByIdDetailsForUpdatePhoneProductResponse>> GetByIdForUpdateDetails([FromRoute] int productId)
         {
             var getAllPhoneProductFeaturesQuery = new GetByIdDetailsForUpdatePhoneProductQuery() { ProductId = productId };

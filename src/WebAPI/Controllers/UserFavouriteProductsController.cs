@@ -19,7 +19,7 @@ namespace WebAPI.Controllers
 
             return ReturnResult(response);
         }
-        [HttpDelete("/api/UserFavouriteProducts/UserId={userId}&ProductId={productId}")]
+        [HttpDelete("/api/UserFavouriteProducts/{userId}/{productId}")]
         public async Task<IDataResult<DeletedUserFavouriteProductResponse>> Delete([FromRoute] int userId, int productId)
         {
             var deleteUserFavouriteProductCommand = new DeleteUserFavouriteProductCommand() { ProductId = productId , UserId = userId};
@@ -36,7 +36,7 @@ namespace WebAPI.Controllers
             return ReturnResult(response);
         }
 
-        [HttpGet("getByUserId")]
+        [HttpGet("GetByUserId")]
         public async Task<IDataResult<List<GetByUserIdUserFavouriteProductResponse>>> GetByUserId([FromQuery] GetByUserIdUserFavouriteProductQuery getByUserIdUserFavouriteProductQuery)
         {
             var response = await Mediator.Send(getByUserIdUserFavouriteProductQuery);

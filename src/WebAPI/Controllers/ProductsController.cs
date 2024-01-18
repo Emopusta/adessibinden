@@ -10,7 +10,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ProductsController : BaseController
     {
-        [HttpGet("get-by-creator/userId={creatorUserId}")]
+        [HttpGet("GetByCreator/{creatorUserId}")]
         public async Task<IDataResult<GetListResponse<GetByCreatorUserIdPaginatedDto>>> GetByCreatorUserId([FromQuery] PageRequest pageRequest, [FromRoute] int creatorUserId)
         {
             var query = new GetByCreatorUserIdPaginatedQuery() { CreatorUserId = creatorUserId, PageRequest = pageRequest };
