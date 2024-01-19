@@ -1,4 +1,5 @@
 ﻿using Core.DataAccess.Entities;
+using Core.DataAccess.Listing;
 using Core.Persistence.Paging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -57,7 +58,7 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         await SetEntityAsDeletedAsync(entities, permanent);
         return entities;
     }
-    public async Task<IList<TEntity>> GetListAsync(Expression<Func<TEntity, bool>>? predicate = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null, bool withDeleted = false, bool enableTracking = true, CancellationToken cancellationToken = default)
+    public async Task<IListResponse<TEntity>> GetListAsync(Expression<Func<TEntity, bool>>? predicate = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null, bool withDeleted = false, bool enableTracking = true, CancellationToken cancellationToken = default)
     {
         IQueryable<TEntity> queryable = Query();
         if (!enableTracking)
@@ -69,8 +70,8 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         if (predicate != null)
             queryable = queryable.Where(predicate);
         if (orderBy != null)
-            return await orderBy(queryable).ToListAsync();
-        return await queryable.ToListAsync();
+            return await orderBy(queryable).ToListResponseAsync(cancellationToken);
+        return await queryable.ToListResponseAsync(cancellationToken);
     }
     public async Task<IPaginate<TEntity>> GetPaginateListAsync(
         Expression<Func<TEntity, bool>>? predicate = null,

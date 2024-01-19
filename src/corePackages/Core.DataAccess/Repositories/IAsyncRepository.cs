@@ -1,4 +1,5 @@
 ﻿using Core.DataAccess.Entities;
+using Core.DataAccess.Listing;
 using Core.Persistence.Paging;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
@@ -27,7 +28,7 @@ public interface IAsyncRepository<TEntity> : IQuery<TEntity>
         CancellationToken cancellationToken = default
     );
 
-    Task<IList<TEntity>> GetListAsync(
+    Task<IListResponse<TEntity>> GetListAsync(
         Expression<Func<TEntity, bool>>? predicate = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
         Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,

@@ -2,7 +2,7 @@
 
 namespace Core.Application.Responses;
 
-public class GetListResponse<T> : BasePageableModel
+public class PaginateResponse<T> : BasePageableModel, IResponse
 {
     public IList<T> Items
     {
