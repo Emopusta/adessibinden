@@ -1,10 +1,10 @@
 ﻿using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
 using Domain.Models;
-using MediatR;
 
 namespace Application.Features.UserFavouriteProducts.Queries.GetByProductAndUserId
 {
-    public class GetByProductAndUserIdUserFavouriteProductQueryHandler : IRequestHandler<GetByProductAndUserIdUserFavouriteProductQuery, GetByProductAndUserIdUserFavouriteProductResponse>
+    public class GetByProductAndUserIdUserFavouriteProductQueryHandler : IQueryRequestHandler<GetByProductAndUserIdUserFavouriteProductQuery, GetByProductAndUserIdUserFavouriteProductResponse>
     {
         private readonly IGenericRepository<UserFavouriteProduct> _userFavouriteProductRepository;
 

@@ -1,11 +1,11 @@
 ﻿using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
 using Domain.Models;
-using MediatR;
 
 namespace Application.Features.Colors.Commands.Create
 {
 
-    public class CreateColorCommandHandler : IRequestHandler<CreateColorCommand, CreatedColorResponse>
+    public class CreateColorCommandHandler : ICommandRequestHandler<CreateColorCommand, CreatedColorResponse>
         {
         private readonly IGenericRepository<Color> _colorRepository;
 

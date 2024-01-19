@@ -1,19 +1,12 @@
 ﻿using AutoMapper;
 using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
 using Core.Application.Responses;
-using Core.Persistence.Paging;
-using Core.Utilities.Results;
 using Domain.Models;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Colors.Queries.GetAll
 {
-    public class GetAllColorsQueryHandler : IRequestHandler<GetAllColorsQuery, GetListResponse<GetAllColorsListItemDto>>
+    public class GetAllColorsQueryHandler : IQueryRequestHandler<GetAllColorsQuery, PaginateResponse<GetAllColorsListItemDto>>
     {
         private readonly IGenericRepository<Color> _colorRepository;
         private readonly IMapper _mapper;
@@ -24,7 +17,7 @@ namespace Application.Features.Colors.Queries.GetAll
             _mapper = mapper;
         }
         
-        public async Task<GetListResponse<GetAllColorsListItemDto>> Handle(GetAllColorsQuery request, CancellationToken cancellationToken)
+        public async Task<PaginateResponse<GetAllColorsListItemDto>> Handle(GetAllColorsQuery request, CancellationToken cancellationToken)
         {
             var colors = await _colorRepository.GetPaginateListAsync(
                 index: request.PageRequest.PageIndex,
@@ -32,7 +25,7 @@ namespace Application.Features.Colors.Queries.GetAll
                 cancellationToken: cancellationToken
                 );
 
-            var response = _mapper.Map<GetListResponse<GetAllColorsListItemDto>>(colors);
+            var response = _mapper.Map<PaginateResponse<GetAllColorsListItemDto>>(colors);
             return response;
         }
     }

@@ -1,11 +1,10 @@
-﻿using Application.Features.PhoneProductFeatures.PhoneBrands.Rules;
-using Core.Application.GenericRepository;
+﻿using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
 using Domain.Models;
-using MediatR;
 
 namespace Application.Features.PhoneProductFeatures.PhoneBrands.Commands.Create
 {
-    public class CreatePhoneBrandCommandHandler : IRequestHandler<CreatePhoneBrandCommand, CreatedPhoneBrandResponse>
+    public class CreatePhoneBrandCommandHandler : ICommandRequestHandler<CreatePhoneBrandCommand, CreatedPhoneBrandResponse>
     {
         private readonly IGenericRepository<PhoneBrand> _phoneBrandRepository;
 

@@ -1,12 +1,12 @@
 ﻿using Application.Services.ProductService;
 using Application.Services.UserFavouriteProductService;
 using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
 using Domain.Models;
-using MediatR;
 
 namespace Application.Features.PhoneProducts.Commands.Delete
 {
-    public class DeletePhoneProductCommandHandler : IRequestHandler<DeletePhoneProductCommand, DeletedPhoneProductResponse>
+    public class DeletePhoneProductCommandHandler : ICommandRequestHandler<DeletePhoneProductCommand, DeletedPhoneProductResponse>
     {
         private readonly IGenericRepository<PhoneProduct> _phoneProductRepository;
         private readonly IProductService _productService;
@@ -24,7 +24,7 @@ namespace Application.Features.PhoneProducts.Commands.Delete
             var phoneProductToDelete = await _phoneProductRepository.GetAsync(p => p.ProductId == request.ProductId);
 
             var deletedPhoneProduct = await _phoneProductRepository.DeleteAsync(phoneProductToDelete);
-            await _productService.DeleteProduct(phoneProductToDelete.ProductId, cancellationToken); // entity üzerinden extension method service için
+            await _productService.DeleteProduct(phoneProductToDelete.ProductId, cancellationToken); // todo(deneme): entity üzerinden extension method service için
             await _userFavouriteProductService.DeleteFavouritesByProduct(phoneProductToDelete.ProductId);
 
             var response = new DeletedPhoneProductResponse()

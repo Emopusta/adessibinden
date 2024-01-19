@@ -5,12 +5,12 @@ using Core.Security.JWT;
 using Core.CrossCuttingConcerns.Cookies;
 using Core.Utilities.Network;
 using Domain.Models;
-using MediatR;
 using Microsoft.AspNetCore.Http;
+using Core.Application.Pipelines;
 
 namespace Application.Features.Auth.Commands.RefreshToken;
 
-public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, RefreshedTokensResponse>
+public class RefreshTokenCommandHandler : ICommandRequestHandler<RefreshTokenCommand, RefreshedTokensResponse>
 {
     private readonly IAuthService _authService;
     private readonly IUserService _userService;

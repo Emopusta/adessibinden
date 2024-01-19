@@ -34,7 +34,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IDataResult<GetListResponse<GetAllColorsListItemDto>>> GetAll([FromQuery] PageRequest pageRequest)
+        public async Task<IDataResult<PaginateResponse<GetAllColorsListItemDto>>> GetAll([FromQuery] PageRequest pageRequest)
         {
             var getAllColorQuery = new GetAllColorsQuery() { PageRequest = pageRequest };
             var result = await Mediator.Send(getAllColorQuery);

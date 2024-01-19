@@ -5,12 +5,12 @@ using Core.Security.JWT;
 using Core.CrossCuttingConcerns.Cookies;
 using Core.Utilities.Network;
 using Domain.Models;
-using MediatR;
 using Microsoft.AspNetCore.Http;
+using Core.Application.Pipelines;
 
 namespace Application.Features.Auth.Commands.Login;
 
-public class LoginCommandHandler : IRequestHandler<LoginCommand, LoggedResponse>
+public class LoginCommandHandler : ICommandRequestHandler<LoginCommand, LoggedResponse>
 {
     private readonly AuthBusinessRules _authBusinessRules;
     private readonly IAuthService _authService;

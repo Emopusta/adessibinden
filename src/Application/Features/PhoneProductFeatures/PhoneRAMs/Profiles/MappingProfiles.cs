@@ -1,5 +1,7 @@
 ﻿using Application.Features.PhoneProductFeatures.PhoneRAMs.Queries.GetAllList;
 using AutoMapper;
+using Core.Application.Responses;
+using Core.DataAccess.Listing;
 using Domain.Models;
 
 namespace Application.Features.PhoneProductFeatures.PhoneRAMs.Profiles
@@ -10,6 +12,7 @@ namespace Application.Features.PhoneProductFeatures.PhoneRAMs.Profiles
         { 
 
             CreateMap<PhoneRAM, GetAllListPhoneRAMDto>().ReverseMap();
+            CreateMap<IListResponse<PhoneRAM>, ListResponse<GetAllListPhoneRAMDto>>().ReverseMap();
 
         }
 

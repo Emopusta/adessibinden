@@ -1,13 +1,13 @@
 ﻿using Application.Features.Products.Commands.Update;
 using AutoMapper;
 using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
 using Core.DataAccess.Repositories;
 using Domain.Models;
-using MediatR;
 
 namespace Application.Features.PhoneProducts.Commands.Update
 {
-    public class UpdatePhoneProductCommandHandler : IRequestHandler<UpdatePhoneProductCommand, UpdatedPhoneProductResponse>
+    public class UpdatePhoneProductCommandHandler : ICommandRequestHandler<UpdatePhoneProductCommand, UpdatedPhoneProductResponse>
     {
         private readonly IGenericRepository<PhoneProduct> _phoneProductRepository;
         private readonly IMapper _mapper;

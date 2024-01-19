@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
+using Core.Application.Responses;
 using Domain.Models;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.PhoneProductFeatures.PhoneModels.Queries.GetAllList
 {
-    public class GetAllListPhoneModelQueryHandler : IRequestHandler<GetAllListPhoneModelQuery, List<GetAllListPhoneModelDto>>
+    public class GetAllListPhoneModelQueryHandler : IQueryRequestHandler<GetAllListPhoneModelQuery, ListResponse<GetAllListPhoneModelDto>>
     {
         private readonly IGenericRepository<PhoneModel> _phoneModelRepository;
         private readonly IMapper _mapper;
@@ -17,11 +18,11 @@ namespace Application.Features.PhoneProductFeatures.PhoneModels.Queries.GetAllLi
             _mapper = mapper;
         }
 
-        public async Task<List<GetAllListPhoneModelDto>> Handle(GetAllListPhoneModelQuery request, CancellationToken cancellationToken)
+        public async Task<ListResponse<GetAllListPhoneModelDto>> Handle(GetAllListPhoneModelQuery request, CancellationToken cancellationToken)
         {
             var phoneModels = await _phoneModelRepository.GetListAsync(include: i => i.Include(p => p.Brand));
 
-            var mappedphoneModels = _mapper.Map<List<GetAllListPhoneModelDto>>(phoneModels);
+            var mappedphoneModels = _mapper.Map<ListResponse<GetAllListPhoneModelDto>>(phoneModels);
 
             return mappedphoneModels;
         }

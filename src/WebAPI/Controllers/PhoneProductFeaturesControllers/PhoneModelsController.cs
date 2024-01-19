@@ -1,6 +1,7 @@
 ﻿using Application.Features.PhoneProductFeatures.PhoneModels.Commands.Create;
 using Application.Features.PhoneProductFeatures.PhoneModels.Queries.GetAllList;
 using Application.Features.PhoneProductFeatures.PhoneModels.Queries.GetByBrandId;
+using Core.Application.Responses;
 using Core.Utilities.Results;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,7 @@ namespace WebAPI.Controllers.PhoneProductFeaturesControllers
         }
 
         [HttpGet]
-        public async Task<IDataResult<List<GetAllListPhoneModelDto>>> GetAll()
+        public async Task<IDataResult<ListResponse<GetAllListPhoneModelDto>>> GetAll()
         {
             var query = new GetAllListPhoneModelQuery();
             var response = await Mediator.Send(query);
@@ -28,7 +29,7 @@ namespace WebAPI.Controllers.PhoneProductFeaturesControllers
         }
 
         [HttpGet("{BrandId}")]
-        public async Task<IDataResult<List<GetByBrandIdPhoneModelDto>>> GetByBrandId([FromRoute] GetByBrandIdPhoneModelQuery getByBrandIdPhoneModelQuery)
+        public async Task<IDataResult<ListResponse<GetByBrandIdPhoneModelDto>>> GetByBrandId([FromRoute] GetByBrandIdPhoneModelQuery getByBrandIdPhoneModelQuery)
         {
             var response = await Mediator.Send(getByBrandIdPhoneModelQuery);
 

@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
 using Core.Application.Responses;
 using Domain.Models;
-using MediatR;
 
 namespace Application.Features.Products.Queries.GetByCreatorUserIdPaginated
 {
-    public class GetByCreatorUserIdPaginatedQueryHandler : IRequestHandler<GetByCreatorUserIdPaginatedQuery, GetListResponse<GetByCreatorUserIdPaginatedDto>>
+    public class GetByCreatorUserIdPaginatedQueryHandler : IQueryRequestHandler<GetByCreatorUserIdPaginatedQuery, PaginateResponse<GetByCreatorUserIdPaginatedDto>>
     {
         private readonly IGenericRepository<Product> _productRepository;
         private readonly IMapper _mapper;
@@ -17,7 +17,7 @@ namespace Application.Features.Products.Queries.GetByCreatorUserIdPaginated
             _mapper = mapper;
         }
 
-        public async Task<GetListResponse<GetByCreatorUserIdPaginatedDto>> Handle(GetByCreatorUserIdPaginatedQuery request, CancellationToken cancellationToken)
+        public async Task<PaginateResponse<GetByCreatorUserIdPaginatedDto>> Handle(GetByCreatorUserIdPaginatedQuery request, CancellationToken cancellationToken)
         {
             var products = await _productRepository.GetPaginateListAsync(
                   predicate: p => p.CreatorUserId == request.CreatorUserId,
@@ -25,7 +25,7 @@ namespace Application.Features.Products.Queries.GetByCreatorUserIdPaginated
                   size: request.PageRequest.PageSize
                   );
 
-            var result = _mapper.Map<GetListResponse<GetByCreatorUserIdPaginatedDto>>(products);
+            var result = _mapper.Map<PaginateResponse<GetByCreatorUserIdPaginatedDto>>(products);
 
             return result;
         }

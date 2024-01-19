@@ -1,5 +1,6 @@
 ﻿using Application.Features.PhoneProductFeatures.PhoneInternalMemories.Commands.Create;
 using Application.Features.PhoneProductFeatures.PhoneInternalMemories.Queries.GetAllList;
+using Core.Application.Responses;
 using Core.Utilities.Results;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +19,7 @@ namespace WebAPI.Controllers.PhoneProductFeaturesControllers
         }
 
         [HttpGet]
-        public async Task<IDataResult<List<GetAllListPhoneInternalMemoryDto>>> GetAll()
+        public async Task<IDataResult<ListResponse<GetAllListPhoneInternalMemoryDto>>> GetAll()
         {
             var query = new GetAllListPhoneInternalMemoryQuery();
             var response = await Mediator.Send(query);

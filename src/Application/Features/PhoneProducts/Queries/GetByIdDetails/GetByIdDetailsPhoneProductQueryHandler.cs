@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
 using Domain.Models;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.PhoneProducts.Queries.GetByIdDetails
 {
-    public class GetByIdDetailsPhoneProductQueryHandler : IRequestHandler<GetByIdDetailsPhoneProductQuery, GetByIdDetailsPhoneProductResponse>
+    public class GetByIdDetailsPhoneProductQueryHandler : IQueryRequestHandler<GetByIdDetailsPhoneProductQuery, GetByIdDetailsPhoneProductResponse>
     {
         private readonly IGenericRepository<PhoneProduct> _phoneProductRepository;
         private readonly IMapper _mapper;

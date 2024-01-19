@@ -7,13 +7,13 @@ using Core.Security.JWT;
 using Core.CrossCuttingConcerns.Cookies;
 using Core.Utilities.Network;
 using Domain.Models;
-using MediatR;
 using Microsoft.AspNetCore.Http;
 using Application.Services.UserProfileService;
+using Core.Application.Pipelines;
 
 namespace Application.Features.Auth.Commands.Register;
 
-public class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisteredResponse>
+public class RegisterCommandHandler : ICommandRequestHandler<RegisterCommand, RegisteredResponse>
 {
     private readonly IGenericRepository<User> _userRepository;
     private readonly IAuthService _authService;

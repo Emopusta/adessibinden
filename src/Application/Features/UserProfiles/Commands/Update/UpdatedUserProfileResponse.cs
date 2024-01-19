@@ -1,6 +1,8 @@
-﻿namespace Application.Features.UserProfiles.Commands.Update
+﻿using Core.Application.Responses;
+
+namespace Application.Features.UserProfiles.Commands.Update
 {
-    public class UpdatedUserProfileResponse
+    public class UpdatedUserProfileResponse : IResponse
     {
         public int UserId { get; set; }
         public string? FirstName { get; set; }

@@ -1,14 +1,12 @@
 ﻿using Application.Features.Colors.Queries.GetById;
 using AutoMapper;
 using Core.Application.GenericRepository;
-using Core.Application.Responses;
-using Core.Persistence.Paging;
+using Core.Application.Pipelines;
 using Domain.Models;
-using MediatR;
 
 namespace Application.Features.Colors.Queries.GetAll
 {
-    public class GetByIdColorQueryHandler : IRequestHandler<GetByIdColorQuery, GetByIdColorResponse>
+    public class GetByIdColorQueryHandler : IQueryRequestHandler<GetByIdColorQuery, GetByIdColorResponse>
     {
         private readonly IGenericRepository<Color> _colorRepository;
         private readonly IMapper _mapper;

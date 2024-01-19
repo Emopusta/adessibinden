@@ -1,10 +1,10 @@
 ﻿using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
 using Domain.Models;
-using MediatR;
 
 namespace Application.Features.Colors.Commands.Delete
 {
-    public class DeleteColorCommandHandler : IRequestHandler<DeleteColorCommand, DeletedColorResponse>
+    public class DeleteColorCommandHandler : ICommandRequestHandler<DeleteColorCommand, DeletedColorResponse>
     {
         private readonly IGenericRepository<Color> _colorRepository;
 

@@ -1,11 +1,11 @@
 ﻿using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
 using Domain.Models;
-using MediatR;
 
 namespace Application.Features.CarChassisTypes.Commands.Create
 {
 
-    public class CreateCarChassisTypeCommandHandler : IRequestHandler<CreateCarChassisTypeCommand, CreatedCarChassisTypeResponse>
+    public class CreateCarChassisTypeCommandHandler : ICommandRequestHandler<CreateCarChassisTypeCommand, CreatedCarChassisTypeResponse>
         {
             private readonly IGenericRepository<CarChassisType>  _repository;
 

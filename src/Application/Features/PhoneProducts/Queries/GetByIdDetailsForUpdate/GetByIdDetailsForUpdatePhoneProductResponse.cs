@@ -1,6 +1,8 @@
-﻿namespace Application.Features.PhoneProducts.Queries.GetByIdDetailsForUpdate
+﻿using Core.Application.Responses;
+
+namespace Application.Features.PhoneProducts.Queries.GetByIdDetailsForUpdate
 {
-    public class GetByIdDetailsForUpdatePhoneProductResponse
+    public class GetByIdDetailsForUpdatePhoneProductResponse : IResponse
     {
         public string ProductDescription { get; set; }
         public string ProductTitle { get; set; }

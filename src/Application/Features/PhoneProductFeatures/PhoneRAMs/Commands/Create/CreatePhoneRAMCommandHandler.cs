@@ -1,10 +1,10 @@
 ﻿using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
 using Domain.Models;
-using MediatR;
 
 namespace Application.Features.PhoneProductFeatures.PhoneRAMs.Commands.Create
 {
-    public class CreatePhoneRAMCommandHandler : IRequestHandler<CreatePhoneRAMCommand, CreatedPhoneRAMResponse>
+    public class CreatePhoneRAMCommandHandler : ICommandRequestHandler<CreatePhoneRAMCommand, CreatedPhoneRAMResponse>
     {
         private readonly IGenericRepository<PhoneRAM> _phoneRAMRepository;
         public CreatePhoneRAMCommandHandler(IGenericRepository<PhoneRAM> phoneRAMRepository)

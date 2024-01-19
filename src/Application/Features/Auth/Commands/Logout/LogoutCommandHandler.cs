@@ -1,12 +1,12 @@
 ﻿using Application.Services.AuthService;
+using Core.Application.Pipelines;
 using Core.CrossCuttingConcerns.Cookies;
 using Core.Utilities.Network;
-using MediatR;
 using Microsoft.AspNetCore.Http;
 
 namespace Application.Features.Auth.Commands.Logout
 {
-    public class LogoutCommandHandler : IRequestHandler<LogoutCommand, LoggedOutResponse>
+    public class LogoutCommandHandler : ICommandRequestHandler<LogoutCommand, LoggedOutResponse>
     {
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly IAuthService _authService;

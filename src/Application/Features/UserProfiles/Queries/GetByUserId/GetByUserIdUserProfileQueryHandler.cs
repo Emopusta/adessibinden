@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
 using Domain.Models;
-using MediatR;
 
 namespace Application.Features.UserProfiles.Queries.GetByUserId
 {
-    public class GetByUserIdUserProfileQueryHandler : IRequestHandler<GetByUserIdUserProfileQuery, GetUserProfileResponse>
+    public class GetByUserIdUserProfileQueryHandler : IQueryRequestHandler<GetByUserIdUserProfileQuery, GetUserProfileResponse>
     {
         private readonly IGenericRepository<UserProfile> _userProfileRepository;
         private readonly IMapper _mapper;

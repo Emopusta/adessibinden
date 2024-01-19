@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
 using Domain.Models;
-using MediatR;
 
 namespace Application.Features.UserProfiles.Commands.Create
 {
-    public class CreateUserProfileCommandHandler : IRequestHandler<CreateUserProfileCommand, CreatedUserProfileResponse>
+    public class CreateUserProfileCommandHandler : ICommandRequestHandler<CreateUserProfileCommand, CreatedUserProfileResponse>
     {
         private readonly IGenericRepository<UserProfile> _userProfileRepository;
         private readonly IMapper _mapper;

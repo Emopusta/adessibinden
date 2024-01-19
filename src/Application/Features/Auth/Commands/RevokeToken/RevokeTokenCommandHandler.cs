@@ -1,14 +1,14 @@
 ﻿using Application.Features.Auth.Rules;
 using Application.Services.AuthService;
 using AutoMapper;
+using Core.Application.Pipelines;
 using Core.CrossCuttingConcerns.Cookies;
 using Core.Utilities.Network;
-using MediatR;
 using Microsoft.AspNetCore.Http;
 
 namespace Application.Features.Auth.Commands.RevokeToken;
 
-public class RevokeTokenCommandHandler : IRequestHandler<RevokeTokenCommand, RevokedTokenResponse>
+public class RevokeTokenCommandHandler : ICommandRequestHandler<RevokeTokenCommand, RevokedTokenResponse>
 {
     private readonly IAuthService _authService;
     private readonly AuthBusinessRules _authBusinessRules;

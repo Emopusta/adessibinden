@@ -1,12 +1,12 @@
 ﻿using Application.Features.UserFavouriteProducts.Constants;
 using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
 using Core.CrossCuttingConcerns.Exceptions.Types;
 using Domain.Models;
-using MediatR;
 
 namespace Application.Features.UserFavouriteProducts.Commands.Delete
 {
-    public class DeleteUserFavouriteProductCommandHandler : IRequestHandler<DeleteUserFavouriteProductCommand, DeletedUserFavouriteProductResponse>
+    public class DeleteUserFavouriteProductCommandHandler : ICommandRequestHandler<DeleteUserFavouriteProductCommand, DeletedUserFavouriteProductResponse>
     {
         private readonly IGenericRepository<UserFavouriteProduct> _userFavouriteProductRepository;
 

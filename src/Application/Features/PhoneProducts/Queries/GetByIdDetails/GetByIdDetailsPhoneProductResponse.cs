@@ -1,8 +1,9 @@
 ﻿using Core.Application.Dtos;
+using Core.Application.Responses;
 
 namespace Application.Features.PhoneProducts.Queries.GetByIdDetails
 {
-    public class GetByIdDetailsPhoneProductResponse : IDto
+    public class GetByIdDetailsPhoneProductResponse : IResponse
     {
         public string ProductDescription { get; set; }
         public string ProductTitle { get; set; }

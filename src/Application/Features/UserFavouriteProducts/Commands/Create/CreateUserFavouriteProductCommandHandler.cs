@@ -1,10 +1,10 @@
 ﻿using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
 using Domain.Models;
-using MediatR;
 
 namespace Application.Features.UserFavouriteProducts.Commands.Create
 {
-    public class CreateUserFavouriteProductCommandHandler : IRequestHandler<CreateUserFavouriteProductCommand, CreatedUserFavouriteProductResponse>
+    public class CreateUserFavouriteProductCommandHandler : ICommandRequestHandler<CreateUserFavouriteProductCommand, CreatedUserFavouriteProductResponse>
     {
         private readonly IGenericRepository<UserFavouriteProduct> _userFavouriteProductRepository;
 

@@ -1,10 +1,10 @@
 ﻿using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
 using Domain.Models;
-using MediatR;
 
 namespace Application.Features.ProductCategories.Commands.Create
 {
-    public class CreateProductCategoryCommandHandler : IRequestHandler<CreateProductCategoryCommand, CreatedProductCategoryResponse>
+    public class CreateProductCategoryCommandHandler : ICommandRequestHandler<CreateProductCategoryCommand, CreatedProductCategoryResponse>
     {
         private readonly IGenericRepository<ProductCategory> _productCategoryRepository;
 

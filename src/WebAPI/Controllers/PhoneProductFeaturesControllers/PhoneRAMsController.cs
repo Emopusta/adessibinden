@@ -1,5 +1,6 @@
 ﻿using Application.Features.PhoneProductFeatures.PhoneRAMs.Commands.Create;
 using Application.Features.PhoneProductFeatures.PhoneRAMs.Queries.GetAllList;
+using Core.Application.Responses;
 using Core.Utilities.Results;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +19,7 @@ namespace WebAPI.Controllers.PhoneProductFeaturesControllers
         }
 
         [HttpGet]
-        public async Task<IDataResult<List<GetAllListPhoneRAMDto>>> GetAll()
+        public async Task<IDataResult<ListResponse<GetAllListPhoneRAMDto>>> GetAll()
         {
             var query = new GetAllListPhoneRAMQuery();
             var response = await Mediator.Send(query);

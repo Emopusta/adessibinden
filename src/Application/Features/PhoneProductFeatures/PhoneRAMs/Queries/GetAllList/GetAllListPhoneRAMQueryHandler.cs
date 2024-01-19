@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
+using Core.Application.Responses;
 using Domain.Models;
-using MediatR;
 
 namespace Application.Features.PhoneProductFeatures.PhoneRAMs.Queries.GetAllList
 {
-    public class GetAllListPhoneRAMQueryHandler : IRequestHandler<GetAllListPhoneRAMQuery, List<GetAllListPhoneRAMDto>>
+    public class GetAllListPhoneRAMQueryHandler : IQueryRequestHandler<GetAllListPhoneRAMQuery, ListResponse<GetAllListPhoneRAMDto>>
     {
         private readonly IGenericRepository<PhoneRAM> _phoneRAMRepository;
         private readonly IMapper _mapper;
@@ -16,11 +17,11 @@ namespace Application.Features.PhoneProductFeatures.PhoneRAMs.Queries.GetAllList
             _mapper = mapper;
         }
 
-        public async Task<List<GetAllListPhoneRAMDto>> Handle(GetAllListPhoneRAMQuery request, CancellationToken cancellationToken)
+        public async Task<ListResponse<GetAllListPhoneRAMDto>> Handle(GetAllListPhoneRAMQuery request, CancellationToken cancellationToken)
         {
             var phoneRAMs = await _phoneRAMRepository.GetListAsync();
 
-            var mappedPhoneRAMs = _mapper.Map<List<GetAllListPhoneRAMDto>>(phoneRAMs);
+            var mappedPhoneRAMs = _mapper.Map<ListResponse<GetAllListPhoneRAMDto>>(phoneRAMs);
 
             return mappedPhoneRAMs;
         }

@@ -21,7 +21,7 @@ namespace Application.Services.UserFavouriteProductService
         {
             var userFavouritesToDelete = await _userFavouriteProductRepository.GetListAsync(p => p.ProductId == productId);
 
-            await _userFavouriteProductRepository.DeleteRangeAsync(userFavouritesToDelete, true);
+            await _userFavouriteProductRepository.DeleteRangeAsync(userFavouritesToDelete.Data, true);
         }
     }
 }

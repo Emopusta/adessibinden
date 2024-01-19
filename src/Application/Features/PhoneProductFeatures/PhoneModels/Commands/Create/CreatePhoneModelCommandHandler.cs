@@ -1,10 +1,10 @@
 ﻿using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
 using Domain.Models;
-using MediatR;
 
 namespace Application.Features.PhoneProductFeatures.PhoneModels.Commands.Create
 {
-    public class CreatePhoneModelCommandHandler : IRequestHandler<CreatePhoneModelCommand, CreatedPhoneModelResponse>
+    public class CreatePhoneModelCommandHandler : ICommandRequestHandler<CreatePhoneModelCommand, CreatedPhoneModelResponse>
     {
         private readonly IGenericRepository<PhoneModel> _phoneModelRepository;
 

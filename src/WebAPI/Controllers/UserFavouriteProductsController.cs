@@ -2,6 +2,7 @@
 using Application.Features.UserFavouriteProducts.Commands.Delete;
 using Application.Features.UserFavouriteProducts.Queries.GetByProductAndUserId;
 using Application.Features.UserFavouriteProducts.Queries.GetByUserId;
+using Core.Application.Responses;
 using Core.Utilities.Results;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,7 +38,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("GetByUserId")]
-        public async Task<IDataResult<List<GetByUserIdUserFavouriteProductResponse>>> GetByUserId([FromQuery] GetByUserIdUserFavouriteProductQuery getByUserIdUserFavouriteProductQuery)
+        public async Task<IDataResult<ListResponse<GetByUserIdUserFavouriteProductResponse>>> GetByUserId([FromQuery] GetByUserIdUserFavouriteProductQuery getByUserIdUserFavouriteProductQuery)
         {
             var response = await Mediator.Send(getByUserIdUserFavouriteProductQuery);
 

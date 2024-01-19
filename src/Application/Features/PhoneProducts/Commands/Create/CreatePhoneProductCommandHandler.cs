@@ -1,31 +1,28 @@
 ﻿using Application.Features.Products.Commands.Create;
-using Application.Services.ProductService;
 using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
 using Core.DataAccess.Repositories;
 using Domain.Models;
-using MediatR;
 
 namespace Application.Features.PhoneProducts.Commands.Create
 {
-    public class CreatePhoneProductCommandHandler : IRequestHandler<CreatePhoneProductCommand, CreatedPhoneProductResponse>
+    public class CreatePhoneProductCommandHandler : ICommandRequestHandler<CreatePhoneProductCommand, CreatedPhoneProductResponse>
     {
         private readonly IGenericRepository<PhoneProduct> _phoneProductRepository;
-        private readonly IProductService _productService;
 
         private readonly IGenericRepository<Product> _productRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CreatePhoneProductCommandHandler(IGenericRepository<PhoneProduct> phoneProductRepository, IProductService productService, IGenericRepository<Product> productRepository, IUnitOfWork unitOfWork)
+        public CreatePhoneProductCommandHandler(IGenericRepository<PhoneProduct> phoneProductRepository, IGenericRepository<Product> productRepository, IUnitOfWork unitOfWork)
         {
             _phoneProductRepository = phoneProductRepository;
-            _productService = productService;
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
         }
 
         public async Task<CreatedPhoneProductResponse> Handle(CreatePhoneProductCommand request, CancellationToken cancellationToken)
         {
-
+            // refactor CreateProduct Parameter
             var createdProduct = CreateProduct(request.CreatePhoneProductDto.CreatorUserId, request.CreatePhoneProductDto.ProductCategoryId, request.CreatePhoneProductDto.Description, request.CreatePhoneProductDto.Title, cancellationToken);
 
             var phone = new PhoneProduct()

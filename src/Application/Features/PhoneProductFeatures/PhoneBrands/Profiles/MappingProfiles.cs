@@ -1,5 +1,7 @@
 ﻿using Application.Features.PhoneProductFeatures.PhoneBrands.Queries.GetAllList;
 using AutoMapper;
+using Core.Application.Responses;
+using Core.DataAccess.Listing;
 using Domain.Models;
 
 namespace Application.Features.PhoneProductFeatures.PhoneBrands.Profiles
@@ -9,7 +11,8 @@ namespace Application.Features.PhoneProductFeatures.PhoneBrands.Profiles
         public MappingProfiles()
         {
     
-            CreateMap<PhoneBrand, GetAllListPhoneBrandDto>().ReverseMap();   
+            CreateMap<PhoneBrand, GetAllListPhoneBrandDto>().ReverseMap();
+            CreateMap<IListResponse<PhoneBrand>, ListResponse<GetAllListPhoneBrandDto>>();
 
         }
     }

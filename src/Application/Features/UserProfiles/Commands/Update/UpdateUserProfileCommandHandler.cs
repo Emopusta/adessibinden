@@ -1,12 +1,12 @@
 ﻿using Application.Features.Users.Rules;
 using AutoMapper;
 using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
 using Domain.Models;
-using MediatR;
 
 namespace Application.Features.UserProfiles.Commands.Update
 {
-    public class UpdateUserProfileCommandHandler : IRequestHandler<UpdateUserProfileCommand, UpdatedUserProfileResponse>
+    public class UpdateUserProfileCommandHandler : ICommandRequestHandler<UpdateUserProfileCommand, UpdatedUserProfileResponse>
     {
         private readonly IGenericRepository<UserProfile> _userProfileRepository;
         private readonly IMapper _mapper;

@@ -13,7 +13,7 @@ namespace Application.Features.Products.Profiles
             CreateMap<Product, GetByCreatorUserIdPaginatedDto>()
                 .ForMember(p => p.ProductId, opt => opt.MapFrom(src => src.Id));
 
-            CreateMap<IPaginate<Product>, GetListResponse<GetByCreatorUserIdPaginatedDto>>().ReverseMap();
+            CreateMap<IPaginate<Product>, PaginateResponse<GetByCreatorUserIdPaginatedDto>>().ReverseMap();
         }
     }
 }

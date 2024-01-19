@@ -1,11 +1,11 @@
 ﻿using Core.Application.GenericRepository;
+using Core.Application.Pipelines;
 using Domain.Models;
-using MediatR;
 
 namespace Application.Features.CarBrands.Commands.Create
 {
 
-    public class CreateCarBrandCommandHandler : IRequestHandler<CreateCarBrandCommand, CreatedCarBrandResponse>
+    public class CreateCarBrandCommandHandler : ICommandRequestHandler<CreateCarBrandCommand, CreatedCarBrandResponse>
         {
             private readonly IGenericRepository<CarBrand> _repository;
 

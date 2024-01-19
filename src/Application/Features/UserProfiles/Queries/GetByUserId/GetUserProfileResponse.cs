@@ -1,6 +1,8 @@
-﻿namespace Application.Features.UserProfiles.Queries.GetByUserId
+﻿using Core.Application.Responses;
+
+namespace Application.Features.UserProfiles.Queries.GetByUserId
 {
-    public class GetUserProfileResponse
+    public class GetUserProfileResponse : IResponse
     {
 
         public string? FirstName { get; set; }

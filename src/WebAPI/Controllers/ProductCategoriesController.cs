@@ -1,5 +1,6 @@
 ﻿using Application.Features.ProductCategories.Commands.Create;
 using Application.Features.ProductCategories.Queries.GetAllList;
+using Core.Application.Responses;
 using Core.Utilities.Results;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +19,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IDataResult<List<GetAllListProductCategoryDto>>> GetAllList()
+        public async Task<IDataResult<ListResponse<GetAllListProductCategoryDto>>> GetAllList()
         {
             var getAllListProductCategoryQuery = new GetAllListProductCategoryQuery();
             var result = await Mediator.Send(getAllListProductCategoryQuery);
