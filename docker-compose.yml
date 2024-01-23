@@ -1,0 +1,37 @@
+version: '3.7'
+
+networks:
+  adesnet:
+    driver: bridge
+
+services:
+    webapi:
+        image: ${DOCKER_REGISTRY-}webapi
+        depends_on:
+            - "adessibinden_db"
+        container_name: adessibindenAPI
+        ports:
+            - 5174:5174 
+        build:
+          context: .
+          dockerfile: src/WebAPI/Dockerfile
+        networks:
+            - adesnet
+
+    adessibinden_db:
+        image: postgres
+        container_name: 'postgres'
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=<YOUR PASSWORD>
+            - POSTGRES_DB=adessbindenDbDocker
+        restart: always
+        ports:
+            - 5432:5432
+        volumes:
+            - adessibinden_data:/var/lib/postgresql/data/
+        networks:
+            - adesnet
+ 
+volumes:
+    adessibinden_data:    
