@@ -11,8 +11,9 @@ services:
             - "adessibinden_db"
         container_name: adessibindenAPI
         ports:
-            - 5174:5174 
-        build:
+            - 5000:5000
+            - 5001:5001  
+        build: 
           context: .
           dockerfile: src/WebAPI/Dockerfile
         networks:
@@ -22,7 +23,7 @@ services:
         image: postgres
         container_name: 'postgres'
         environment:
-            - POSTGRES_USER=postgres
+            - POSTGRES_USER=<YOUR USERNAME>
             - POSTGRES_PASSWORD=<YOUR PASSWORD>
             - POSTGRES_DB=adessbindenDbDocker
         restart: always
