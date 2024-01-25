@@ -1,4 +1,5 @@
-﻿using Core.DataAccess.Listing;
+﻿using Core.Application.Dtos;
+using Core.DataAccess.Listing;
 
 namespace Core.Application.Responses
 {
