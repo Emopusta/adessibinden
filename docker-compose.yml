@@ -33,6 +33,16 @@ services:
             - adessibinden_data:/var/lib/postgresql/data/
         networks:
             - adesnet
+    adessibinden_frontend:
+        build: ../AdessibindenFrontend
+        container_name: 'adessibinden_frontend'
+        ports:
+            - 8080:8080
+        depends_on:
+            - "webapi"
+        networks:
+            - adesnet
+ 
  
 volumes:
     adessibinden_data:    
