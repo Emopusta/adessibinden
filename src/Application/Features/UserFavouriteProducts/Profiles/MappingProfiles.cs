@@ -12,7 +12,7 @@ namespace Application.Features.UserFavouriteProducts.Profiles
         public MappingProfiles() 
         {
             CreateMap<GetByUserIdUserFavouriteProductResponse, UserFavouriteProduct>().ReverseMap();
-            CreateMap<IListResponse<GetByUserIdUserFavouriteProductResponse>, ListResponse<UserFavouriteProduct>>().ReverseMap();
+            CreateMap<IListResponse<UserFavouriteProduct>, ListResponse<GetByUserIdUserFavouriteProductResponse>>().ReverseMap();
         }
     }
 }
