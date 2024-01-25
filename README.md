@@ -2,10 +2,23 @@
 This project was created by Young adessi Emre Duman.
 ---
 
-In this project, you will encounter .NET 8, PostgreSQL, Entity Framework, CQRS, and more...
+## Project Purpose
+
+In this project, I am creating an e-shop. You will encounter cutting-edge technologies, and best practices in this project.
+
+### Contents
+- .Net 8
+- Entity Framework
+- Mediatr
+- CQRS
+- JWT Authentication
+- Mapping with AutoMapper
+- Code-First and DB-First (DB-First actually but you won't see it)
+- PostgreSQL
+...
 
 ---
 
-on progress...
+in progress...
 
 
