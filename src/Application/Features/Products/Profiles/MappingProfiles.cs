@@ -1,4 +1,6 @@
-﻿using Application.Features.Products.Queries.GetByCreatorUserIdPaginated;
+﻿using Application.Features.Products.Queries.GetAllPaginated;
+using Application.Features.Products.Queries.GetByCreatorUserIdPaginated;
+using Application.Features.Products.Queries.GetByTitlePaginated;
 using AutoMapper;
 using Core.Application.Responses;
 using Core.Persistence.Paging;
@@ -14,6 +16,12 @@ namespace Application.Features.Products.Profiles
                 .ForMember(p => p.ProductId, opt => opt.MapFrom(src => src.Id));
 
             CreateMap<IPaginate<Product>, PaginateResponse<GetByCreatorUserIdPaginatedDto>>().ReverseMap();
+
+            CreateMap<Product, GetAllPaginatedProductDto>().ReverseMap();
+            CreateMap<IPaginate<Product>, PaginateResponse<GetAllPaginatedProductDto>>().ReverseMap();
+            
+            CreateMap<Product, GetByTitlePaginatedProductDto>().ReverseMap();
+            CreateMap<IPaginate<Product>, PaginateResponse<GetByTitlePaginatedProductDto>>().ReverseMap();
         }
     }
 }
