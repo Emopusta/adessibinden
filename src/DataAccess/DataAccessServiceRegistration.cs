@@ -63,8 +63,6 @@ namespace DataAccess
 
     public class DbContextDesignFactory : IDesignTimeDbContextFactory<AdessibindenContext>
     {
-        
-
         public AdessibindenContext CreateDbContext(string[] args)
         {
             var configuration = new ConfigurationBuilder()

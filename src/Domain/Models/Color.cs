@@ -1,11 +1,9 @@
 ﻿using Core.DataAccess.Entities;
-using System;
-using System.Collections.Generic;
 
 namespace Domain.Models;
 
 public class Color : Entity
-{ //partial yapıp business ayırmayı araştır
+{
 
     public string Name { get; set; } = null!;
 
