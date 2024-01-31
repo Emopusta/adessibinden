@@ -1,4 +1,5 @@
-﻿using Application.Features.UserFavouriteProducts.Queries.GetByUserId;
+﻿using Application.Features.UserFavouriteProducts.Queries.GetByProductAndUserId;
+using Application.Features.UserFavouriteProducts.Queries.GetByUserId;
 using AutoMapper;
 using Core.Application.Responses;
 using Core.DataAccess.Listing;
@@ -13,6 +14,8 @@ namespace Application.Features.UserFavouriteProducts.Profiles
         {
             CreateMap<GetByUserIdUserFavouriteProductResponse, UserFavouriteProduct>().ReverseMap();
             CreateMap<IListResponse<UserFavouriteProduct>, ListResponse<GetByUserIdUserFavouriteProductResponse>>().ReverseMap();
+
+            CreateMap<GetByProductAndUserIdUserFavouriteProductResponse, UserFavouriteProduct>().ReverseMap();
         }
     }
 }
