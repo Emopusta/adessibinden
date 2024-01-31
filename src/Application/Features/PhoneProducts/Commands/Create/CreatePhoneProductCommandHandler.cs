@@ -23,11 +23,11 @@ namespace Application.Features.PhoneProducts.Commands.Create
         public async Task<CreatedPhoneProductResponse> Handle(CreatePhoneProductCommand request, CancellationToken cancellationToken)
         {
             // refactor CreateProduct Parameter
-            var createdProduct = CreateProduct(request.CreatePhoneProductDto.CreatorUserId, request.CreatePhoneProductDto.ProductCategoryId, request.CreatePhoneProductDto.Description, request.CreatePhoneProductDto.Title, cancellationToken);
+            var createdProduct = await CreateProduct(request.CreatePhoneProductDto.CreatorUserId, request.CreatePhoneProductDto.ProductCategoryId, request.CreatePhoneProductDto.Description, request.CreatePhoneProductDto.Title, cancellationToken);
 
             var phone = new PhoneProduct()
             {
-                ProductId = createdProduct.Result.Id,
+                ProductId = createdProduct.Id,
                 ColorId = request.CreatePhoneProductDto.ColorId,
                 ModelId = request.CreatePhoneProductDto.ModelId,
                 InternalMemoryId = request.CreatePhoneProductDto.InternalMemoryId,
@@ -40,9 +40,9 @@ namespace Application.Features.PhoneProducts.Commands.Create
 
             var response = new CreatedPhoneProductResponse()
             {
-                ProductId = createdProduct.Result.Id,
-                CreatorUserId = createdProduct.Result.CreatorUserId, 
-                ProductCategoryId = createdProduct.Result.ProductCategoryId,
+                ProductId = createdProduct.Id,
+                CreatorUserId = createdProduct.CreatorUserId, 
+                ProductCategoryId = createdProduct.ProductCategoryId,
                 ColorId = addedPhone.ColorId,
                 ModelId = addedPhone.ModelId,
                 InternalMemoryId = addedPhone.InternalMemoryId,

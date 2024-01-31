@@ -25,7 +25,7 @@ namespace Application.Features.PhoneProducts.Commands.Update
 
         public async Task<UpdatedPhoneProductResponse> Handle(UpdatePhoneProductCommand request, CancellationToken cancellationToken)
         {
-            var createdProduct = UpdateProduct(request.UpdatePhoneProductDto.ProductId, request.UpdatePhoneProductDto.CreatorUserId, request.UpdatePhoneProductDto.ProductCategoryId, request.UpdatePhoneProductDto.Description, request.UpdatePhoneProductDto.Title, cancellationToken);
+            var createdProduct = await UpdateProduct(request.UpdatePhoneProductDto.ProductId, request.UpdatePhoneProductDto.CreatorUserId, request.UpdatePhoneProductDto.ProductCategoryId, request.UpdatePhoneProductDto.Description, request.UpdatePhoneProductDto.Title, cancellationToken);
 
             var phoneProductToUpdate = await _phoneProductRepository.GetAsync(p => p.ProductId == request.UpdatePhoneProductDto.ProductId);
 
