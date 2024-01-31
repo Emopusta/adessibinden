@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
+using AutoMapper.Execution;
 using Core.CrossCuttingConcerns.Interceptors;
 using Core.DataAccess.Entities;
 using Domain.Models;
@@ -112,7 +113,9 @@ public class AdessibindenContext : DbContext
             if (entity.ClrType.IsAssignableTo(typeof(Entity)))
             {
             var parameter = Expression.Parameter(entity.ClrType);
-            var body = ReplacingExpressionVisitor.Replace(softDeleteGlobalFilterExpression.Parameters.First(), parameter, softDeleteGlobalFilterExpression.Body);
+            //var body = ReplacingExpressionVisitor.Replace(softDeleteGlobalFilterExpression.Parameters.First(), parameter, softDeleteGlobalFilterExpression.Body); //ef
+            var body = softDeleteGlobalFilterExpression.ReplaceParameters(parameter); // automapper
+            //var body = softDeleteGlobalFilterExpression.Body.Replace(softDeleteGlobalFilterExpression.Parameters.First(), parameter); // automapper
             var lambdaExpression = Expression.Lambda(body, parameter);
 
             entity.SetQueryFilter(lambdaExpression);
