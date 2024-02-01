@@ -27,7 +27,6 @@ namespace DataAccess.EntityConfigurations
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("UserId");
 
-            builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
         }
     }
 }
