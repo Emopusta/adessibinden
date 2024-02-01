@@ -10,14 +10,12 @@ using WebAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
 builder.Services.AddDataAccessServices(builder.Configuration);
 builder.Services.AddApplicationServices();
-
 builder.Services.AddSecurityServices();
 builder.Services.AddHttpContextAccessor();
+
 
 const string tokenOptionsConfigurationSection = "TokenOptions";
 TokenOptions tokenOptions =
@@ -46,9 +44,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-
-
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -56,10 +51,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-if (!app.Environment.IsDevelopment())
-    app.ConfigureCustomExceptionMiddleware();
-
-
+app.ConfigureCustomExceptionMiddleware();
 
 const string webApiConfigurationSection = "WebAPIConfiguration";
 WebApiConfiguration webApiConfiguration =
