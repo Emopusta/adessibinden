@@ -5,6 +5,7 @@ using Application.Features.Auth.Commands.Register;
 using Application.Features.Auth.Commands.RevokeToken;
 using Core.Application.Dtos;
 using Core.Utilities.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -22,6 +23,7 @@ public class AuthController : BaseController
         var result = await Mediator.Send(loginCommand);
         return ReturnResult(result);
     }
+    [Authorize]
     [HttpGet("Logout")]
     public async Task<IDataResult<LoggedOutResponse>> Logout()
     {
