@@ -5,9 +5,6 @@ using Application.Features.Colors.Queries.GetById;
 using Core.Application.Requests;
 using Core.Application.Responses;
 using Core.Utilities.Results;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
