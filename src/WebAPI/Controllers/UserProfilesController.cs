@@ -28,9 +28,10 @@ namespace WebAPI.Controllers
             return ReturnResult(response);
         }
 
-        [HttpGet("GetById")]
-        public async Task<IDataResult<GetUserProfileResponse>> GetById([FromQuery] GetByUserIdUserProfileQuery getByIdColorQuery)
+        [HttpGet("GetById/{userId}")]
+        public async Task<IDataResult<GetUserProfileResponse>> GetById([FromRoute] int userId)
         {
+            var getByIdColorQuery = new GetByUserIdUserProfileQuery() { UserId = userId};
             var result = await Mediator.Send(getByIdColorQuery);
 
             return ReturnResult(result);
