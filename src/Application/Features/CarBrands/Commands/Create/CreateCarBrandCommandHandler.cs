@@ -14,7 +14,7 @@ public class CreateCarBrandCommandHandler : ICommandRequestHandler<CreateCarBran
 
     public async Task<CreatedCarBrandResponse> Handle(CreateCarBrandCommand request, CancellationToken cancellationToken)
     {
-        CarBrand carBrand = new()
+        var carBrand = new CarBrand()
         {
             Name = request.Name
         };
