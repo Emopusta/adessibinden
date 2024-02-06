@@ -4,16 +4,13 @@ using Core.Application.Responses;
 using Core.DataAccess.Listing;
 using Domain.Models;
 
-namespace Application.Features.PhoneProductFeatures.PhoneInternalMemories.Profiles
+namespace Application.Features.PhoneProductFeatures.PhoneInternalMemories.Profiles;
+
+public class MappingProfiles : Profile
 {
-    public class MappingProfiles : Profile
+    public MappingProfiles() 
     {
-        public MappingProfiles() 
-        {
-
-            CreateMap<PhoneInternalMemory, GetAllListPhoneInternalMemoryDto>().ReverseMap();
-            CreateMap<IListResponse<PhoneInternalMemory>, ListResponse<GetAllListPhoneInternalMemoryDto>>().ReverseMap();
-
-        }
+        CreateMap<PhoneInternalMemory, GetAllListPhoneInternalMemoryDto>().ReverseMap();
+        CreateMap<IListResponse<PhoneInternalMemory>, ListResponse<GetAllListPhoneInternalMemoryDto>>().ReverseMap();
     }
 }

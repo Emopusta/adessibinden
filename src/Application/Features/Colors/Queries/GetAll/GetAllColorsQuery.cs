@@ -2,13 +2,11 @@
 using Core.Application.Requests;
 using Core.Application.Responses;
 
-namespace Application.Features.Colors.Queries.GetAll
+namespace Application.Features.Colors.Queries.GetAll;
+
+public class GetAllColorsQuery : IQueryRequest<PaginateResponse<GetAllColorsListItemDto>>
 {
-    public class GetAllColorsQuery : IQueryRequest<PaginateResponse<GetAllColorsListItemDto>>
-    {
-        public PageRequest PageRequest { get; set; }
+    public PageRequest PageRequest { get; set; }
 
-        
-    }
-
+    
 }

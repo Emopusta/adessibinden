@@ -1,10 +1,9 @@
 ﻿using Core.Application.Responses;
 
-namespace Application.Features.UserFavouriteProducts.Commands.Delete
+namespace Application.Features.UserFavouriteProducts.Commands.Delete;
+
+public class DeletedUserFavouriteProductResponse : IResponse
 {
-    public class DeletedUserFavouriteProductResponse : IResponse
-    {
-        public int UserId { get; set; }
-        public int ProductId { get; set; }
-    }
+    public int UserId { get; set; }
+    public int ProductId { get; set; }
 }

@@ -8,7 +8,6 @@ namespace DataAccess.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<ComputerOperatingSystem> builder)
         {
-
             builder.ToTable("computerOperatingSystems").HasKey(e => e.Id);
 
             builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
@@ -18,8 +17,6 @@ namespace DataAccess.EntityConfigurations
             builder.Property(e => e.DeletedDate).HasColumnName("DeletedDate");
 
             builder.Property(e => e.Name).HasColumnType("character varying").HasColumnName("Name").IsRequired();
-
-
         }
     }
 }

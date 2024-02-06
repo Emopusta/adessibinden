@@ -4,7 +4,6 @@ using Core.CrossCuttingConcerns.Exceptions.Types.ValidationException;
 using Core.Utilities.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
 using System.Text.Json;
 
 namespace Core.CrossCuttingConcerns.Exceptions.Handlers;

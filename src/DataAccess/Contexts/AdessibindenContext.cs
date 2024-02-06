@@ -5,63 +5,38 @@ using Core.CrossCuttingConcerns.Interceptors;
 using Core.DataAccess.Entities;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 
 namespace DataAccess.Contexts;
 
 public class AdessibindenContext : DbContext
 {
     public DbSet<CarBrand> CarBrands { get; set; }
-
     public DbSet<CarChassisType> CarChassisTypes { get; set; }
-
     public DbSet<CarFuelType> CarFuelTypes { get; set; }
-
     public DbSet<CarModel> CarModels { get; set; }
-
     public DbSet<CarProduct> CarProducts { get; set; }
-
     public DbSet<CarProductCategory> CarProductCategories { get; set; }
-
     public DbSet<Color> Colors { get; set; }
-
     public DbSet<ComputerBrand> ComputerBrands { get; set; }
-
     public DbSet<ComputerOperatingSystem> ComputerOperatingSystems { get; set; }
-
     public DbSet<ComputerProcessor> ComputerProcessors { get; set; }
-
     public DbSet<ComputerProduct> ComputerProducts { get; set; }
-
     public DbSet<ComputerRAM> ComputerRams { get; set; }
-
     public DbSet<ComputerSSDCapacity> ComputerSsdcapacities { get; set; }
-
     public DbSet<ComputerVideoCard> ComputerVideoCards { get; set; }
-
     public DbSet<PhoneBrand> PhoneBrands { get; set; }
-
     public DbSet<PhoneInternalMemory> PhoneInternalMemories { get; set; }
-
     public DbSet<PhoneModel> PhoneModels { get; set; }
-
     public DbSet<PhoneProduct> PhoneProducts { get; set; }
-
     public DbSet<PhoneRAM> PhoneRams { get; set; }
-
     public DbSet<Product> Products { get; set; }
-
     public DbSet<ProductCategory> ProductCategories { get; set; }
-
     public DbSet<User> Users { get; set; }
-
     public DbSet<UserFavouriteProduct> UserFavouriteProducts { get; set; }
-
     public DbSet<UserProfile> UserProfiles { get; set; }
     public DbSet<OperationClaim> OperationClaims { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
-
     public AdessibindenContext(DbContextOptions options)
         : base(options)
     {
@@ -69,7 +44,6 @@ public class AdessibindenContext : DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
         AddGlobalSoftDeleteFilter(modelBuilder);
 
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
@@ -96,7 +70,6 @@ public class AdessibindenContext : DbContext
                     break;
             }
         }
-
         return base.SaveChangesAsync(cancellationToken);
     }
 
@@ -120,8 +93,9 @@ public class AdessibindenContext : DbContext
 
             entity.SetQueryFilter(lambdaExpression);
             }
+            //modelBuilder.Entity(entity.ClrType).Property(typeof(DateTime), "CreatedDate").IsRequired();
+            //modelBuilder.Entity(entity.ClrType).Property(typeof(DateTime), "UpdatedDate").IsRequired();
+            //modelBuilder.Entity(entity.ClrType).Property(typeof(DateTime), "DeletedDate").IsRequired();
         }
-
-      
     }
 }

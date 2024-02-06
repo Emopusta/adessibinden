@@ -19,6 +19,7 @@ namespace WebAPI.Controllers
             var result = await Mediator.Send(query);
             return ReturnResult(result);
         }
+
         [HttpGet]
         public async Task<IDataResult<PaginateResponse<GetAllPaginatedProductDto>>> GetAllPaginated([FromQuery] PageRequest pageRequest)
         {
@@ -26,6 +27,7 @@ namespace WebAPI.Controllers
             var result = await Mediator.Send(query);
             return ReturnResult(result);
         }
+
         [HttpGet("GetByTitle")]
         public async Task<IDataResult<PaginateResponse<GetByTitlePaginatedProductDto>>> GetByTitlePaginated([FromQuery] PageRequest pageRequest, string productTitleToSearch)
         {

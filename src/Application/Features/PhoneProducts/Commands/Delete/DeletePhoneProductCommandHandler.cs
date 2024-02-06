@@ -4,35 +4,32 @@ using Core.Application.GenericRepository;
 using Core.Application.Pipelines;
 using Domain.Models;
 
-namespace Application.Features.PhoneProducts.Commands.Delete
+namespace Application.Features.PhoneProducts.Commands.Delete;
+
+public class DeletePhoneProductCommandHandler : ICommandRequestHandler<DeletePhoneProductCommand, DeletedPhoneProductResponse>
 {
-    public class DeletePhoneProductCommandHandler : ICommandRequestHandler<DeletePhoneProductCommand, DeletedPhoneProductResponse>
+    private readonly IGenericRepository<PhoneProduct> _phoneProductRepository;
+    private readonly IProductService _productService;
+    private readonly IUserFavouriteProductService _userFavouriteProductService; 
+    public DeletePhoneProductCommandHandler(IGenericRepository<PhoneProduct> phoneProductRepository, IProductService productService, IUserFavouriteProductService userFavouriteProductService)
     {
-        private readonly IGenericRepository<PhoneProduct> _phoneProductRepository;
-        private readonly IProductService _productService;
-        private readonly IUserFavouriteProductService _userFavouriteProductService; 
-        public DeletePhoneProductCommandHandler(IGenericRepository<PhoneProduct> phoneProductRepository, IProductService productService, IUserFavouriteProductService userFavouriteProductService)
+        _phoneProductRepository = phoneProductRepository;
+        _productService = productService;
+        _userFavouriteProductService = userFavouriteProductService;
+    }
+
+    public async Task<DeletedPhoneProductResponse> Handle(DeletePhoneProductCommand request, CancellationToken cancellationToken)
+    { 
+        var phoneProductToDelete = await _phoneProductRepository.GetAsync(p => p.ProductId == request.ProductId);
+        var deletedPhoneProduct = await _phoneProductRepository.DeleteAsync(phoneProductToDelete);
+
+        await _productService.DeleteProduct(phoneProductToDelete.ProductId, cancellationToken);
+        await _userFavouriteProductService.DeleteFavouritesByProduct(phoneProductToDelete.ProductId);
+
+        var response = new DeletedPhoneProductResponse()
         {
-            _phoneProductRepository = phoneProductRepository;
-            _productService = productService;
-            _userFavouriteProductService = userFavouriteProductService;
-        }
-
-        public async Task<DeletedPhoneProductResponse> Handle(DeletePhoneProductCommand request, CancellationToken cancellationToken)
-        { 
-
-            var phoneProductToDelete = await _phoneProductRepository.GetAsync(p => p.ProductId == request.ProductId);
-
-            var deletedPhoneProduct = await _phoneProductRepository.DeleteAsync(phoneProductToDelete);
-            await _productService.DeleteProduct(phoneProductToDelete.ProductId, cancellationToken); // todo(deneme): entity üzerinden extension method service için
-            await _userFavouriteProductService.DeleteFavouritesByProduct(phoneProductToDelete.ProductId);
-
-            var response = new DeletedPhoneProductResponse()
-            {
-                ProductId = phoneProductToDelete.ProductId
-            };
-
-            return response;
-        }
+            ProductId = phoneProductToDelete.ProductId
+        };
+        return response;
     }
 }

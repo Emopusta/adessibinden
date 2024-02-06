@@ -4,35 +4,32 @@ using Core.Application.Pipelines;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Features.PhoneProducts.Queries.GetByIdDetailsForUpdate
+namespace Application.Features.PhoneProducts.Queries.GetByIdDetailsForUpdate;
+
+public class GetByIdDetailsForUpdatePhoneProductQueryHandler : IQueryRequestHandler<GetByIdDetailsForUpdatePhoneProductQuery, GetByIdDetailsForUpdatePhoneProductResponse>
 {
-    public class GetByIdDetailsForUpdatePhoneProductQueryHandler : IQueryRequestHandler<GetByIdDetailsForUpdatePhoneProductQuery, GetByIdDetailsForUpdatePhoneProductResponse>
+    private readonly IGenericRepository<PhoneProduct> _phoneProductRepository;
+    private readonly IMapper _mapper;
+    public GetByIdDetailsForUpdatePhoneProductQueryHandler(IGenericRepository<PhoneProduct> phoneProductRepository, IMapper mapper)
     {
-        private readonly IGenericRepository<PhoneProduct> _phoneProductRepository;
-        private readonly IMapper _mapper;
+        _phoneProductRepository = phoneProductRepository;
+        _mapper = mapper;
+    }
 
-        public GetByIdDetailsForUpdatePhoneProductQueryHandler(IGenericRepository<PhoneProduct> phoneProductRepository, IMapper mapper)
-        {
-            _phoneProductRepository = phoneProductRepository;
-            _mapper = mapper;
-        }
+    public async Task<GetByIdDetailsForUpdatePhoneProductResponse> Handle(GetByIdDetailsForUpdatePhoneProductQuery request, CancellationToken cancellationToken)
+    {
+        var phoneProduct = await _phoneProductRepository.GetAsync(p => p.ProductId == request.ProductId,
+            include: i => i
+            .Include(p => p.Color)
+            .Include(p => p.RAM)
+            .Include(p => p.Product)
+            .Include(p => p.Product.CreatorUser)
+            .Include(p => p.InternalMemory)
+            .Include(p => p.Model)
+            .Include(p => p.Model.Brand)
+            );
 
-        public async Task<GetByIdDetailsForUpdatePhoneProductResponse> Handle(GetByIdDetailsForUpdatePhoneProductQuery request, CancellationToken cancellationToken)
-        {
-            var phoneProduct = await _phoneProductRepository.GetAsync(p => p.ProductId == request.ProductId,
-                include: i => i
-                .Include(p => p.Color)
-                .Include(p => p.RAM)
-                .Include(p => p.Product)
-                .Include(p => p.Product.CreatorUser)
-                .Include(p => p.InternalMemory)
-                .Include(p => p.Model)
-                .Include(p => p.Model.Brand)
-                );
-
-            var result = _mapper.Map<GetByIdDetailsForUpdatePhoneProductResponse>(phoneProduct);
-
-            return result;
-        }
+        var result = _mapper.Map<GetByIdDetailsForUpdatePhoneProductResponse>(phoneProduct);
+        return result;
     }
 }

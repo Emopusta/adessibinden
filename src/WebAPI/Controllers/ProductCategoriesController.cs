@@ -4,26 +4,24 @@ using Core.Application.Responses;
 using Core.Utilities.Results;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebAPI.Controllers
+namespace WebAPI.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class ProductCategoriesController : BaseController
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ProductCategoriesController : BaseController
+    [HttpPost]
+    public async Task<IDataResult<CreatedProductCategoryResponse>> Create([FromBody] CreateProductCategoryCommand createProductCategoryCommand)
     {
-        [HttpPost]
-        public async Task<IDataResult<CreatedProductCategoryResponse>> Create([FromBody] CreateProductCategoryCommand createProductCategoryCommand)
-        {
-            var response = await Mediator.Send(createProductCategoryCommand);
+        var response = await Mediator.Send(createProductCategoryCommand);
+        return ReturnResult(response);
+    }
 
-            return ReturnResult(response);
-        }
-
-        [HttpGet]
-        public async Task<IDataResult<ListResponse<GetAllListProductCategoryDto>>> GetAllList()
-        {
-            var getAllListProductCategoryQuery = new GetAllListProductCategoryQuery();
-            var result = await Mediator.Send(getAllListProductCategoryQuery);
-            return ReturnResult(result);
-        }
+    [HttpGet]
+    public async Task<IDataResult<ListResponse<GetAllListProductCategoryDto>>> GetAllList()
+    {
+        var getAllListProductCategoryQuery = new GetAllListProductCategoryQuery();
+        var result = await Mediator.Send(getAllListProductCategoryQuery);
+        return ReturnResult(result);
     }
 }

@@ -1,8 +1,5 @@
 ﻿using Core.Application.Dtos;
 using Core.Application.Pipelines;
-using Core.Utilities.Results;
-using MediatR;
-using Microsoft.AspNetCore.Http;
 
 namespace Application.Features.Auth.Commands.Login;
 

@@ -1,6 +1,4 @@
 ﻿using Core.DataAccess.Entities;
-using System;
-using System.Collections.Generic;
 
 namespace Domain.Models;
 

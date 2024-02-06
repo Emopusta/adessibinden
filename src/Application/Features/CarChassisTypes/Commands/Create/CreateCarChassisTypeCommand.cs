@@ -1,16 +1,8 @@
-﻿using Application.Features.CarBrands.Commands.Create;
-using Core.Application.Pipelines;
-using Core.Utilities.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Core.Application.Pipelines;
 
-namespace Application.Features.CarChassisTypes.Commands.Create
+namespace Application.Features.CarChassisTypes.Commands.Create;
+
+public partial class CreateCarChassisTypeCommand : ICommandRequest<CreatedCarChassisTypeResponse>
 {
-    public partial class CreateCarChassisTypeCommand : ICommandRequest<CreatedCarChassisTypeResponse>
-    {
-        public string Name{ get; set; }
-    }
+    public string Name{ get; set; }
 }

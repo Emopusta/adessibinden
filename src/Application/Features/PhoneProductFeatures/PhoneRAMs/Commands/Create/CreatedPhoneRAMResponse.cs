@@ -1,10 +1,7 @@
 ﻿using Core.Application.Responses;
 
-namespace Application.Features.PhoneProductFeatures.PhoneRAMs.Commands.Create
+namespace Application.Features.PhoneProductFeatures.PhoneRAMs.Commands.Create;
+public class CreatedPhoneRAMResponse : IResponse
 {
-    public class CreatedPhoneRAMResponse : IResponse
-    {
-        public string Memory { get; set; }
-
-    }
+    public string Memory { get; set; }
 }

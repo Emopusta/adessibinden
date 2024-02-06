@@ -3,24 +3,21 @@ using Core.Application.GenericRepository;
 using Domain.Models;
 using FluentValidation;
 
-namespace Application.Features.PhoneProducts.Commands.Delete
+namespace Application.Features.PhoneProducts.Commands.Delete;
+
+public class DeletePhoneProductCommandValidator : AbstractValidator<DeletePhoneProductCommand>
 {
-    public class DeletePhoneProductCommandValidator : AbstractValidator<DeletePhoneProductCommand>
+    private readonly IGenericRepository<PhoneProduct> _phoneProductRepository;
+    public DeletePhoneProductCommandValidator(IGenericRepository<PhoneProduct> phoneProductRepository)
     {
-        private readonly IGenericRepository<PhoneProduct> _phoneProductRepository;
+        _phoneProductRepository = phoneProductRepository;
 
-        public DeletePhoneProductCommandValidator(IGenericRepository<PhoneProduct> phoneProductRepository)
-        {
-            _phoneProductRepository = phoneProductRepository;
+        RuleFor(c => c.ProductId)
+            .MustAsync(PhoneProductMustExist).WithMessage(PhoneProductBusinessMessages.PhoneProductMustExist);
+    }
 
-            RuleFor(c => c.ProductId)
-                .MustAsync(PhoneProductMustExist).WithMessage(PhoneProductBusinessMessages.PhoneProductMustExist);
-
-        }
-
-        private async Task<bool> PhoneProductMustExist(int productId, CancellationToken cancellationToken)
-        {
-            return (await _phoneProductRepository.GetAsync(p => p.ProductId == productId)) != null;
-        }
+    private async Task<bool> PhoneProductMustExist(int productId, CancellationToken cancellationToken)
+    {
+        return (await _phoneProductRepository.GetAsync(p => p.ProductId == productId)) != null;
     }
 }

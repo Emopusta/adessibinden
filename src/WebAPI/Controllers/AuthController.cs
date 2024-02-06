@@ -15,7 +15,6 @@ namespace WebAPI.Controllers;
 [ApiController]
 public class AuthController : BaseController
 {
-
     [HttpPost("Login")]
     public async Task<IDataResult<LoggedResponse>> Login([FromBody] UserForLoginDto userForLoginDto)
     {
@@ -23,6 +22,7 @@ public class AuthController : BaseController
         var result = await Mediator.Send(loginCommand);
         return ReturnResult(result);
     }
+
     [Authorize]
     [HttpGet("Logout")]
     public async Task<IDataResult<LoggedOutResponse>> Logout()
@@ -31,13 +31,13 @@ public class AuthController : BaseController
         var result = await Mediator.Send(logoutCommand);
         return ReturnResult(result);
     }
+
     [HttpPost("Register")]
     public async Task<IDataResult<RegisteredResponse>> Register([FromBody] UserForRegisterDto userForRegisterDto)
     {
         var registerCommand = new RegisterCommand() { UserForRegisterDto = userForRegisterDto};
         var result = await Mediator.Send(registerCommand);
         return ReturnResult(result);
-
     }
 
     [HttpGet("RefreshToken")]
@@ -46,7 +46,6 @@ public class AuthController : BaseController
         var refreshTokenCommand = new RefreshTokenCommand();
         var result = await Mediator.Send(refreshTokenCommand);
         return ReturnResult(result);
-
     }
 
     [HttpPut("RevokeToken")]
@@ -55,7 +54,6 @@ public class AuthController : BaseController
         var revokeTokenCommand = new RevokeTokenCommand() { Token = refreshToken };
         var result = await Mediator.Send(revokeTokenCommand);
         return ReturnResult(result);
-
     }
 
 }

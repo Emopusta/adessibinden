@@ -1,12 +1,9 @@
 ﻿using Core.Application.Responses;
 
-namespace Application.Features.UserFavouriteProducts.Queries.GetByUserId
+namespace Application.Features.UserFavouriteProducts.Queries.GetByUserId;
+
+public class GetByUserIdUserFavouriteProductResponse : IResponse
 {
-    public class GetByUserIdUserFavouriteProductResponse : IResponse
-    {
-        public int ProductId { get; set; }
-        public string ProductTitle { get; set; }
-
-    }
-
+    public int ProductId { get; set; }
+    public string ProductTitle { get; set; }
 }

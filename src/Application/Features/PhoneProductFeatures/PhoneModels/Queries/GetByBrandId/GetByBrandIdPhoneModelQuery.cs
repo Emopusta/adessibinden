@@ -1,10 +1,9 @@
 ﻿using Core.Application.Pipelines;
 using Core.Application.Responses;
 
-namespace Application.Features.PhoneProductFeatures.PhoneModels.Queries.GetByBrandId
+namespace Application.Features.PhoneProductFeatures.PhoneModels.Queries.GetByBrandId;
+
+public class GetByBrandIdPhoneModelQuery : IQueryRequest<ListResponse<GetByBrandIdPhoneModelDto>>
 {
-    public class GetByBrandIdPhoneModelQuery : IQueryRequest<ListResponse<GetByBrandIdPhoneModelDto>>
-    {
-        public int BrandId { get; set; }
-    }
+    public int BrandId { get; set; }
 }

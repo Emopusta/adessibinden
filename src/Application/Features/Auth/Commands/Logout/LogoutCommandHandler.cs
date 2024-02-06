@@ -4,38 +4,37 @@ using Core.CrossCuttingConcerns.Cookies;
 using Core.Utilities.Network;
 using Microsoft.AspNetCore.Http;
 
-namespace Application.Features.Auth.Commands.Logout
+namespace Application.Features.Auth.Commands.Logout;
+
+public class LogoutCommandHandler : ICommandRequestHandler<LogoutCommand, LoggedOutResponse>
 {
-    public class LogoutCommandHandler : ICommandRequestHandler<LogoutCommand, LoggedOutResponse>
+    private readonly IHttpContextAccessor _contextAccessor;
+    private readonly IAuthService _authService;
+    
+    public LogoutCommandHandler(IHttpContextAccessor contextAccessor, IAuthService authService)
     {
-        private readonly IHttpContextAccessor _contextAccessor;
-        private readonly IAuthService _authService;
+        _contextAccessor = contextAccessor;
+        _authService = authService;
+    }
+
+    public async Task<LoggedOutResponse> Handle(LogoutCommand request, CancellationToken cancellationToken)
+    {
+
+        var token = RefreshTokenCookieHelper.GetRefreshTokenFromCookies(_contextAccessor.HttpContext);
         
-        public LogoutCommandHandler(IHttpContextAccessor contextAccessor, IAuthService authService)
+        var refreshToken = await _authService.GetRefreshTokenByToken(token);
+        var ipAddress = IpAddressHelper.GetIpAddress(_contextAccessor.HttpContext);
+
+        await _authService.RevokeRefreshToken(refreshToken, ipAddress, "Logging out");
+
+        RefreshTokenCookieHelper.DeleteRefreshTokenFromCookies(_contextAccessor.HttpContext);
+
+        LoggedOutResponse result = new()
         {
-            _contextAccessor = contextAccessor;
-            _authService = authService;
-        }
+            Message = "Logged Out"
+        };
 
-        public async Task<LoggedOutResponse> Handle(LogoutCommand request, CancellationToken cancellationToken)
-        {
+        return result;
 
-            var token = RefreshTokenCookieHelper.GetRefreshTokenFromCookies(_contextAccessor.HttpContext);
-            
-            var refreshToken = await _authService.GetRefreshTokenByToken(token);
-            var ipAddress = IpAddressHelper.GetIpAddress(_contextAccessor.HttpContext);
-
-            await _authService.RevokeRefreshToken(refreshToken, ipAddress, "Logging out");
-
-            RefreshTokenCookieHelper.DeleteRefreshTokenFromCookies(_contextAccessor.HttpContext);
-
-            LoggedOutResponse result = new()
-            {
-                Message = "Logged Out"
-            };
-
-            return result;
-
-        }
     }
 }

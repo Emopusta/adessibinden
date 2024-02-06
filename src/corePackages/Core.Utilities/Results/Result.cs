@@ -1,12 +1,11 @@
-﻿namespace Core.Utilities.Results
-{
-    public class Result : IResult
-    {
-        public bool Success { get; }
+﻿namespace Core.Utilities.Results;
 
-        public Result(bool success)
-        {
-            Success = success;
-        }
+public class Result : IResult
+{
+    public bool Success { get; }
+
+    public Result(bool success)
+    {
+        Success = success;
     }
 }

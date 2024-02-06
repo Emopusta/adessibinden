@@ -17,7 +17,6 @@ public class UserOperationClaimConfiguration : IEntityTypeConfiguration<UserOper
         builder.Property(uoc => uoc.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(uoc => uoc.DeletedDate).HasColumnName("DeletedDate");
 
-
         builder.HasOne(uoc => uoc.User);
         builder.HasOne(uoc => uoc.OperationClaim);
 
@@ -27,10 +26,8 @@ public class UserOperationClaimConfiguration : IEntityTypeConfiguration<UserOper
     private IEnumerable<UserOperationClaim> getSeeds()
     {
         List<UserOperationClaim> userOperationClaims = new();
-
         UserOperationClaim adminUserOperationClaim = new(id: 1, userId: 1, operationClaimId: 1);
         userOperationClaims.Add(adminUserOperationClaim);
-
         return userOperationClaims;
     }
 }

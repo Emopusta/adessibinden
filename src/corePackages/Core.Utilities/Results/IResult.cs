@@ -1,9 +1,6 @@
-﻿namespace Core.Utilities.Results
+﻿namespace Core.Utilities.Results;
 
+public interface IResult
 {
-    public interface IResult
-    {
-        bool Success { get; }
-
-    }
+    bool Success { get; }
 }

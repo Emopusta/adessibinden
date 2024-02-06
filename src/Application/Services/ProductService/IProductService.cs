@@ -1,11 +1,7 @@
-﻿using Application.Features.Products.Commands.Create;
-using Application.Services.ProductService.Responses;
+﻿using Application.Services.ProductService.Responses;
 
-namespace Application.Services.ProductService
+namespace Application.Services.ProductService;
+public interface IProductService
 {
-    public interface IProductService
-    {
-      Task<DeletedProductServiceResponse> DeleteProduct(int productId, CancellationToken cancellationToken);
-      
-    }
+  Task<DeletedProductServiceResponse> DeleteProduct(int productId, CancellationToken cancellationToken);
 }

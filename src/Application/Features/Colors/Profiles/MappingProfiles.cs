@@ -5,16 +5,15 @@ using Core.Application.Responses;
 using Core.Persistence.Paging;
 using Domain.Models;
 
-namespace Application.Features.Colors.Profiles
-{
-    public class MappingProfiles : Profile
-    {
-        public MappingProfiles()
-        {
-            CreateMap<Color, GetByIdColorResponse>().ReverseMap();
+namespace Application.Features.Colors.Profiles;
 
-            CreateMap<Color, GetAllColorsListItemDto>().ReverseMap();
-            CreateMap<IPaginate<Color>, PaginateResponse<GetAllColorsListItemDto>>().ReverseMap();
-        }
+public class MappingProfiles : Profile
+{
+    public MappingProfiles()
+    {
+        CreateMap<Color, GetByIdColorResponse>().ReverseMap();
+
+        CreateMap<Color, GetAllColorsListItemDto>().ReverseMap();
+        CreateMap<IPaginate<Color>, PaginateResponse<GetAllColorsListItemDto>>().ReverseMap();
     }
 }

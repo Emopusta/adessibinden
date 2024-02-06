@@ -5,17 +5,15 @@ using Core.Application.Responses;
 using Core.DataAccess.Listing;
 using Domain.Models;
 
-namespace Application.Features.UserFavouriteProducts.Profiles
+namespace Application.Features.UserFavouriteProducts.Profiles;
+
+public class MappingProfiles : Profile
 {
-    public class MappingProfiles : Profile
+    public MappingProfiles() 
     {
+        CreateMap<GetByUserIdUserFavouriteProductResponse, UserFavouriteProduct>().ReverseMap();
+        CreateMap<IListResponse<UserFavouriteProduct>, ListResponse<GetByUserIdUserFavouriteProductResponse>>().ReverseMap();
 
-        public MappingProfiles() 
-        {
-            CreateMap<GetByUserIdUserFavouriteProductResponse, UserFavouriteProduct>().ReverseMap();
-            CreateMap<IListResponse<UserFavouriteProduct>, ListResponse<GetByUserIdUserFavouriteProductResponse>>().ReverseMap();
-
-            CreateMap<GetByProductAndUserIdUserFavouriteProductResponse, UserFavouriteProduct>().ReverseMap();
-        }
+        CreateMap<GetByProductAndUserIdUserFavouriteProductResponse, UserFavouriteProduct>().ReverseMap();
     }
 }

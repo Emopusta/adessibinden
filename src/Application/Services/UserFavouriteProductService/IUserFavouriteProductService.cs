@@ -1,8 +1,6 @@
-﻿namespace Application.Services.UserFavouriteProductService
-{
-    public interface IUserFavouriteProductService
-    {
-        Task DeleteFavouritesByProduct(int productId);
+﻿namespace Application.Services.UserFavouriteProductService;
 
-    }
+public interface IUserFavouriteProductService
+{
+    Task DeleteFavouritesByProduct(int productId);
 }

@@ -1,6 +1,4 @@
 ﻿using Core.Application.Pipelines;
-using Core.Utilities.Results;
-using MediatR;
 
 namespace Application.Features.Auth.Commands.RevokeToken;
 

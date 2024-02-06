@@ -47,7 +47,6 @@ public class UserBusinessRules : BaseBusinessRules
         if (doesExists)
             throw new BusinessException(AuthMessages.UserMailAlreadyExists);
     }
-
     public async Task UserEmailShouldNotExistsWhenUpdate(int id, string email)
     {
         bool doesExists = await _userRepository.AnyAsync(predicate: u => u.Id != id && u.Email == email, enableTracking: false);

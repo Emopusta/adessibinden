@@ -16,8 +16,8 @@ public static class ApplicationServiceRegistration
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
         services.AddMediatR(configuration =>
         {
             configuration.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
@@ -27,7 +27,6 @@ public static class ApplicationServiceRegistration
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-
         services.AddScoped<IAuthService, AuthManager>();
         services.AddScoped<IUserService, UserManager>();
         services.AddScoped<IUserProfileService, UserProfileManager>();
@@ -35,7 +34,6 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IUserFavouriteProductService, UserFavouriteProductManager>();
 
         services.AddSubClassesOfType(Assembly.GetExecutingAssembly(), typeof(BaseBusinessRules));
-
 
         return services;
     }
@@ -53,6 +51,7 @@ public static class ApplicationServiceRegistration
                 services.AddScoped(item);
             else
                 addWithLifeCycle(services, type);
+
         return services;
     }
 }

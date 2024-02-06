@@ -1,12 +1,9 @@
 ﻿using Core.Utilities.Exceptions;
 
-namespace Core.Utilities.Results
+namespace Core.Utilities.Results;
 
+public interface IDataResult<T> : IResult
 {
-    public interface IDataResult<T> : IResult
-    {
-        T Data { get; }
-        ExceptionDetails Error { get; }
-
-    }
+    T Data { get; }
+    ExceptionDetails Error { get; }
 }

@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace Application.Services.AuthService;
-
 public class AuthManager : IAuthService
 {
     private readonly IGenericRepository<RefreshToken> _refreshTokenRepository;

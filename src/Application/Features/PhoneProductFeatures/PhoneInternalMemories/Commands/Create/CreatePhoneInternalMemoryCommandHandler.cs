@@ -2,32 +2,30 @@
 using Core.Application.Pipelines;
 using Domain.Models;
 
-namespace Application.Features.PhoneProductFeatures.PhoneInternalMemories.Commands.Create
+namespace Application.Features.PhoneProductFeatures.PhoneInternalMemories.Commands.Create;
+
+public class CreatePhoneInternalMemoryCommandHandler : ICommandRequestHandler<CreatePhoneInternalMemoryCommand, CreatedPhoneInternalMemoryResponse>
 {
-    public class CreatePhoneInternalMemoryCommandHandler : ICommandRequestHandler<CreatePhoneInternalMemoryCommand, CreatedPhoneInternalMemoryResponse>
+    private readonly IGenericRepository<PhoneInternalMemory> _phoneInternalMemoryRepository;
+
+    public CreatePhoneInternalMemoryCommandHandler(IGenericRepository<PhoneInternalMemory> phoneInternalMemoryRepository)
     {
-        private readonly IGenericRepository<PhoneInternalMemory> _phoneInternalMemoryRepository;
+        _phoneInternalMemoryRepository = phoneInternalMemoryRepository;
+    }
 
-        public CreatePhoneInternalMemoryCommandHandler(IGenericRepository<PhoneInternalMemory> phoneInternalMemoryRepository)
+    public async Task<CreatedPhoneInternalMemoryResponse> Handle(CreatePhoneInternalMemoryCommand request, CancellationToken cancellationToken)
+    {
+        PhoneInternalMemory phoneInternalMemory = new()
         {
-            _phoneInternalMemoryRepository = phoneInternalMemoryRepository;
-        }
+            Capacity = request.Capacity
+        };
 
-        public async Task<CreatedPhoneInternalMemoryResponse> Handle(CreatePhoneInternalMemoryCommand request, CancellationToken cancellationToken)
+        PhoneInternalMemory addedPhoneInternalMemory = await _phoneInternalMemoryRepository.AddAsync(phoneInternalMemory);
+
+        CreatedPhoneInternalMemoryResponse response = new()
         {
-            PhoneInternalMemory phoneInternalMemory = new()
-            {
-                Capacity = request.Capacity
-            };
-
-            PhoneInternalMemory addedPhoneInternalMemory = await _phoneInternalMemoryRepository.AddAsync(phoneInternalMemory);
-
-            CreatedPhoneInternalMemoryResponse response = new()
-            {
-                Capacity = addedPhoneInternalMemory.Capacity,
-            };
-
-            return response;
-        }
+            Capacity = addedPhoneInternalMemory.Capacity,
+        };
+        return response;
     }
 }

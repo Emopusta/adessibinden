@@ -2,23 +2,20 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Domain.Models;
 
-namespace DataAccess.EntityConfigurations
+namespace DataAccess.EntityConfigurations;
+
+public class CarChassisTypeConfiguration : IEntityTypeConfiguration<CarChassisType>
 {
-    public class CarChassisTypeConfiguration : IEntityTypeConfiguration<CarChassisType>
+    public void Configure(EntityTypeBuilder<CarChassisType> builder)
     {
-        public void Configure(EntityTypeBuilder<CarChassisType> builder)
-        {
-            builder.ToTable("carChassisTypes").HasKey(e => e.Id);
+        builder.ToTable("carChassisTypes").HasKey(e => e.Id);
 
-            builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
+        builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
 
-            builder.Property(e => e.CreatedDate).HasColumnName("CreatedDate").IsRequired();
-            builder.Property(e => e.UpdatedDate).HasColumnName("UpdatedDate");
-            builder.Property(e => e.DeletedDate).HasColumnName("DeletedDate");
+        builder.Property(e => e.CreatedDate).HasColumnName("CreatedDate").IsRequired();
+        builder.Property(e => e.UpdatedDate).HasColumnName("UpdatedDate");
+        builder.Property(e => e.DeletedDate).HasColumnName("DeletedDate");
 
-            builder.Property(e => e.Name).HasColumnType("character varying").HasColumnName("Name").IsRequired();
-         
-
-        }
+        builder.Property(e => e.Name).HasColumnType("character varying").HasColumnName("Name").IsRequired();
     }
 }

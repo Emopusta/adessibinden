@@ -2,34 +2,32 @@
 using Core.Application.Pipelines;
 using Domain.Models;
 
-namespace Application.Features.UserFavouriteProducts.Commands.Create
+namespace Application.Features.UserFavouriteProducts.Commands.Create;
+
+public class CreateUserFavouriteProductCommandHandler : ICommandRequestHandler<CreateUserFavouriteProductCommand, CreatedUserFavouriteProductResponse>
 {
-    public class CreateUserFavouriteProductCommandHandler : ICommandRequestHandler<CreateUserFavouriteProductCommand, CreatedUserFavouriteProductResponse>
+    private readonly IGenericRepository<UserFavouriteProduct> _userFavouriteProductRepository;
+
+    public CreateUserFavouriteProductCommandHandler(IGenericRepository<UserFavouriteProduct> userFavouriteProductRepository)
     {
-        private readonly IGenericRepository<UserFavouriteProduct> _userFavouriteProductRepository;
+        _userFavouriteProductRepository = userFavouriteProductRepository;
+    }
 
-        public CreateUserFavouriteProductCommandHandler(IGenericRepository<UserFavouriteProduct> userFavouriteProductRepository)
+    public async Task<CreatedUserFavouriteProductResponse> Handle(CreateUserFavouriteProductCommand request, CancellationToken cancellationToken)
+    {
+        var userFavouriteProduct = new UserFavouriteProduct()
         {
-            _userFavouriteProductRepository = userFavouriteProductRepository;
-        }
+            ProductId = request.ProductId,
+            UserId = request.UserId,
+        };
 
-        public async Task<CreatedUserFavouriteProductResponse> Handle(CreateUserFavouriteProductCommand request, CancellationToken cancellationToken)
+        var addedUserFavouriteProduct = await _userFavouriteProductRepository.AddAsync(userFavouriteProduct);
+
+        var response = new CreatedUserFavouriteProductResponse()
         {
-            var userFavouriteProduct = new UserFavouriteProduct()
-            {
-                ProductId = request.ProductId,
-                UserId = request.UserId,
-            };
-
-            var addedUserFavouriteProduct = await _userFavouriteProductRepository.AddAsync(userFavouriteProduct);
-
-            var response = new CreatedUserFavouriteProductResponse()
-            {
-                ProductId = addedUserFavouriteProduct.ProductId,
-                UserId = addedUserFavouriteProduct.UserId,
-            };
-
-            return response;
-        }
+            ProductId = addedUserFavouriteProduct.ProductId,
+            UserId = addedUserFavouriteProduct.UserId,
+        };
+        return response;
     }
 }

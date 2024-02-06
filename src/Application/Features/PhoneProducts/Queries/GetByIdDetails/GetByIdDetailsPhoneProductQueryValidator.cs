@@ -3,24 +3,21 @@ using Core.Application.GenericRepository;
 using Domain.Models;
 using FluentValidation;
 
-namespace Application.Features.PhoneProducts.Queries.GetByIdDetails
+namespace Application.Features.PhoneProducts.Queries.GetByIdDetails;
+
+public class GetByIdDetailsPhoneProductQueryValidator : AbstractValidator<GetByIdDetailsPhoneProductQuery>
 {
-    public class GetByIdDetailsPhoneProductQueryValidator : AbstractValidator<GetByIdDetailsPhoneProductQuery>
+    private readonly IGenericRepository<PhoneProduct> _phoneProductRepository;
+    public GetByIdDetailsPhoneProductQueryValidator(IGenericRepository<PhoneProduct> phoneProductRepository)
     {
-        private readonly IGenericRepository<PhoneProduct> _phoneProductRepository;
+        _phoneProductRepository = phoneProductRepository;
 
-        public GetByIdDetailsPhoneProductQueryValidator(IGenericRepository<PhoneProduct> phoneProductRepository)
-        {
-            _phoneProductRepository = phoneProductRepository;
+        RuleFor(p => p.ProductId)
+            .MustAsync(PhoneProductMustExist).WithMessage(PhoneProductBusinessMessages.PhoneProductMustExist);
+    }
 
-
-            RuleFor(p => p.ProductId)
-                .MustAsync(PhoneProductMustExist).WithMessage(PhoneProductBusinessMessages.PhoneProductMustExist);
-        }
-
-        private async Task<bool> PhoneProductMustExist(int productId, CancellationToken cancellationToken)
-        {
-            return (await _phoneProductRepository.GetAsync(p => p.ProductId == productId)) != null;
-        }
+    private async Task<bool> PhoneProductMustExist(int productId, CancellationToken cancellationToken)
+    {
+        return (await _phoneProductRepository.GetAsync(p => p.ProductId == productId)) != null;
     }
 }

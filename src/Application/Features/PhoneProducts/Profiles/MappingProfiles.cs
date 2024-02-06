@@ -5,21 +5,17 @@ using Application.Features.Products.Commands.Update;
 using AutoMapper;
 using Domain.Models;
 
-namespace Application.Features.PhoneProducts.Profiles
+namespace Application.Features.PhoneProducts.Profiles;
+
+public class MappingProfiles : Profile
 {
-    public class MappingProfiles : Profile
+    public MappingProfiles()
     {
-        public MappingProfiles()
-        {
+        CreateMap<PhoneProduct, GetByIdDetailsPhoneProductResponse>().ReverseMap();
+        CreateMap<PhoneProduct, GetByIdDetailsForUpdatePhoneProductResponse>().ReverseMap();
 
-            CreateMap<PhoneProduct, GetByIdDetailsPhoneProductResponse>().ReverseMap();
-            CreateMap<PhoneProduct, GetByIdDetailsForUpdatePhoneProductResponse>().ReverseMap();
-
-
-            CreateMap<Product, UpdateProductDto>().ReverseMap();
-            CreateMap<PhoneProduct, UpdatePhoneProductDto>().ReverseMap();
-            CreateMap<PhoneProduct, UpdatedPhoneProductResponse>().ReverseMap();
-
-        }
+        CreateMap<Product, UpdateProductDto>().ReverseMap();
+        CreateMap<PhoneProduct, UpdatePhoneProductDto>().ReverseMap();
+        CreateMap<PhoneProduct, UpdatedPhoneProductResponse>().ReverseMap();
     }
 }

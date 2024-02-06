@@ -59,7 +59,6 @@ public class UserManager : IUserService
         await _userBusinessRules.UserEmailShouldNotExistsWhenInsert(user.Email);
 
         User addedUser = await _userRepository.AddAsync(user);
-
         return addedUser;
     }
 
@@ -68,14 +67,12 @@ public class UserManager : IUserService
         await _userBusinessRules.UserEmailShouldNotExistsWhenUpdate(user.Id, user.Email);
 
         User updatedUser = await _userRepository.UpdateAsync(user);
-
         return updatedUser;
     }
 
     public async Task<User> DeleteAsync(User user, bool permanent = false)
     {
         User deletedUser = await _userRepository.DeleteAsync(user);
-
         return deletedUser;
     }
 }

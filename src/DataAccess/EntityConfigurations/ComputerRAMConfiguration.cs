@@ -2,22 +2,19 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DataAccess.EntityConfigurations
+namespace DataAccess.EntityConfigurations;
+
+public class ComputerRAMConfiguration : IEntityTypeConfiguration<ComputerRAM>
 {
-    public class ComputerRAMConfiguration : IEntityTypeConfiguration<ComputerRAM>
+    public void Configure(EntityTypeBuilder<ComputerRAM> builder)
     {
-        public void Configure(EntityTypeBuilder<ComputerRAM> builder)
-        {
-            builder.ToTable("computerRAMs").HasKey(e => e.Id);
+        builder.ToTable("computerRAMs").HasKey(e => e.Id);
 
-            builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
+        builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
 
-            builder.Property(e => e.CreatedDate).HasColumnName("CreatedDate").IsRequired();
-            builder.Property(e => e.UpdatedDate).HasColumnName("UpdatedDate");
-            builder.Property(e => e.DeletedDate).HasColumnName("DeletedDate"); 
-            builder.Property(e => e.Memory).HasColumnType("character varying").HasColumnName("Memory").IsRequired();
-
-
-        }
+        builder.Property(e => e.CreatedDate).HasColumnName("CreatedDate").IsRequired();
+        builder.Property(e => e.UpdatedDate).HasColumnName("UpdatedDate");
+        builder.Property(e => e.DeletedDate).HasColumnName("DeletedDate"); 
+        builder.Property(e => e.Memory).HasColumnType("character varying").HasColumnName("Memory").IsRequired();
     }
 }

@@ -2,35 +2,30 @@
 using Core.Application.Pipelines;
 using Domain.Models;
 
-namespace Application.Features.CarChassisTypes.Commands.Create
+namespace Application.Features.CarChassisTypes.Commands.Create;
+
+public class CreateCarChassisTypeCommandHandler : ICommandRequestHandler<CreateCarChassisTypeCommand, CreatedCarChassisTypeResponse>
 {
+    private readonly IGenericRepository<CarChassisType>  _repository;
+    public CreateCarChassisTypeCommandHandler(IGenericRepository<CarChassisType> repository)
+    {
+        _repository = repository;
+    }
 
-    public class CreateCarChassisTypeCommandHandler : ICommandRequestHandler<CreateCarChassisTypeCommand, CreatedCarChassisTypeResponse>
+    public async Task<CreatedCarChassisTypeResponse> Handle(CreateCarChassisTypeCommand request, CancellationToken cancellationToken)
+    {
+        CarChassisType carChassisType = new()
         {
-            private readonly IGenericRepository<CarChassisType>  _repository;
+            Name = request.Name
+        };
 
-            public CreateCarChassisTypeCommandHandler(IGenericRepository<CarChassisType> repository)
-            {
-                _repository = repository;
-            }
+        CarChassisType addedcarChassisType = await _repository.AddAsync(carChassisType);
 
-            public async Task<CreatedCarChassisTypeResponse> Handle(CreateCarChassisTypeCommand request, CancellationToken cancellationToken)
-            {
-                CarChassisType carChassisType = new()
-                {
-                    Name = request.Name
-                };
+        CreatedCarChassisTypeResponse response = new()
+        {
+            Name = addedcarChassisType.Name,
+        };
 
-
-                CarChassisType addedcarChassisType = await _repository.AddAsync(carChassisType);
-
-                CreatedCarChassisTypeResponse response = new()
-                {
-                    Name = addedcarChassisType.Name,
-                };
-
-                return response;
-            }
-        
+        return response;
     }
 }

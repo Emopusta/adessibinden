@@ -1,5 +1,4 @@
-﻿using Core.Security.Extensions;
-using Core.Utilities.Results;
+﻿using Core.Utilities.Results;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,5 +17,4 @@ public class BaseController : ControllerBase
     {
         return new SuccessDataResult<T>(result);
     }
-    
 }

@@ -16,7 +16,6 @@ builder.Services.AddApplicationServices();
 builder.Services.AddSecurityServices();
 builder.Services.AddHttpContextAccessor();
 
-
 const string tokenOptionsConfigurationSection = "TokenOptions";
 TokenOptions tokenOptions =
     builder.Configuration.GetSection(tokenOptionsConfigurationSection).Get<TokenOptions>()
@@ -36,7 +35,6 @@ builder.Services
             IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
         };
     });
-
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

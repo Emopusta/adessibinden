@@ -1,9 +1,8 @@
 ﻿using Core.Application.Pipelines;
 
-namespace Application.Features.PhoneProducts.Queries.GetByIdDetailsForUpdate
+namespace Application.Features.PhoneProducts.Queries.GetByIdDetailsForUpdate;
+
+public class GetByIdDetailsForUpdatePhoneProductQuery : IQueryRequest<GetByIdDetailsForUpdatePhoneProductResponse>
 {
-    public class GetByIdDetailsForUpdatePhoneProductQuery : IQueryRequest<GetByIdDetailsForUpdatePhoneProductResponse>
-    {
-        public int ProductId { get; set; }
-    }
+    public int ProductId { get; set; }
 }

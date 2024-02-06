@@ -1,13 +1,11 @@
 ﻿using Core.Application.Dtos;
 
-namespace Application.Features.UserProfiles.Dtos
+namespace Application.Features.UserProfiles.Dtos;
+public class UpdateUserProfileDto : IDto
 {
-    public class UpdateUserProfileDto : IDto
-    {
-        public int UserId { get; set; }
-        public string? FirstName { get; set; }
-        public string? LastName { get; set; }
-        public string? Address { get; set; }
-        public DateTime? BirthDate { get; set; }
-    }
+    public int UserId { get; set; }
+    public string? FirstName { get; set; }
+    public string? LastName { get; set; }
+    public string? Address { get; set; }
+    public DateTime? BirthDate { get; set; }
 }

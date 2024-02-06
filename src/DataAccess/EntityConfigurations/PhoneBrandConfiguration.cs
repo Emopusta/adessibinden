@@ -2,22 +2,19 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DataAccess.EntityConfigurations
+namespace DataAccess.EntityConfigurations;
+
+public class PhoneBrandConfiguration : IEntityTypeConfiguration<PhoneBrand>
 {
-    public class PhoneBrandConfiguration : IEntityTypeConfiguration<PhoneBrand>
+    public void Configure(EntityTypeBuilder<PhoneBrand> builder)
     {
-        public void Configure(EntityTypeBuilder<PhoneBrand> builder)
-        {
-            builder.ToTable("phoneBrands").HasKey(e => e.Id);
+        builder.ToTable("phoneBrands").HasKey(e => e.Id);
 
-            builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
+        builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
 
-            builder.Property(e => e.CreatedDate).HasColumnName("CreatedDate").IsRequired();
-            builder.Property(e => e.UpdatedDate).HasColumnName("UpdatedDate");
-            builder.Property(e => e.DeletedDate).HasColumnName("DeletedDate");
-            builder.Property(e => e.Name).HasColumnType("character varying").HasColumnName("Name").IsRequired();
-
-
-        }
+        builder.Property(e => e.CreatedDate).HasColumnName("CreatedDate").IsRequired();
+        builder.Property(e => e.UpdatedDate).HasColumnName("UpdatedDate");
+        builder.Property(e => e.DeletedDate).HasColumnName("DeletedDate");
+        builder.Property(e => e.Name).HasColumnType("character varying").HasColumnName("Name").IsRequired();
     }
 }

@@ -2,32 +2,30 @@
 using Core.Application.Pipelines;
 using Domain.Models;
 
-namespace Application.Features.PhoneProductFeatures.PhoneRAMs.Commands.Create
+namespace Application.Features.PhoneProductFeatures.PhoneRAMs.Commands.Create;
+
+public class CreatePhoneRAMCommandHandler : ICommandRequestHandler<CreatePhoneRAMCommand, CreatedPhoneRAMResponse>
 {
-    public class CreatePhoneRAMCommandHandler : ICommandRequestHandler<CreatePhoneRAMCommand, CreatedPhoneRAMResponse>
+    private readonly IGenericRepository<PhoneRAM> _phoneRAMRepository;
+    public CreatePhoneRAMCommandHandler(IGenericRepository<PhoneRAM> phoneRAMRepository)
     {
-        private readonly IGenericRepository<PhoneRAM> _phoneRAMRepository;
-        public CreatePhoneRAMCommandHandler(IGenericRepository<PhoneRAM> phoneRAMRepository)
+        _phoneRAMRepository = phoneRAMRepository;
+    }
+
+    public async Task<CreatedPhoneRAMResponse> Handle(CreatePhoneRAMCommand request, CancellationToken cancellationToken)
+    {
+
+        PhoneRAM phoneRAM = new()
         {
-            _phoneRAMRepository = phoneRAMRepository;
-        }
+            Memory = request.Memory,
+        };
 
-        public async Task<CreatedPhoneRAMResponse> Handle(CreatePhoneRAMCommand request, CancellationToken cancellationToken)
+        PhoneRAM addedphoneRAM = await _phoneRAMRepository.AddAsync(phoneRAM);
+
+        CreatedPhoneRAMResponse response = new()
         {
-
-            PhoneRAM phoneRAM = new()
-            {
-                Memory = request.Memory,
-            };
-
-            PhoneRAM addedphoneRAM = await _phoneRAMRepository.AddAsync(phoneRAM);
-
-            CreatedPhoneRAMResponse response = new()
-            {
-                Memory = addedphoneRAM.Memory,
-            };
-
-            return response;
-        }
+            Memory = addedphoneRAM.Memory,
+        };
+        return response;
     }
 }

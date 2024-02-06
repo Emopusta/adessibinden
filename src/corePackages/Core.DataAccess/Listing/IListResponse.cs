@@ -1,9 +1,6 @@
-﻿using System.Collections;
+﻿namespace Core.DataAccess.Listing;
 
-namespace Core.DataAccess.Listing
+public interface IListResponse<T> 
 {
-    public interface IListResponse<T> 
-    {
-        IList<T> Data { get; }
-    }
+    IList<T> Data { get; }
 }

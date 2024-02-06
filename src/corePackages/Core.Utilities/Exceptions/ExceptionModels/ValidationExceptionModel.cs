@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Core.Utilities.Exceptions;
 
-namespace Core.Utilities.Exceptions
+public class ValidationExceptionModel
 {
-    public class ValidationExceptionModel
-    {
-        public string? Property { get; set; }
-        public IEnumerable<string>? Errors { get; set; }
-    }
+    public string? Property { get; set; }
+    public IEnumerable<string>? Errors { get; set; }
 }

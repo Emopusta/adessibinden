@@ -3,25 +3,21 @@ using Core.Application.GenericRepository;
 using Domain.Models;
 using FluentValidation;
 
-namespace Application.Features.ProductCategories.Queries.GetAllList
+namespace Application.Features.ProductCategories.Queries.GetAllList;
+
+public class GetAllListProductCategoryQueryValidator : AbstractValidator<GetAllListProductCategoryQuery>
 {
-    public class GetAllListProductCategoryQueryValidator : AbstractValidator<GetAllListProductCategoryQuery>
+    private readonly IGenericRepository<ProductCategory> _productCategoryRepository;
+    public GetAllListProductCategoryQueryValidator(IGenericRepository<ProductCategory> productCategoryRepository)
     {
-        private readonly IGenericRepository<ProductCategory> _productCategoryRepository;
+        _productCategoryRepository = productCategoryRepository;
 
-        public GetAllListProductCategoryQueryValidator(IGenericRepository<ProductCategory> productCategoryRepository)
-        {
-            _productCategoryRepository = productCategoryRepository;
+        RuleFor(p => p)
+            .MustAsync(ProductCategoriesMustExist).WithMessage(ProductCategoryBusinessMessages.ProductCategoryMustExist);
+    }
 
-            RuleFor(p => p)
-                .MustAsync(ProductCategoriesMustExist).WithMessage(ProductCategoryBusinessMessages.ProductCategoryMustExist);
-
-        }
-
-        private async Task<bool> ProductCategoriesMustExist(object _, CancellationToken cancellationToken)
-        {
-            var productCategory = await _productCategoryRepository.AnyAsync();
-            return productCategory;
-        }
+    private async Task<bool> ProductCategoriesMustExist(object _, CancellationToken cancellationToken)
+    {
+        return await _productCategoryRepository.AnyAsync();
     }
 }

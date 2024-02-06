@@ -2,35 +2,30 @@
 using Core.Application.Pipelines;
 using Domain.Models;
 
-namespace Application.Features.CarBrands.Commands.Create
+namespace Application.Features.CarBrands.Commands.Create;
+
+public class CreateCarBrandCommandHandler : ICommandRequestHandler<CreateCarBrandCommand, CreatedCarBrandResponse>
 {
+    private readonly IGenericRepository<CarBrand> _repository;
+    public CreateCarBrandCommandHandler(IGenericRepository<CarBrand> repository)
+    {
+        _repository = repository;
+    }
 
-    public class CreateCarBrandCommandHandler : ICommandRequestHandler<CreateCarBrandCommand, CreatedCarBrandResponse>
+    public async Task<CreatedCarBrandResponse> Handle(CreateCarBrandCommand request, CancellationToken cancellationToken)
+    {
+        CarBrand carBrand = new()
         {
-            private readonly IGenericRepository<CarBrand> _repository;
+            Name = request.Name
+        };
 
-            public CreateCarBrandCommandHandler(IGenericRepository<CarBrand> repository)
-            {
-                _repository = repository;
-            }
+        CarBrand addedCarBrand = await _repository.AddAsync(carBrand);
 
-            public async Task<CreatedCarBrandResponse> Handle(CreateCarBrandCommand request, CancellationToken cancellationToken)
-            {
-                CarBrand carBrand = new()
-                {
-                    Name = request.Name
-                };
+        CreatedCarBrandResponse result = new()
+        {
+            Name = addedCarBrand.Name,
+        };
 
-
-                CarBrand addedCarBrand = await _repository.AddAsync(carBrand);
-
-                CreatedCarBrandResponse result = new()
-                {
-                    Name = addedCarBrand.Name,
-                };
-
-                return result;
-            }
-        
+        return result;
     }
 }

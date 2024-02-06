@@ -4,33 +4,29 @@ using Core.Application.Pipelines;
 using Core.CrossCuttingConcerns.Exceptions.Types;
 using Domain.Models;
 
-namespace Application.Features.UserFavouriteProducts.Commands.Delete
+namespace Application.Features.UserFavouriteProducts.Commands.Delete;
+
+public class DeleteUserFavouriteProductCommandHandler : ICommandRequestHandler<DeleteUserFavouriteProductCommand, DeletedUserFavouriteProductResponse>
 {
-    public class DeleteUserFavouriteProductCommandHandler : ICommandRequestHandler<DeleteUserFavouriteProductCommand, DeletedUserFavouriteProductResponse>
+    private readonly IGenericRepository<UserFavouriteProduct> _userFavouriteProductRepository;
+
+    public DeleteUserFavouriteProductCommandHandler(IGenericRepository<UserFavouriteProduct> userFavouriteProductRepository)
     {
-        private readonly IGenericRepository<UserFavouriteProduct> _userFavouriteProductRepository;
+        _userFavouriteProductRepository = userFavouriteProductRepository;
+    }
 
-        public DeleteUserFavouriteProductCommandHandler(IGenericRepository<UserFavouriteProduct> userFavouriteProductRepository)
+    public async Task<DeletedUserFavouriteProductResponse> Handle(DeleteUserFavouriteProductCommand request, CancellationToken cancellationToken)
+    {
+        var userFavouriteProductToDelete = await _userFavouriteProductRepository.GetAsync(predicate: p => (p.ProductId == request.ProductId) && (p.UserId == request.UserId));
+        if (userFavouriteProductToDelete == null) throw new BusinessException(UserFavouriteProductBusinessMessages.UserFavouriteProductMustExistToDelete);
+
+        var deletedUserFavouriteProduct = await _userFavouriteProductRepository.DeleteAsync(userFavouriteProductToDelete, permanent: true);
+
+        var response = new DeletedUserFavouriteProductResponse()
         {
-            _userFavouriteProductRepository = userFavouriteProductRepository;
-        }
-
-        public async Task<DeletedUserFavouriteProductResponse> Handle(DeleteUserFavouriteProductCommand request, CancellationToken cancellationToken)
-        {
-            var userFavouriteProductToDelete = await _userFavouriteProductRepository.GetAsync(predicate: p => (p.ProductId == request.ProductId) && (p.UserId == request.UserId));
-
-            if (userFavouriteProductToDelete == null) throw new BusinessException(UserFavouriteProductBusinessMessages.UserFavouriteProductMustExistToDelete);
-
-            var deletedUserFavouriteProduct = await _userFavouriteProductRepository.DeleteAsync(userFavouriteProductToDelete, permanent: true);
-
-            var response = new DeletedUserFavouriteProductResponse()
-            {
-                UserId = deletedUserFavouriteProduct.UserId,
-                ProductId = deletedUserFavouriteProduct.ProductId,
-            };
-
-            return response;
-
-        }
+            UserId = deletedUserFavouriteProduct.UserId,
+            ProductId = deletedUserFavouriteProduct.ProductId,
+        };
+        return response;
     }
 }

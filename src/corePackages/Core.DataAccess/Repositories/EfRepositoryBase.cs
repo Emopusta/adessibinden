@@ -116,7 +116,6 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         return await queryable.FirstOrDefaultAsync(predicate, cancellationToken);
     }
 
-
     public async Task<bool> AnyAsync(
         Expression<Func<TEntity, bool>>? predicate = null,
         bool withDeleted = false,
@@ -210,8 +209,6 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
             return orderBy(queryable).ToPaginate(index, size);
         return queryable.ToPaginate(index, size);
     }
-
-    
 
     public bool Any(Expression<Func<TEntity, bool>>? predicate = null, bool withDeleted = false, bool enableTracking = true)
     {
@@ -390,9 +387,6 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
                 setEntityAsSoftDeleted((Entity)navValue);
             }
         }
-
         Context.Update(entity);
     }
-
-   
 }

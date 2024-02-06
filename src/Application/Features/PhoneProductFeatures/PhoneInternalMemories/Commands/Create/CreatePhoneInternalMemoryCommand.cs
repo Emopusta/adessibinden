@@ -1,9 +1,8 @@
 ﻿using Core.Application.Pipelines;
 
-namespace Application.Features.PhoneProductFeatures.PhoneInternalMemories.Commands.Create
+namespace Application.Features.PhoneProductFeatures.PhoneInternalMemories.Commands.Create;
+
+public class CreatePhoneInternalMemoryCommand : ICommandRequest<CreatedPhoneInternalMemoryResponse>
 {
-    public class CreatePhoneInternalMemoryCommand : ICommandRequest<CreatedPhoneInternalMemoryResponse>
-    {
-        public string Capacity { get; set; }
-    }
+    public string Capacity { get; set; }
 }

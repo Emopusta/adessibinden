@@ -1,9 +1,7 @@
 ﻿using Core.Application.Responses;
 
-namespace Application.Services.ProductService.Responses
+namespace Application.Services.ProductService.Responses;
+public class DeletedProductServiceResponse : IResponse
 {
-    public class DeletedProductServiceResponse : IResponse
-    {
-        public int ProductId { get; set; }
-    }
+    public int ProductId { get; set; }
 }

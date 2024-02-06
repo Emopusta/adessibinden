@@ -1,30 +1,28 @@
 ﻿using Core.DataAccess.Repositories;
 using DataAccess.Contexts;
 
-namespace DataAccess.UoW
+namespace DataAccess.UoW;
+
+public class UnitOfWork : IUnitOfWork
 {
-    public class UnitOfWork : IUnitOfWork
+    private readonly AdessibindenContext _dbContext;
+    public UnitOfWork(AdessibindenContext dbContext)
     {
-        private readonly AdessibindenContext _dbContext;
+        _dbContext = dbContext;
+    }
 
-        public UnitOfWork(AdessibindenContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
+    public async Task<int> SaveAsync(CancellationToken cancellationToken)
+    {
+        return await _dbContext.SaveChangesAsync(cancellationToken);
+    }
 
-        public async Task<int> SaveAsync(CancellationToken cancellationToken)
-        {
-            return await _dbContext.SaveChangesAsync(cancellationToken);
-        }
-        public void Dispose()
-        {
-            _dbContext.Dispose();
-        }
+    public void Dispose()
+    {
+        _dbContext.Dispose();
+    }
 
-        public int Save()
-        {
-            return _dbContext.SaveChanges();
-
-        }
+    public int Save()
+    {
+        return _dbContext.SaveChanges();
     }
 }

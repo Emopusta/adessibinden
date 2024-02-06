@@ -17,7 +17,6 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         builder.Property(oc => oc.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(oc => oc.DeletedDate).HasColumnName("DeletedDate");
 
-
         builder.HasMany(oc => oc.UserOperationClaims);
 
         builder.HasData(getSeeds());
@@ -30,9 +29,7 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             new()
             {
                 new OperationClaim { Id = ++id, Name = GeneralOperationClaims.Admin }
-            };
-
-        
+            }; 
         return seeds;
     }
 }

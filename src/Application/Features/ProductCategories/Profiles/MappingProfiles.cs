@@ -4,15 +4,12 @@ using Core.Application.Responses;
 using Core.DataAccess.Listing;
 using Domain.Models;
 
-namespace Application.Features.ProductCategories.Profiles
+namespace Application.Features.ProductCategories.Profiles;
+public class MappingProfiles : Profile
 {
-    public class MappingProfiles : Profile
+    public MappingProfiles()
     {
-        public MappingProfiles()
-        {
-            CreateMap<ProductCategory, GetAllListProductCategoryDto>().ReverseMap();
-            CreateMap<IListResponse<ProductCategory>, ListResponse<GetAllListProductCategoryDto>>().ReverseMap();
-
-        }
+        CreateMap<ProductCategory, GetAllListProductCategoryDto>().ReverseMap();
+        CreateMap<IListResponse<ProductCategory>, ListResponse<GetAllListProductCategoryDto>>().ReverseMap();
     }
 }

@@ -5,21 +5,17 @@ using Application.Features.UserProfiles.Queries.GetByUserId;
 using AutoMapper;
 using Domain.Models;
 
-namespace Application.Features.UserProfiles.Profiles
+namespace Application.Features.UserProfiles.Profiles;
+public class MappingProfiles : Profile
 {
-    public class MappingProfiles : Profile
+    public MappingProfiles()
     {
-        public MappingProfiles()
-        {
+        CreateMap<CreateUserProfileCommand, UserProfile>().ReverseMap();
+        CreateMap<CreatedUserProfileResponse, UserProfile>().ReverseMap();
 
-            CreateMap<CreateUserProfileCommand, UserProfile>().ReverseMap();
-            CreateMap<CreatedUserProfileResponse, UserProfile>().ReverseMap();
+        CreateMap<UpdateUserProfileDto, UserProfile>().ReverseMap();
+        CreateMap<UpdatedUserProfileResponse, UserProfile>().ReverseMap();
 
-            CreateMap<UpdateUserProfileDto, UserProfile>().ReverseMap();
-            CreateMap<UpdatedUserProfileResponse, UserProfile>().ReverseMap();
-
-            CreateMap<GetUserProfileResponse, UserProfile>().ReverseMap();
-
-        }
+        CreateMap<GetUserProfileResponse, UserProfile>().ReverseMap();
     }
 }
