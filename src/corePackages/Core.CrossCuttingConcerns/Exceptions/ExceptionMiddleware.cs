@@ -23,7 +23,7 @@ public class ExceptionMiddleware
         }
         catch (Exception exception)
         {
-            HandleExceptionAsync(context.Response, exception);
+            await HandleExceptionAsync(context.Response, exception);
         }
     }
 
