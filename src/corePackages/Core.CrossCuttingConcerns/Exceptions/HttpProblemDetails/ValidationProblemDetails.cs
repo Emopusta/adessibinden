@@ -5,7 +5,6 @@ namespace Core.CrossCuttingConcerns.Exceptions.HttpProblemDetails;
 
 internal class ValidationProblemDetails : ExceptionDetails
 {
-
     public ValidationProblemDetails(IEnumerable<ValidationExceptionModel> errors)
     {
         Type = "https://example.com/probs/validation";
@@ -13,6 +12,5 @@ internal class ValidationProblemDetails : ExceptionDetails
         Detail = "One or more validation errors occurred.";
         ValidationErrors = errors;
         Status = StatusCodes.Status400BadRequest;
-        
     }
 }

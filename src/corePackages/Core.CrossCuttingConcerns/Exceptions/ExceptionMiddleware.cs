@@ -5,7 +5,6 @@ namespace Core.CrossCuttingConcerns.Exceptions;
 
 public class ExceptionMiddleware
 {
- 
     private readonly HttpExceptionHandler _httpExceptionHandler;
     private readonly RequestDelegate _next;
 
@@ -33,5 +32,4 @@ public class ExceptionMiddleware
         _httpExceptionHandler.Response = response;
         return _httpExceptionHandler.HandleExceptionAsync(exception);
     }
-
 }

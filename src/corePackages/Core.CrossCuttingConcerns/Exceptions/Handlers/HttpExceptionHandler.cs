@@ -25,31 +25,34 @@ public class HttpExceptionHandler : ExceptionHandler
         return Response.WriteAsync(JsonSerializer.Serialize(new ErrorDataResult<BusinessProblemDetails>(details), Options()));
     }
 
-
     protected override Task HandleException(Exception exception)
     {
         Response.StatusCode = StatusCodes.Status500InternalServerError;
         var details = new InternalServerErrorProblemDetails(exception.Message);
         return Response.WriteAsync(JsonSerializer.Serialize(new ErrorDataResult<InternalServerErrorProblemDetails>(details), Options()));
     }
+
     protected override Task HandleException(ArgumentNullException argumentNullException)
     {
         Response.StatusCode = StatusCodes.Status406NotAcceptable;
         var details = new ArgumentNullProblemDetails(argumentNullException.Message);
         return Response.WriteAsync(JsonSerializer.Serialize(new ErrorDataResult<InternalServerErrorProblemDetails>(details), Options()));
     }
+
     protected override Task HandleException(DbUpdateException dbUpdateException)
     {
         Response.StatusCode = StatusCodes.Status400BadRequest;
         var details = new DbUptadeProblemDetails(dbUpdateException.InnerException.Message);
         return Response.WriteAsync(JsonSerializer.Serialize(new ErrorDataResult<InternalServerErrorProblemDetails>(details), Options()));
     }
+
     protected override Task HandleException(AuthException authorizationException)
     {
         Response.StatusCode = StatusCodes.Status401Unauthorized;
         var details = new AuthProblemDetails(authorizationException.Message);
         return Response.WriteAsync(JsonSerializer.Serialize(new ErrorDataResult<AuthProblemDetails>(details), Options()));
     }
+
     protected override Task HandleException(ValidationException validationException)
     {
         Response.StatusCode = StatusCodes.Status400BadRequest;
@@ -65,5 +68,4 @@ public class HttpExceptionHandler : ExceptionHandler
         };
         return options;
     }
-
 }
