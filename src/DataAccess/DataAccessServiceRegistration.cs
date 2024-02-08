@@ -1,5 +1,7 @@
-﻿using Core.DataAccess.Repositories;
+﻿using Core.Application.GenericRepository;
+using Core.DataAccess.Repositories;
 using DataAccess.Contexts;
+using DataAccess.Repositories;
 using DataAccess.UoW;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -36,8 +38,8 @@ private static IServiceCollection RegisterGenericRepositories(this IServiceColle
 
         if (domainAssembly == null || coreAssembly == null || dataAccessAssembly == null) throw new Exception("Assemblies could not found.");
 
-        var iGenericRepository = coreAssembly.DefinedTypes.FirstOrDefault(p => p.Name.Equals("IGenericRepository`1"));
-        var genericRepository = dataAccessAssembly.DefinedTypes.FirstOrDefault(p => p.Name.Equals("GenericRepository`1"));
+        var iGenericRepository = coreAssembly.DefinedTypes.FirstOrDefault(p => p.AsType() == typeof(IGenericRepository<>));
+        var genericRepository = dataAccessAssembly.DefinedTypes.FirstOrDefault(p => p.AsType() == typeof(GenericRepository<>));
 
         if (iGenericRepository == null || genericRepository == null) throw new Exception("GenericRepository Assemblies could not found.");
 
