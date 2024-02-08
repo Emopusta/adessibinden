@@ -3,7 +3,7 @@ using Core.DataAccess.Entities;
 using Core.Persistence.Repositories;
 using DataAccess.Contexts;
 
-namespace Core.Application.Pipelines.GenericRepository;
+namespace DataAccess.Repositories;
 
 public class GenericRepository<TEntity> : EfRepositoryBase<TEntity, AdessibindenContext>, IGenericRepository<TEntity>
     where TEntity : BaseEntity
