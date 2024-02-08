@@ -14,13 +14,13 @@ public class CreateColorCommandHandler : ICommandRequestHandler<CreateColorComma
 
     public async Task<CreatedColorResponse> Handle(CreateColorCommand request, CancellationToken cancellationToken)
     {
-        Color color = new() {
+        var color = new Color() {
             Name = request.Name
         };
 
-        Color addedColor = await _colorRepository.AddAsync(color);
+        var addedColor = await _colorRepository.AddAsync(color);
 
-        CreatedColorResponse response = new()
+        var response = new CreatedColorResponse()
         {
             Name = addedColor.Name,
         };
