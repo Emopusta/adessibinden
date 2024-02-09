@@ -13,26 +13,26 @@ namespace WebAPI.Controllers
     public class ProductsController : BaseController
     {
         [HttpGet("GetByCreator/{creatorUserId}")]
-        public async Task<IDataResult<PaginateResponse<GetByCreatorUserIdPaginatedDto>>> GetByCreatorUserId([FromQuery] PageRequest pageRequest, [FromRoute] int creatorUserId)
+        public async Task<IDataResult<PaginateResponse<GetByCreatorUserIdPaginatedDto>>> GetByCreatorUserId([FromQuery] PageRequest pageRequest, [FromRoute] int creatorUserId, CancellationToken cancellationToken)
         {
             var query = new GetByCreatorUserIdPaginatedQuery() { CreatorUserId = creatorUserId, PageRequest = pageRequest };
-            var result = await Mediator.Send(query);
+            var result = await Mediator.Send(query, cancellationToken);
             return ReturnResult(result);
         }
 
         [HttpGet]
-        public async Task<IDataResult<PaginateResponse<GetAllPaginatedProductDto>>> GetAllPaginated([FromQuery] PageRequest pageRequest)
+        public async Task<IDataResult<PaginateResponse<GetAllPaginatedProductDto>>> GetAllPaginated([FromQuery] PageRequest pageRequest, CancellationToken cancellationToken)
         {
             var query = new GetAllPaginatedProductQuery() { PageRequest = pageRequest };
-            var result = await Mediator.Send(query);
+            var result = await Mediator.Send(query, cancellationToken);
             return ReturnResult(result);
         }
 
         [HttpGet("GetByTitle")]
-        public async Task<IDataResult<PaginateResponse<GetByTitlePaginatedProductDto>>> GetByTitlePaginated([FromQuery] PageRequest pageRequest, string productTitleToSearch)
+        public async Task<IDataResult<PaginateResponse<GetByTitlePaginatedProductDto>>> GetByTitlePaginated([FromQuery] PageRequest pageRequest, string productTitleToSearch, CancellationToken cancellationToken)
         {
             var query = new GetByTitlePaginatedProductQuery() { PageRequest = pageRequest , ProductTitleToSearch = productTitleToSearch};
-            var result = await Mediator.Send(query);
+            var result = await Mediator.Send(query, cancellationToken);
             return ReturnResult(result);
         }
     }

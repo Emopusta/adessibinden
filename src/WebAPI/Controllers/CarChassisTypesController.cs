@@ -9,9 +9,9 @@ namespace WebAPI.Controllers;
 public class CarChassisTypesController : BaseController
 {
     [HttpPost]
-    public async Task<IDataResult<CreatedCarChassisTypeResponse>> Create([FromBody] CreateCarChassisTypeCommand createCarChassisTypeCommand)
+    public async Task<IDataResult<CreatedCarChassisTypeResponse>> Create([FromBody] CreateCarChassisTypeCommand createCarChassisTypeCommand, CancellationToken cancellationToken)
     {
-        var response = await Mediator.Send(createCarChassisTypeCommand);
+        var response = await Mediator.Send(createCarChassisTypeCommand, cancellationToken);
         return ReturnResult(response);
     }
 }

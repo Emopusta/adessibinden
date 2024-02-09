@@ -12,24 +12,24 @@ namespace WebAPI.Controllers.PhoneProductFeaturesControllers;
 public class PhoneModelsController : BaseController
 {
     [HttpPost]
-    public async Task<IDataResult<CreatedPhoneModelResponse>> Create([FromBody] CreatePhoneModelCommand createPhoneModelCommand)
+    public async Task<IDataResult<CreatedPhoneModelResponse>> Create([FromBody] CreatePhoneModelCommand createPhoneModelCommand, CancellationToken cancellationToken)
     {
-        var response = await Mediator.Send(createPhoneModelCommand);
+        var response = await Mediator.Send(createPhoneModelCommand, cancellationToken);
         return ReturnResult(response);
     }
 
     [HttpGet]
-    public async Task<IDataResult<ListResponse<GetAllListPhoneModelDto>>> GetAll()
+    public async Task<IDataResult<ListResponse<GetAllListPhoneModelDto>>> GetAll(CancellationToken cancellationToken)
     {
         var query = new GetAllListPhoneModelQuery();
-        var response = await Mediator.Send(query);
+        var response = await Mediator.Send(query, cancellationToken);
         return ReturnResult(response);
     }
 
     [HttpGet("{BrandId}")]
-    public async Task<IDataResult<ListResponse<GetByBrandIdPhoneModelDto>>> GetByBrandId([FromRoute] GetByBrandIdPhoneModelQuery getByBrandIdPhoneModelQuery)
+    public async Task<IDataResult<ListResponse<GetByBrandIdPhoneModelDto>>> GetByBrandId([FromRoute] GetByBrandIdPhoneModelQuery getByBrandIdPhoneModelQuery, CancellationToken cancellationToken)
     {
-        var response = await Mediator.Send(getByBrandIdPhoneModelQuery);
+        var response = await Mediator.Send(getByBrandIdPhoneModelQuery, cancellationToken);
         return ReturnResult(response);
     }
 }

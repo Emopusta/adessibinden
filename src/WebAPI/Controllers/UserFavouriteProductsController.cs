@@ -13,31 +13,31 @@ namespace WebAPI.Controllers;
 public class UserFavouriteProductsController : BaseController
 {
     [HttpPost]
-    public async Task<IDataResult<CreatedUserFavouriteProductResponse>> Create([FromBody] CreateUserFavouriteProductCommand createUserFavouriteProductCommand)
+    public async Task<IDataResult<CreatedUserFavouriteProductResponse>> Create([FromBody] CreateUserFavouriteProductCommand createUserFavouriteProductCommand, CancellationToken cancellationToken)
     {
-        var response = await Mediator.Send(createUserFavouriteProductCommand);
+        var response = await Mediator.Send(createUserFavouriteProductCommand, cancellationToken);
         return ReturnResult(response);
     }
 
     [HttpDelete("/api/UserFavouriteProducts/{userId}/{productId}")]
-    public async Task<IDataResult<DeletedUserFavouriteProductResponse>> Delete([FromRoute] int userId, int productId)
+    public async Task<IDataResult<DeletedUserFavouriteProductResponse>> Delete([FromRoute] int userId, int productId, CancellationToken cancellationToken)
     {
         var deleteUserFavouriteProductCommand = new DeleteUserFavouriteProductCommand() { ProductId = productId , UserId = userId};
-        var response = await Mediator.Send(deleteUserFavouriteProductCommand);
+        var response = await Mediator.Send(deleteUserFavouriteProductCommand, cancellationToken);
         return ReturnResult(response);
     }
 
     [HttpGet]
-    public async Task<IDataResult<GetByProductAndUserIdUserFavouriteProductResponse>> GetByProductAndUserId([FromQuery] GetByProductAndUserIdUserFavouriteProductQuery getByProductAndUserIdUserFavouriteProductQuery)
+    public async Task<IDataResult<GetByProductAndUserIdUserFavouriteProductResponse>> GetByProductAndUserId([FromQuery] GetByProductAndUserIdUserFavouriteProductQuery getByProductAndUserIdUserFavouriteProductQuery, CancellationToken cancellationToken)
     {
-        var response = await Mediator.Send(getByProductAndUserIdUserFavouriteProductQuery);
+        var response = await Mediator.Send(getByProductAndUserIdUserFavouriteProductQuery, cancellationToken);
         return ReturnResult(response);
     }
 
     [HttpGet("GetByUserId")]
-    public async Task<IDataResult<ListResponse<GetByUserIdUserFavouriteProductResponse>>> GetByUserId([FromQuery] GetByUserIdUserFavouriteProductQuery getByUserIdUserFavouriteProductQuery)
+    public async Task<IDataResult<ListResponse<GetByUserIdUserFavouriteProductResponse>>> GetByUserId([FromQuery] GetByUserIdUserFavouriteProductQuery getByUserIdUserFavouriteProductQuery, CancellationToken cancellationToken)
     {
-        var response = await Mediator.Send(getByUserIdUserFavouriteProductQuery);
+        var response = await Mediator.Send(getByUserIdUserFavouriteProductQuery, cancellationToken);
         return ReturnResult(response);
     }
 }

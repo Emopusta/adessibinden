@@ -11,9 +11,9 @@ public class CarBrandsController : BaseController
 {
     [Authorize(Roles = "Admin")]
     [HttpPost]
-    public async Task<IDataResult<CreatedCarBrandResponse>> Create([FromBody] CreateCarBrandCommand createCarBrandCommand)
+    public async Task<IDataResult<CreatedCarBrandResponse>> Create([FromBody] CreateCarBrandCommand createCarBrandCommand, CancellationToken cancellationToken)
     {
-        var response = await Mediator.Send(createCarBrandCommand);
+        var response = await Mediator.Send(createCarBrandCommand, cancellationToken);
         return ReturnResult(response);
     }
 }

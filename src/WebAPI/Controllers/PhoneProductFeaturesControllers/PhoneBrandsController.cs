@@ -11,17 +11,17 @@ namespace WebAPI.Controllers.PhoneProductFeaturesControllers;
 public class PhoneBrandsController : BaseController
 {
     [HttpPost]
-    public async Task<IDataResult<CreatedPhoneBrandResponse>> Create([FromBody] CreatePhoneBrandCommand createPhoneBrandCommand)
+    public async Task<IDataResult<CreatedPhoneBrandResponse>> Create([FromBody] CreatePhoneBrandCommand createPhoneBrandCommand, CancellationToken cancellationToken)
     {
-        var response = await Mediator.Send(createPhoneBrandCommand);
+        var response = await Mediator.Send(createPhoneBrandCommand, cancellationToken);
         return ReturnResult(response);
     }
 
     [HttpGet]
-    public async Task<IDataResult<ListResponse<GetAllListPhoneBrandDto>>> GetAll()
+    public async Task<IDataResult<ListResponse<GetAllListPhoneBrandDto>>> GetAll(CancellationToken cancellationToken)
     {
         var query = new GetAllListPhoneBrandQuery();
-        var response = await Mediator.Send(query);
+        var response = await Mediator.Send(query, cancellationToken);
         return ReturnResult(response);
     }
 }

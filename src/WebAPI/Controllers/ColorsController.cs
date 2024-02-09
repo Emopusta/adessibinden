@@ -14,31 +14,31 @@ namespace WebAPI.Controllers;
 public class ColorsController : BaseController
 {
     [HttpPost]
-    public async Task<IDataResult<CreatedColorResponse>> Create([FromBody] CreateColorCommand createColorCommand)
+    public async Task<IDataResult<CreatedColorResponse>> Create([FromBody] CreateColorCommand createColorCommand, CancellationToken cancellationToken)
     {
-        var response = await Mediator.Send(createColorCommand);
+        var response = await Mediator.Send(createColorCommand, cancellationToken);
         return ReturnResult(response);
     }
 
     [HttpDelete]
-    public async Task<IDataResult<DeletedColorResponse>> Delete([FromBody] DeleteColorCommand deleteColorCommand)
+    public async Task<IDataResult<DeletedColorResponse>> Delete([FromBody] DeleteColorCommand deleteColorCommand, CancellationToken cancellationToken)
     {
-        var response = await Mediator.Send(deleteColorCommand);
+        var response = await Mediator.Send(deleteColorCommand, cancellationToken);
         return ReturnResult(response);
     }
 
     [HttpGet]
-    public async Task<IDataResult<PaginateResponse<GetAllColorsListItemDto>>> GetAll([FromQuery] PageRequest pageRequest)
+    public async Task<IDataResult<PaginateResponse<GetAllColorsListItemDto>>> GetAll([FromQuery] PageRequest pageRequest, CancellationToken cancellationToken)
     {
         var getAllColorQuery = new GetAllColorsQuery() { PageRequest = pageRequest };
-        var result = await Mediator.Send(getAllColorQuery);
+        var result = await Mediator.Send(getAllColorQuery, cancellationToken);
         return ReturnResult(result);
     }
 
     [HttpGet("GetById")]
-    public async Task<IDataResult<GetByIdColorResponse>> GetById([FromQuery] GetByIdColorQuery getByIdColorQuery)
+    public async Task<IDataResult<GetByIdColorResponse>> GetById([FromQuery] GetByIdColorQuery getByIdColorQuery, CancellationToken cancellationToken)
     {
-        var result = await Mediator.Send(getByIdColorQuery);
+        var result = await Mediator.Send(getByIdColorQuery, cancellationToken);
         return ReturnResult(result);
     }
 }
