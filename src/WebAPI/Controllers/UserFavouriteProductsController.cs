@@ -34,10 +34,11 @@ public class UserFavouriteProductsController : BaseController
         return ReturnResult(response);
     }
 
-    [HttpGet("GetByUserId")]
-    public async Task<IDataResult<ListResponse<GetByUserIdUserFavouriteProductResponse>>> GetByUserId([FromQuery] GetByUserIdUserFavouriteProductQuery getByUserIdUserFavouriteProductQuery, CancellationToken cancellationToken)
+    [HttpGet("GetByUserId/{userId:int}")]
+    public async Task<IDataResult<ListResponse<GetByUserIdUserFavouriteProductResponse>>> GetByUserId([FromRoute] int userId, CancellationToken cancellationToken)
     {
-        var response = await Mediator.Send(getByUserIdUserFavouriteProductQuery, cancellationToken);
+        var query = new GetByUserIdUserFavouriteProductQuery() { UserId = userId };
+        var response = await Mediator.Send(query, cancellationToken);
         return ReturnResult(response);
     }
 }
