@@ -2,5 +2,5 @@
 
 public interface IListResponse<T> 
 {
-    IList<T> Data { get; }
+    IList<T> Items { get; }
 }

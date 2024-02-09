@@ -13,6 +13,6 @@ public class UserFavouriteProductManager : IUserFavouriteProductService
     public async Task DeleteFavouritesByProduct(int productId)
     {
         var userFavouritesToDelete = await _userFavouriteProductRepository.GetListAsync(p => p.ProductId == productId);
-        await _userFavouriteProductRepository.DeleteRangeAsync(userFavouritesToDelete.Data, true);
+        await _userFavouriteProductRepository.DeleteRangeAsync(userFavouritesToDelete.Items, true);
     }
 }

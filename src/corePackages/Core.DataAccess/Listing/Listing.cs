@@ -2,5 +2,5 @@
 
 public class Listing<T> : IListResponse<T>
 {
-    public IList<T> Data { get; set; }
+    public IList<T> Items { get; set; }
 }
