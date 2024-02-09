@@ -14,6 +14,7 @@ public abstract class ExceptionHandler
             AuthException authException => HandleException(authException),
             ArgumentNullException argumentNullException => HandleException(argumentNullException),
             DbUpdateException dbUpdateException => HandleException(dbUpdateException),
+            OperationCanceledException operationCancelledException => HandleException(operationCancelledException),
             _ => HandleException(exception)
         };
 
@@ -22,5 +23,6 @@ public abstract class ExceptionHandler
     protected abstract Task HandleException(AuthException authException);
     protected abstract Task HandleException(ArgumentNullException argumentNullException);
     protected abstract Task HandleException(DbUpdateException dbUpdateException);
+    protected abstract Task HandleException(OperationCanceledException operationCancelledException);
     protected abstract Task HandleException(Exception exception);
 }

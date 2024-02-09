@@ -31,7 +31,7 @@ public class HttpExceptionHandler : ExceptionHandler
         var details = new InternalServerErrorProblemDetails(exception.Message);
         return Response.WriteAsync(JsonSerializer.Serialize(new ErrorDataResult<InternalServerErrorProblemDetails>(details), Options()));
     }
-
+    
     protected override Task HandleException(ArgumentNullException argumentNullException)
     {
         Response.StatusCode = StatusCodes.Status406NotAcceptable;
@@ -58,6 +58,13 @@ public class HttpExceptionHandler : ExceptionHandler
         Response.StatusCode = StatusCodes.Status400BadRequest;
         ValidationProblemDetails details = new ValidationProblemDetails(validationException.Errors);
         return Response.WriteAsync(JsonSerializer.Serialize(new ErrorDataResult<ValidationProblemDetails>(details), Options()));
+    }
+    protected override Task HandleException(OperationCanceledException operationCancelledException)
+    {
+        Response.StatusCode = StatusCodes.Status503ServiceUnavailable;
+        var details = new OperationCanceledProblemDetails(operationCancelledException.Message);
+        Console.WriteLine("Operation Cancelled!!!!");
+        return Response.WriteAsync(JsonSerializer.Serialize(new ErrorDataResult<OperationCanceledProblemDetails>(details), Options()));
     }
 
     private static JsonSerializerOptions Options()
