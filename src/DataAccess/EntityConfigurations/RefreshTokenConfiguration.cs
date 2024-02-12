@@ -19,9 +19,6 @@ public class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken>
         builder.Property(rt => rt.RevokedByIp).HasColumnName("RevokedByIp");
         builder.Property(rt => rt.ReplacedByToken).HasColumnName("ReplacedByToken");
         builder.Property(rt => rt.ReasonRevoked).HasColumnName("ReasonRevoked");
-        builder.Property(rt => rt.CreatedDate).HasColumnName("CreatedDate").IsRequired();
-        builder.Property(rt => rt.UpdatedDate).HasColumnName("UpdatedDate");
-        builder.Property(rt => rt.DeletedDate).HasColumnName("DeletedDate");
 
         builder.HasOne(rt => rt.User);
     }

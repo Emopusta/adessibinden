@@ -1,4 +1,4 @@
-using System.Reflection;
+﻿using System.Reflection;
 using Core.CrossCuttingConcerns.Interceptors;
 using Core.DataAccess.Entities;
 using Core.DataAccess.ModelBuilderExtensions;
@@ -43,9 +43,9 @@ public class AdessibindenContext : DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        AddGlobalSoftDeleteFilter(modelBuilder);
-
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        modelBuilder.AddTimestampsToEntity();
 
         modelBuilder.AddGlobalFilterWithExpression<Entity>(expression: e => !e.DeletedDate.HasValue);
     }
@@ -76,5 +76,5 @@ public class AdessibindenContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
         optionsBuilder
-        .AddInterceptors(new LoggingInterceptor());
+        .AddInterceptors(new LoggingInterceptor()); 
 }

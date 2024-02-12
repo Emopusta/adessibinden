@@ -17,10 +17,6 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(e => e.Description).HasColumnType("character varying").HasColumnName("Description");
         builder.Property(e => e.Title).HasColumnType("character varying").HasColumnName("Title");
 
-        builder.Property(e => e.CreatedDate).HasColumnName("CreatedDate").IsRequired();
-        builder.Property(e => e.UpdatedDate).HasColumnName("UpdatedDate");
-        builder.Property(e => e.DeletedDate).HasColumnName("DeletedDate");
-
         builder.HasOne(d => d.CreatorUser).WithMany(p => p.Products)
             .HasForeignKey(d => d.CreatorUserId)
             .OnDelete(DeleteBehavior.ClientSetNull)

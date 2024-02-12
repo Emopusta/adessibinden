@@ -12,10 +12,6 @@ public class PhoneProductConfiguration : IEntityTypeConfiguration<PhoneProduct>
 
         builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
 
-        builder.Property(e => e.CreatedDate).HasColumnName("CreatedDate").IsRequired();
-        builder.Property(e => e.UpdatedDate).HasColumnName("UpdatedDate");
-        builder.Property(e => e.DeletedDate).HasColumnName("DeletedDate");
-
         builder.Property(e => e.ProductId).HasColumnName("ProductId").IsRequired();
         builder.Property(e => e.ColorId).HasColumnName("ColorId").IsRequired();
         builder.Property(e => e.ModelId).HasColumnName("ModelId").IsRequired();
