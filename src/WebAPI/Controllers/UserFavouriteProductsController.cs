@@ -19,7 +19,7 @@ public class UserFavouriteProductsController : BaseController
         return ReturnResult(response);
     }
 
-    [HttpDelete("/api/UserFavouriteProducts/{userId}/{productId}")]
+    [HttpDelete("/api/UserFavouriteProducts/{userId:int}/{productId:int}")]
     public async Task<IDataResult<DeletedUserFavouriteProductResponse>> Delete([FromRoute] int userId, int productId, CancellationToken cancellationToken)
     {
         var deleteUserFavouriteProductCommand = new DeleteUserFavouriteProductCommand() { ProductId = productId , UserId = userId};
@@ -27,10 +27,11 @@ public class UserFavouriteProductsController : BaseController
         return ReturnResult(response);
     }
 
-    [HttpGet]
-    public async Task<IDataResult<GetByProductAndUserIdUserFavouriteProductResponse>> GetByProductAndUserId([FromQuery] GetByProductAndUserIdUserFavouriteProductQuery getByProductAndUserIdUserFavouriteProductQuery, CancellationToken cancellationToken)
+    [HttpGet("GetByProductIdAndUserId/{userId:int}/{productId:int}")]
+    public async Task<IDataResult<GetByProductAndUserIdUserFavouriteProductResponse>> GetByProductAndUserId(int userId, int productId , CancellationToken cancellationToken)
     {
-        var response = await Mediator.Send(getByProductAndUserIdUserFavouriteProductQuery, cancellationToken);
+        var query = new GetByProductAndUserIdUserFavouriteProductQuery() { UserId = userId, ProductId = productId };
+        var response = await Mediator.Send(query, cancellationToken);
         return ReturnResult(response);
     }
 
