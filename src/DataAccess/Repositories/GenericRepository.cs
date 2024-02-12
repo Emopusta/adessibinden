@@ -1,5 +1,5 @@
 ﻿using Core.Application.GenericRepository;
-using Core.DataAccess.Entities;
+using Core.Domain.Entities;
 using Core.DataAccess.Repositories;
 using DataAccess.Contexts;
 

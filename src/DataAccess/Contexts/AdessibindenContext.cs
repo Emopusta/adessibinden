@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Core.CrossCuttingConcerns.Interceptors;
-using Core.DataAccess.Entities;
 using Core.DataAccess.ModelBuilderExtensions;
+using Core.Domain.Entities;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,4 +1,4 @@
-﻿namespace Core.DataAccess.Entities;
+﻿namespace Core.Domain.Entities;
 
 public class EntityOnlyId : BaseEntity
 {

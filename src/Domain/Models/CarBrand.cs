@@ -1,4 +1,5 @@
-﻿using Core.DataAccess.Entities;
+﻿using Core.Domain.Entities;
+
 namespace Domain.Models;
 
 public class CarBrand : Entity

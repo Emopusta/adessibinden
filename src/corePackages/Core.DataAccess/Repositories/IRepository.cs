@@ -1,4 +1,4 @@
-﻿using Core.DataAccess.Entities;
+﻿using Core.Domain.Entities;
 using Core.DataAccess.Paging;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;

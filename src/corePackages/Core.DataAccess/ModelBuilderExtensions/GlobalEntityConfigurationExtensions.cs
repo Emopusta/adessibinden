@@ -1,4 +1,4 @@
-﻿using Core.DataAccess.Entities;
+﻿using Core.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Core.DataAccess.ModelBuilderExtensions;
