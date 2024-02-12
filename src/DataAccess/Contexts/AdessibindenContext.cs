@@ -1,8 +1,7 @@
-﻿using System.Linq.Expressions;
 using System.Reflection;
-using AutoMapper.Execution;
 using Core.CrossCuttingConcerns.Interceptors;
 using Core.DataAccess.Entities;
+using Core.DataAccess.ModelBuilderExtensions;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -47,6 +46,8 @@ public class AdessibindenContext : DbContext
         AddGlobalSoftDeleteFilter(modelBuilder);
 
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        modelBuilder.AddGlobalFilterWithExpression<Entity>(expression: e => !e.DeletedDate.HasValue);
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken)
@@ -76,26 +77,4 @@ public class AdessibindenContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
         optionsBuilder
         .AddInterceptors(new LoggingInterceptor());
-
-    private static void AddGlobalSoftDeleteFilter(ModelBuilder modelBuilder)
-    {
-        Expression<Func<Entity, bool>> softDeleteGlobalFilterExpression = x => !x.DeletedDate.HasValue;
-
-        foreach (var entity in modelBuilder.Model.GetEntityTypes())
-        {
-            if (entity.ClrType.IsAssignableTo(typeof(Entity)))
-            {
-            var parameter = Expression.Parameter(entity.ClrType);
-            //var body = ReplacingExpressionVisitor.Replace(softDeleteGlobalFilterExpression.Parameters.First(), parameter, softDeleteGlobalFilterExpression.Body); //ef
-            var body = softDeleteGlobalFilterExpression.ReplaceParameters(parameter); // automapper
-            //var body = softDeleteGlobalFilterExpression.Body.Replace(softDeleteGlobalFilterExpression.Parameters.First(), parameter); // automapper
-            var lambdaExpression = Expression.Lambda(body, parameter);
-
-            entity.SetQueryFilter(lambdaExpression);
-            }
-            //modelBuilder.Entity(entity.ClrType).Property(typeof(DateTime), "CreatedDate").IsRequired();
-            //modelBuilder.Entity(entity.ClrType).Property(typeof(DateTime), "UpdatedDate").IsRequired();
-            //modelBuilder.Entity(entity.ClrType).Property(typeof(DateTime), "DeletedDate").IsRequired();
-        }
-    }
 }
