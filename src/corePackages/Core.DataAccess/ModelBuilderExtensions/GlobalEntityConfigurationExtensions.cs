@@ -5,7 +5,7 @@ namespace Core.DataAccess.ModelBuilderExtensions;
 
 public static class GlobalEntityConfigurationExtensions
 {
-    public static ModelBuilder AddTimestampsToEntity(this ModelBuilder modelBuilder)
+    public static ModelBuilder AddTimestampsToEntities(this ModelBuilder modelBuilder)
     {
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {

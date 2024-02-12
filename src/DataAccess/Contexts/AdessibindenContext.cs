@@ -45,7 +45,7 @@ public class AdessibindenContext : DbContext
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-        modelBuilder.AddTimestampsToEntity();
+        modelBuilder.AddTimestampsToEntities();
 
         modelBuilder.AddGlobalFilterWithExpression<Entity>(expression: e => !e.DeletedDate.HasValue);
     }
