@@ -1,6 +1,6 @@
 ﻿using Core.Application.GenericRepository;
 using Core.DataAccess.Entities;
-using Core.Persistence.Repositories;
+using Core.DataAccess.Repositories;
 using DataAccess.Contexts;
 
 namespace DataAccess.Repositories;

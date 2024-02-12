@@ -1,5 +1,5 @@
 ﻿using Core.DataAccess.Entities;
-using Core.Persistence.Repositories;
+using Core.DataAccess.Repositories;
 
 namespace Core.Application.GenericRepository
 {

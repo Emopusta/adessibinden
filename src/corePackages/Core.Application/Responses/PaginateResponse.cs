@@ -1,4 +1,4 @@
-﻿using Core.Persistence.Paging;
+﻿using Core.DataAccess.Paging;
 
 namespace Core.Application.Responses;
 

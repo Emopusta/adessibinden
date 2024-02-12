@@ -1,6 +1,6 @@
 ﻿using Core.DataAccess.Entities;
 using Core.DataAccess.Listing;
-using Core.Persistence.Paging;
+using Core.DataAccess.Paging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Query;
@@ -8,7 +8,7 @@ using System.Collections;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Core.Persistence.Repositories;
+namespace Core.DataAccess.Repositories;
 
 public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IRepository<TEntity>
     where TEntity : BaseEntity

@@ -2,7 +2,7 @@
 using Application.Features.Colors.Queries.GetById;
 using AutoMapper;
 using Core.Application.Responses;
-using Core.Persistence.Paging;
+using Core.DataAccess.Paging;
 using Domain.Models;
 
 namespace Application.Features.Colors.Profiles;

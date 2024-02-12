@@ -1,10 +1,10 @@
 ﻿using Core.DataAccess.Entities;
 using Core.DataAccess.Listing;
-using Core.Persistence.Paging;
+using Core.DataAccess.Paging;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
-namespace Core.Persistence.Repositories;
+namespace Core.DataAccess.Repositories;
 
 public interface IAsyncRepository<TEntity> : IQuery<TEntity>
     where TEntity : BaseEntity

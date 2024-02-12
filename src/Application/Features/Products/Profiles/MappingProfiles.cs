@@ -3,7 +3,7 @@ using Application.Features.Products.Queries.GetByCreatorUserIdPaginated;
 using Application.Features.Products.Queries.GetByTitlePaginated;
 using AutoMapper;
 using Core.Application.Responses;
-using Core.Persistence.Paging;
+using Core.DataAccess.Paging;
 using Domain.Models;
 
 namespace Application.Features.Products.Profiles;

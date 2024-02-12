@@ -1,6 +1,6 @@
 ﻿using Application.Features.Users.Rules;
 using Core.Application.GenericRepository;
-using Core.Persistence.Paging;
+using Core.DataAccess.Paging;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
