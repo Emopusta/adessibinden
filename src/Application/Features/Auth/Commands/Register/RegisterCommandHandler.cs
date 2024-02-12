@@ -1,7 +1,6 @@
 ﻿using Application.Features.Auth.Rules;
 using Application.Services.AuthService;
 using Core.Application.GenericRepository;
-using Core.DataAccess.Repositories;
 using Core.Security.Hashing;
 using Core.Security.JWT;
 using Core.CrossCuttingConcerns.Cookies;
@@ -10,6 +9,7 @@ using Domain.Models;
 using Microsoft.AspNetCore.Http;
 using Application.Services.UserProfileService;
 using Core.Application.Pipelines;
+using Core.DataAccess.UoW;
 
 namespace Application.Features.Auth.Commands.Register;
 

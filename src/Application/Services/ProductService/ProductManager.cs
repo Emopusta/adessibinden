@@ -1,7 +1,7 @@
 ﻿using Application.Features.Users.Rules;
 using Application.Services.ProductService.Responses;
 using Core.Application.GenericRepository;
-using Core.DataAccess.Repositories;
+using Core.DataAccess.UoW;
 using Domain.Models;
 
 namespace Application.Services.ProductService;

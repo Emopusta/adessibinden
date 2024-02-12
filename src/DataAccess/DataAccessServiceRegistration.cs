@@ -1,5 +1,5 @@
 ﻿using Core.Application.GenericRepository;
-using Core.DataAccess.Repositories;
+using Core.DataAccess.UoW;
 using DataAccess.Contexts;
 using DataAccess.Repositories;
 using DataAccess.UoW;
@@ -21,7 +21,7 @@ public static class DataAccessServiceRegistration
             options.UseNpgsql(
                 configuration.GetConnectionString("Adessibinden")));
 
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IUnitOfWork, UnitOfWork<AdessibindenContext>>();
 
         services.RegisterGenericRepositories();
 

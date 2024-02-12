@@ -1,12 +1,12 @@
-﻿using Core.DataAccess.Repositories;
-using DataAccess.Contexts;
+﻿using Core.DataAccess.UoW;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.UoW;
 
-public class UnitOfWork : IUnitOfWork
+public class UnitOfWork<TContext> : IUnitOfWork where TContext : DbContext
 {
-    private readonly AdessibindenContext _dbContext;
-    public UnitOfWork(AdessibindenContext dbContext)
+    private readonly TContext _dbContext;
+    public UnitOfWork(TContext dbContext)
     {
         _dbContext = dbContext;
     }

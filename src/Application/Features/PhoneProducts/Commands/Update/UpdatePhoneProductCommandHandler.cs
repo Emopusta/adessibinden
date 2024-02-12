@@ -2,7 +2,7 @@
 using AutoMapper;
 using Core.Application.GenericRepository;
 using Core.Application.Pipelines;
-using Core.DataAccess.Repositories;
+using Core.DataAccess.UoW;
 using Domain.Models;
 
 namespace Application.Features.PhoneProducts.Commands.Update;

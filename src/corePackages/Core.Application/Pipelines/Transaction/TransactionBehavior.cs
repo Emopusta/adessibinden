@@ -1,4 +1,4 @@
-﻿using Core.DataAccess.Repositories;
+﻿using Core.DataAccess.UoW;
 using MediatR;
 using System.Transactions;
 
