@@ -12,8 +12,8 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ProductsController : BaseController
     {
-        [HttpGet("GetByCreator/{creatorUserId}")]
-        public async Task<IDataResult<PaginateResponse<GetByCreatorUserIdPaginatedDto>>> GetByCreatorUserId([FromQuery] PageRequest pageRequest, [FromRoute] int creatorUserId, CancellationToken cancellationToken)
+        [HttpGet("GetByCreator")]
+        public async Task<IDataResult<PaginateResponse<GetByCreatorUserIdPaginatedDto>>> GetByCreatorUserId([FromQuery] PageRequest pageRequest, int creatorUserId, CancellationToken cancellationToken)
         {
             var query = new GetByCreatorUserIdPaginatedQuery() { CreatorUserId = creatorUserId, PageRequest = pageRequest };
             var result = await Mediator.Send(query, cancellationToken);

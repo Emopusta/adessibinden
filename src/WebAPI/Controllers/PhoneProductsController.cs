@@ -36,16 +36,16 @@ public class PhoneProductsController : BaseController
         return ReturnResult(response);
     }
 
-    [HttpGet("{productId}")]
-    public async Task<IDataResult<GetByIdDetailsPhoneProductResponse>> GetByIdDetails([FromRoute] int productId, CancellationToken cancellationToken)
+    [HttpGet]
+    public async Task<IDataResult<GetByIdDetailsPhoneProductResponse>> GetByIdDetails([FromQuery] int productId, CancellationToken cancellationToken)
     {
         var getAllPhoneProductFeaturesQuery = new GetByIdDetailsPhoneProductQuery() { ProductId = productId };
         var result = await Mediator.Send(getAllPhoneProductFeaturesQuery, cancellationToken);
         return ReturnResult(result);
     }
 
-    [HttpGet("UpdateDetails/{productId}")]
-    public async Task<IDataResult<GetByIdDetailsForUpdatePhoneProductResponse>> GetByIdForUpdateDetails([FromRoute] int productId, CancellationToken cancellationToken)
+    [HttpGet("UpdateDetails")]
+    public async Task<IDataResult<GetByIdDetailsForUpdatePhoneProductResponse>> GetByIdForUpdateDetails([FromQuery] int productId, CancellationToken cancellationToken)
     {
         var getAllPhoneProductFeaturesQuery = new GetByIdDetailsForUpdatePhoneProductQuery() { ProductId = productId };
         var result = await Mediator.Send(getAllPhoneProductFeaturesQuery, cancellationToken);

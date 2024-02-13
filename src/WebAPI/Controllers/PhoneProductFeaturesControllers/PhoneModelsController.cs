@@ -26,10 +26,11 @@ public class PhoneModelsController : BaseController
         return ReturnResult(response);
     }
 
-    [HttpGet("{BrandId}")]
-    public async Task<IDataResult<ListResponse<GetByBrandIdPhoneModelDto>>> GetByBrandId([FromRoute] GetByBrandIdPhoneModelQuery getByBrandIdPhoneModelQuery, CancellationToken cancellationToken)
+    [HttpGet("GetByBrandId")]
+    public async Task<IDataResult<ListResponse<GetByBrandIdPhoneModelDto>>> GetByBrandId([FromQuery] int brandId, CancellationToken cancellationToken)
     {
-        var response = await Mediator.Send(getByBrandIdPhoneModelQuery, cancellationToken);
+        var query = new GetByBrandIdPhoneModelQuery(){ BrandId = brandId};
+        var response = await Mediator.Send(query, cancellationToken);
         return ReturnResult(response);
     }
 }

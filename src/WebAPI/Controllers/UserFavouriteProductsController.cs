@@ -27,16 +27,16 @@ public class UserFavouriteProductsController : BaseController
         return ReturnResult(response);
     }
 
-    [HttpGet("GetByProductIdAndUserId/{userId:int}/{productId:int}")]
-    public async Task<IDataResult<GetByProductAndUserIdUserFavouriteProductResponse>> GetByProductAndUserId(int userId, int productId , CancellationToken cancellationToken)
+    [HttpGet("GetByProductIdAndUserId")]
+    public async Task<IDataResult<GetByProductAndUserIdUserFavouriteProductResponse>> GetByProductAndUserId([FromQuery] int userId, int productId, CancellationToken cancellationToken)
     {
         var query = new GetByProductAndUserIdUserFavouriteProductQuery() { UserId = userId, ProductId = productId };
         var response = await Mediator.Send(query, cancellationToken);
         return ReturnResult(response);
     }
 
-    [HttpGet("GetByUserId/{userId:int}")]
-    public async Task<IDataResult<ListResponse<GetByUserIdUserFavouriteProductResponse>>> GetByUserId([FromRoute] int userId, CancellationToken cancellationToken)
+    [HttpGet("GetByUserId")]
+    public async Task<IDataResult<ListResponse<GetByUserIdUserFavouriteProductResponse>>> GetByUserId([FromQuery] int userId, CancellationToken cancellationToken)
     {
         var query = new GetByUserIdUserFavouriteProductQuery() { UserId = userId };
         var response = await Mediator.Send(query, cancellationToken);

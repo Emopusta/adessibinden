@@ -26,8 +26,8 @@ public class UserProfilesController : BaseController
         return ReturnResult(response);
     }
 
-    [HttpGet("GetById/{userId}")]
-    public async Task<IDataResult<GetUserProfileResponse>> GetById([FromRoute] int userId, CancellationToken cancellationToken)
+    [HttpGet("GetById")]
+    public async Task<IDataResult<GetUserProfileResponse>> GetById([FromQuery] int userId, CancellationToken cancellationToken)
     {
         var getByIdColorQuery = new GetByUserIdUserProfileQuery() { UserId = userId };
         var result = await Mediator.Send(getByIdColorQuery, cancellationToken);
