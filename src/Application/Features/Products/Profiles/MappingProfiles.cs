@@ -1,6 +1,4 @@
-﻿using Application.Features.Products.Queries.GetAllPaginated;
-using Application.Features.Products.Queries.GetByCreatorUserIdPaginated;
-using Application.Features.Products.Queries.GetByTitlePaginated;
+﻿using Application.Features.Products.Dtos;
 using AutoMapper;
 using Core.Application.Responses;
 using Core.DataAccess.Paging;

@@ -6,12 +6,12 @@ using Domain.Models;
 
 namespace Application.Features.Colors.Queries.GetAll;
 
-public class GetByIdColorQueryHandler : IQueryRequestHandler<GetByIdColorQuery, GetByIdColorResponse>
+public class GetByIdColorsQueryHandler : IQueryRequestHandler<GetByIdColorQuery, GetByIdColorResponse>
 {
     private readonly IGenericRepository<Color> _colorRepository;
     private readonly IMapper _mapper;
 
-    public GetByIdColorQueryHandler(IGenericRepository<Color> colorRepository, IMapper mapper)
+    public GetByIdColorsQueryHandler(IGenericRepository<Color> colorRepository, IMapper mapper)
     {
         _colorRepository = colorRepository;
         _mapper = mapper;

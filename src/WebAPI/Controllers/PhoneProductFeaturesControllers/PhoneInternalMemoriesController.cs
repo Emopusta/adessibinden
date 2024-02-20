@@ -1,4 +1,5 @@
 ﻿using Application.Features.PhoneProductFeatures.PhoneInternalMemories.Commands.Create;
+using Application.Features.PhoneProductFeatures.PhoneInternalMemories.Dtos;
 using Application.Features.PhoneProductFeatures.PhoneInternalMemories.Queries.GetAllList;
 using Core.Application.Responses;
 using Core.Utilities.Results;
@@ -11,9 +12,10 @@ namespace WebAPI.Controllers.PhoneProductFeaturesControllers;
 public class PhoneInternalMemoriesController : BaseController
 {
     [HttpPost]
-    public async Task<IDataResult<CreatedPhoneInternalMemoryResponse>> Create([FromBody] CreatePhoneInternalMemoryCommand createPhoneInternalMemoryCommand, CancellationToken cancellationToken)
+    public async Task<IDataResult<CreatedPhoneInternalMemoryResponse>> Create([FromBody] CreatePhoneInternalMemoryRequestDto createPhoneInternalMemoryRequestDto, CancellationToken cancellationToken)
     {
-        var response = await Mediator.Send(createPhoneInternalMemoryCommand, cancellationToken);
+        var command = new CreatePhoneInternalMemoryCommand(createPhoneInternalMemoryRequestDto);
+        var response = await Mediator.Send(command, cancellationToken);
         return ReturnResult(response);
     }
 

@@ -1,4 +1,5 @@
-﻿using Core.Application.Pipelines;
+﻿using Application.Features.UserFavouriteProducts.Dtos;
+using Core.Application.Pipelines;
 
 namespace Application.Features.UserFavouriteProducts.Queries.GetByProductAndUserId;
 
@@ -6,4 +7,10 @@ public class GetByProductAndUserIdUserFavouriteProductQuery : IQueryRequest<GetB
 {
     public int UserId { get; set; }
     public int ProductId { get; set; }
+
+    public GetByProductAndUserIdUserFavouriteProductQuery(GetByProductAndUserIdUserFavouriteProductRequestDto getByProductAndUserIdUserFavouriteProductRequestDto)
+    {
+        UserId = getByProductAndUserIdUserFavouriteProductRequestDto.UserId;
+        ProductId = getByProductAndUserIdUserFavouriteProductRequestDto.ProductId;
+    }
 }

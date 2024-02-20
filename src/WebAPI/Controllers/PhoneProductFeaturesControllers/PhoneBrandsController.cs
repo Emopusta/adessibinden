@@ -1,4 +1,5 @@
 ﻿using Application.Features.PhoneProductFeatures.PhoneBrands.Commands.Create;
+using Application.Features.PhoneProductFeatures.PhoneBrands.Dtos;
 using Application.Features.PhoneProductFeatures.PhoneBrands.Queries.GetAllList;
 using Core.Application.Responses;
 using Core.Utilities.Results;
@@ -11,9 +12,10 @@ namespace WebAPI.Controllers.PhoneProductFeaturesControllers;
 public class PhoneBrandsController : BaseController
 {
     [HttpPost]
-    public async Task<IDataResult<CreatedPhoneBrandResponse>> Create([FromBody] CreatePhoneBrandCommand createPhoneBrandCommand, CancellationToken cancellationToken)
+    public async Task<IDataResult<CreatedPhoneBrandResponse>> Create([FromBody] CreatePhoneBrandRequestDto phoneBrandCreateRequestDto, CancellationToken cancellationToken)
     {
-        var response = await Mediator.Send(createPhoneBrandCommand, cancellationToken);
+        var command = new CreatePhoneBrandCommand(phoneBrandCreateRequestDto);
+        var response = await Mediator.Send(command, cancellationToken);
         return ReturnResult(response);
     }
 

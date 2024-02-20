@@ -1,6 +1,6 @@
 ﻿using Core.Application.Dtos;
 
-namespace Application.Features.Products.Queries.GetByTitlePaginated;
+namespace Application.Features.Products.Dtos;
 
 public class GetByTitlePaginatedProductDto : IDto
 {

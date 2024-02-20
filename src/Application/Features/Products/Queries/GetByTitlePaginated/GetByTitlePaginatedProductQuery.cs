@@ -1,4 +1,5 @@
-﻿using Core.Application.Pipelines;
+﻿using Application.Features.Products.Dtos;
+using Core.Application.Pipelines;
 using Core.Application.Requests;
 using Core.Application.Responses;
 
@@ -8,4 +9,10 @@ public class GetByTitlePaginatedProductQuery : IQueryRequest<PaginateResponse<Ge
 {
     public PageRequest PageRequest{ get; set; }
     public string ProductTitleToSearch { get; set; }
+
+    public GetByTitlePaginatedProductQuery(GetByTitlePaginatedProductRequestDto getByTitlePaginatedProductRequestDto, PageRequest pageRequest)
+    {
+        PageRequest = pageRequest;
+        ProductTitleToSearch = getByTitlePaginatedProductRequestDto.ProductTitleToSearch;
+    }
 }

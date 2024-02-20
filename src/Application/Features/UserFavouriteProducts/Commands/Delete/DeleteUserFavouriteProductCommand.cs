@@ -6,4 +6,10 @@ public class DeleteUserFavouriteProductCommand : ICommandRequest<DeletedUserFavo
 {
     public int UserId { get; set; }
     public int ProductId { get; set; }
+
+    public DeleteUserFavouriteProductCommand(int userId, int productId)
+    {
+        UserId = userId;
+        ProductId = productId;
+    }
 }

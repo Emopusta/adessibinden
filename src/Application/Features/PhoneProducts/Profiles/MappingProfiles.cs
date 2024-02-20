@@ -15,7 +15,7 @@ public class MappingProfiles : Profile
         CreateMap<PhoneProduct, GetByIdDetailsForUpdatePhoneProductResponse>().ReverseMap();
 
         CreateMap<Product, UpdateProductDto>().ReverseMap();
-        CreateMap<PhoneProduct, UpdatePhoneProductDto>().ReverseMap();
+        CreateMap<PhoneProduct, UpdatePhoneProductCommand>().ReverseMap();
         CreateMap<PhoneProduct, UpdatedPhoneProductResponse>().ReverseMap();
     }
 }

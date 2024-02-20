@@ -1,4 +1,5 @@
-﻿using Core.Application.Pipelines;
+﻿using Application.Features.ProductCategories.Dtos;
+using Core.Application.Pipelines;
 using Core.Application.Responses;
 
 namespace Application.Features.ProductCategories.Queries.GetAllList;

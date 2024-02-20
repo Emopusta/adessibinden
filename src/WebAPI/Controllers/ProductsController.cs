@@ -1,4 +1,5 @@
-﻿using Application.Features.Products.Queries.GetAllPaginated;
+﻿using Application.Features.Products.Dtos;
+using Application.Features.Products.Queries.GetAllPaginated;
 using Application.Features.Products.Queries.GetByCreatorUserIdPaginated;
 using Application.Features.Products.Queries.GetByTitlePaginated;
 using Core.Application.Requests;
@@ -13,9 +14,9 @@ namespace WebAPI.Controllers
     public class ProductsController : BaseController
     {
         [HttpGet("GetByCreator")]
-        public async Task<IDataResult<PaginateResponse<GetByCreatorUserIdPaginatedDto>>> GetByCreatorUserId([FromQuery] PageRequest pageRequest, int creatorUserId, CancellationToken cancellationToken)
+        public async Task<IDataResult<PaginateResponse<GetByCreatorUserIdPaginatedDto>>> GetByCreatorUserId([FromQuery] GetByCreatorUserIdPaginatedRequestDto getByCreatorUserIdPaginatedRequestDto, [FromQuery] PageRequest pageRequest, CancellationToken cancellationToken)
         {
-            var query = new GetByCreatorUserIdPaginatedQuery() { CreatorUserId = creatorUserId, PageRequest = pageRequest };
+            var query = new GetByCreatorUserIdPaginatedQuery(getByCreatorUserIdPaginatedRequestDto, pageRequest);
             var result = await Mediator.Send(query, cancellationToken);
             return ReturnResult(result);
         }
@@ -23,15 +24,15 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<IDataResult<PaginateResponse<GetAllPaginatedProductDto>>> GetAllPaginated([FromQuery] PageRequest pageRequest, CancellationToken cancellationToken)
         {
-            var query = new GetAllPaginatedProductQuery() { PageRequest = pageRequest };
+            var query = new GetAllPaginatedProductQuery(pageRequest);
             var result = await Mediator.Send(query, cancellationToken);
             return ReturnResult(result);
         }
 
         [HttpGet("GetByTitle")]
-        public async Task<IDataResult<PaginateResponse<GetByTitlePaginatedProductDto>>> GetByTitlePaginated([FromQuery] PageRequest pageRequest, string productTitleToSearch, CancellationToken cancellationToken)
+        public async Task<IDataResult<PaginateResponse<GetByTitlePaginatedProductDto>>> GetByTitlePaginated([FromQuery] GetByTitlePaginatedProductRequestDto getByTitlePaginatedProductRequestDto,[FromQuery] PageRequest pageRequest, CancellationToken cancellationToken)
         {
-            var query = new GetByTitlePaginatedProductQuery() { PageRequest = pageRequest , ProductTitleToSearch = productTitleToSearch};
+            var query = new GetByTitlePaginatedProductQuery(getByTitlePaginatedProductRequestDto, pageRequest);
             var result = await Mediator.Send(query, cancellationToken);
             return ReturnResult(result);
         }

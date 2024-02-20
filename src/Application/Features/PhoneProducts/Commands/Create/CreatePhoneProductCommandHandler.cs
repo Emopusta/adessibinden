@@ -20,18 +20,17 @@ public class CreatePhoneProductCommandHandler : ICommandRequestHandler<CreatePho
 
     public async Task<CreatedPhoneProductResponse> Handle(CreatePhoneProductCommand request, CancellationToken cancellationToken)
     {
-        // Todo: refactor CreateProduct Parameter
-        var createdProduct = await CreateProduct(request.CreatePhoneProductDto.CreatorUserId, request.CreatePhoneProductDto.ProductCategoryId, request.CreatePhoneProductDto.Description, request.CreatePhoneProductDto.Title, cancellationToken);
+        var createdProduct = await CreateProduct(request.CreatorUserId, request.ProductCategoryId, request.Description, request.Title, cancellationToken);
 
         var phone = new PhoneProduct()
         {
             ProductId = createdProduct.Id,
-            ColorId = request.CreatePhoneProductDto.ColorId,
-            ModelId = request.CreatePhoneProductDto.ModelId,
-            InternalMemoryId = request.CreatePhoneProductDto.InternalMemoryId,
-            RAMId = request.CreatePhoneProductDto.RAMId,
-            UsageStatus = request.CreatePhoneProductDto.UsageStatus,
-            Price = request.CreatePhoneProductDto.Price,
+            ColorId = request.ColorId,
+            ModelId = request.ModelId,
+            InternalMemoryId = request.InternalMemoryId,
+            RAMId = request.RAMId,
+            UsageStatus = request.UsageStatus,
+            Price = request.Price,
         };
 
         var addedPhone = await _phoneProductRepository.AddAsync(phone);

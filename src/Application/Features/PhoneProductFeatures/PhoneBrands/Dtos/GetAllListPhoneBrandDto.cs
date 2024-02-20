@@ -1,6 +1,6 @@
 ﻿using Core.Application.Dtos;
 
-namespace Application.Features.PhoneProductFeatures.PhoneBrands.Queries.GetAllList;
+namespace Application.Features.PhoneProductFeatures.PhoneBrands.Dtos;
 
 public class GetAllListPhoneBrandDto : IDto
 {

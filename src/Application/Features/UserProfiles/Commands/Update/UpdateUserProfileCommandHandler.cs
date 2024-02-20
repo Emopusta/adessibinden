@@ -21,10 +21,10 @@ public class UpdateUserProfileCommandHandler : ICommandRequestHandler<UpdateUser
 
     public async Task<UpdatedUserProfileResponse> Handle(UpdateUserProfileCommand request, CancellationToken cancellationToken)
     {
-        await _userBusinessRules.UserMustExistById(request.UpdateUserProfileDto.UserId);
+        await _userBusinessRules.UserMustExistById(request.UserId);
 
-        var userProfileToUpdate = await _userProfileRepository.GetAsync(up =>  up.UserId == request.UpdateUserProfileDto.UserId);
-        var mappedUserProfile = _mapper.Map(request.UpdateUserProfileDto, userProfileToUpdate);
+        var userProfileToUpdate = await _userProfileRepository.GetAsync(up =>  up.UserId == request.UserId);
+        var mappedUserProfile = _mapper.Map(request, userProfileToUpdate);
         var updatedUserProfile = _userProfileRepository.UpdateAsync(mappedUserProfile).Result;
         var response = _mapper.Map<UpdatedUserProfileResponse>(updatedUserProfile);
         return response;

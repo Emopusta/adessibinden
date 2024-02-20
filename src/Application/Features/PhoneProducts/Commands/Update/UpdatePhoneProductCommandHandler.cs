@@ -24,10 +24,10 @@ public class UpdatePhoneProductCommandHandler : ICommandRequestHandler<UpdatePho
 
     public async Task<UpdatedPhoneProductResponse> Handle(UpdatePhoneProductCommand request, CancellationToken cancellationToken)
     {
-        await UpdateProduct(request.UpdatePhoneProductDto.ProductId, request.UpdatePhoneProductDto.CreatorUserId, request.UpdatePhoneProductDto.ProductCategoryId, request.UpdatePhoneProductDto.Description, request.UpdatePhoneProductDto.Title, cancellationToken);
+        await UpdateProduct(request.ProductId, request.CreatorUserId, request.ProductCategoryId, request.Description, request.Title, cancellationToken);
         
-        var phoneProductToUpdate = await _phoneProductRepository.GetAsync(p => p.ProductId == request.UpdatePhoneProductDto.ProductId);
-        var mappedPhoneProduct = _mapper.Map(request.UpdatePhoneProductDto, phoneProductToUpdate);
+        var phoneProductToUpdate = await _phoneProductRepository.GetAsync(p => p.ProductId == request.ProductId);
+        var mappedPhoneProduct = _mapper.Map(request, phoneProductToUpdate);
         var updatedPhoneProduct = await _phoneProductRepository.UpdateAsync(mappedPhoneProduct);
         var result = _mapper.Map<UpdatedPhoneProductResponse>(updatedPhoneProduct);
         return result;

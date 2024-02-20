@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Application.Features.PhoneProductFeatures.PhoneInternalMemories.Dtos;
+using AutoMapper;
 using Core.Application.GenericRepository;
 using Core.Application.Responses;
 using Domain.Models;

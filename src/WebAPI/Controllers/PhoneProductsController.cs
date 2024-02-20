@@ -1,6 +1,7 @@
 ﻿using Application.Features.PhoneProducts.Commands.Create;
 using Application.Features.PhoneProducts.Commands.Delete;
 using Application.Features.PhoneProducts.Commands.Update;
+using Application.Features.PhoneProducts.Dtos;
 using Application.Features.PhoneProducts.Queries.GetByIdDetails;
 using Application.Features.PhoneProducts.Queries.GetByIdDetailsForUpdate;
 using Core.Utilities.Results;
@@ -13,42 +14,42 @@ namespace WebAPI.Controllers;
 public class PhoneProductsController : BaseController
 {
     [HttpPost]
-    public async Task<IDataResult<CreatedPhoneProductResponse>> Create([FromBody] CreatePhoneProductDto createPhoneProductDto, CancellationToken cancellationToken)
+    public async Task<IDataResult<CreatedPhoneProductResponse>> Create([FromBody] CreatePhoneProductRequestDto createPhoneProductRequestDto, CancellationToken cancellationToken)
     {
-        var createPhoneProductCommand = new CreatePhoneProductCommand() { CreatePhoneProductDto = createPhoneProductDto};
-        var response = await Mediator.Send(createPhoneProductCommand, cancellationToken);
+        var command = new CreatePhoneProductCommand(createPhoneProductRequestDto);
+        var response = await Mediator.Send(command, cancellationToken);
         return ReturnResult(response);
     }
 
     [HttpPut]
-    public async Task<IDataResult<UpdatedPhoneProductResponse>> Update([FromBody] UpdatePhoneProductDto updatePhoneProductDto, CancellationToken cancellationToken)
+    public async Task<IDataResult<UpdatedPhoneProductResponse>> Update([FromBody] UpdatePhoneProductRequestDto updatePhoneProductRequestDto, CancellationToken cancellationToken)
     {
-        var createPhoneProductCommand = new UpdatePhoneProductCommand() { UpdatePhoneProductDto = updatePhoneProductDto };
-        var response = await Mediator.Send(createPhoneProductCommand, cancellationToken);
+        var command = new UpdatePhoneProductCommand(updatePhoneProductRequestDto);
+        var response = await Mediator.Send(command, cancellationToken);
         return ReturnResult(response);
     }
 
     [HttpDelete("{productId}")]
-    public async Task<IDataResult<DeletedPhoneProductResponse>> Delete([FromRoute] int productId, CancellationToken cancellationToken)
+    public async Task<IDataResult<DeletedPhoneProductResponse>> Delete([FromRoute] DeletePhoneProductRequestDto deletePhoneProductRequestDto, CancellationToken cancellationToken)
     {
-        var createPhoneProductCommand = new DeletePhoneProductCommand() { ProductId = productId};
-        var response = await Mediator.Send(createPhoneProductCommand, cancellationToken);
+        var command = new DeletePhoneProductCommand(deletePhoneProductRequestDto);
+        var response = await Mediator.Send(command, cancellationToken);
         return ReturnResult(response);
     }
 
     [HttpGet]
-    public async Task<IDataResult<GetByIdDetailsPhoneProductResponse>> GetByIdDetails([FromQuery] int productId, CancellationToken cancellationToken)
+    public async Task<IDataResult<GetByIdDetailsPhoneProductResponse>> GetByIdDetails([FromQuery] GetByIdDetailsPhoneProductRequestDto getByIdDetailsPhoneProductRequestDto, CancellationToken cancellationToken)
     {
-        var getAllPhoneProductFeaturesQuery = new GetByIdDetailsPhoneProductQuery() { ProductId = productId };
-        var result = await Mediator.Send(getAllPhoneProductFeaturesQuery, cancellationToken);
+        var query = new GetByIdDetailsPhoneProductQuery(getByIdDetailsPhoneProductRequestDto);
+        var result = await Mediator.Send(query, cancellationToken);
         return ReturnResult(result);
     }
 
     [HttpGet("UpdateDetails")]
-    public async Task<IDataResult<GetByIdDetailsForUpdatePhoneProductResponse>> GetByIdForUpdateDetails([FromQuery] int productId, CancellationToken cancellationToken)
+    public async Task<IDataResult<GetByIdDetailsForUpdatePhoneProductResponse>> GetByIdForUpdateDetails([FromQuery] GetByIdDetailsForUpdatePhoneProductRequestDto getByIdDetailsForUpdatePhoneProductRequestDto, CancellationToken cancellationToken)
     {
-        var getAllPhoneProductFeaturesQuery = new GetByIdDetailsForUpdatePhoneProductQuery() { ProductId = productId };
-        var result = await Mediator.Send(getAllPhoneProductFeaturesQuery, cancellationToken);
+        var query = new GetByIdDetailsForUpdatePhoneProductQuery(getByIdDetailsForUpdatePhoneProductRequestDto);
+        var result = await Mediator.Send(query, cancellationToken);
         return ReturnResult(result);
     }
 }

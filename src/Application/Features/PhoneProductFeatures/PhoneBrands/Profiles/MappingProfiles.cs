@@ -1,4 +1,4 @@
-﻿using Application.Features.PhoneProductFeatures.PhoneBrands.Queries.GetAllList;
+﻿using Application.Features.PhoneProductFeatures.PhoneBrands.Dtos;
 using AutoMapper;
 using Core.Application.Responses;
 using Core.DataAccess.Listing;

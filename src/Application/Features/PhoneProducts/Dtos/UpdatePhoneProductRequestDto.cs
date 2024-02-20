@@ -1,8 +1,8 @@
 ﻿using Core.Application.Dtos;
 
-namespace Application.Features.PhoneProducts.Commands.Update;
+namespace Application.Features.PhoneProducts.Dtos;
 
-public class UpdatePhoneProductDto : IDto
+public class UpdatePhoneProductRequestDto : IRequestDto
 {
     public int ProductCategoryId { get; set; }
     public string Title { get; set; }

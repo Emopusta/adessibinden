@@ -1,8 +1,8 @@
 ﻿using Core.Application.Dtos;
 
-namespace Application.Features.PhoneProducts.Commands.Create;
+namespace Application.Features.PhoneProducts.Dtos;
 
-public class CreatePhoneProductDto : IDto
+public class CreatePhoneProductRequestDto : IRequestDto
 {
     public int ProductCategoryId { get; set; }
     public string Title { get; set; }

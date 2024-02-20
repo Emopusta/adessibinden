@@ -13,7 +13,7 @@ public class UpdateUserProfileValidator : AbstractValidator<UpdateUserProfileCom
     {
         _userProfileRepository = userProfileRepository;
 
-        RuleFor(p => p.UpdateUserProfileDto.UserId)
+        RuleFor(p => p.UserId)
             .NotEmpty()
             .MustAsync(UserProfileMustExist).WithMessage(UserProfilesBusinessMessages.UserProfileMustExist);
     }

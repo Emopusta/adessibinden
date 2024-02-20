@@ -1,6 +1,6 @@
 ﻿using Core.Application.Responses;
 
-namespace Application.Features.Products.Queries.GetByCreatorUserIdPaginated;
+namespace Application.Features.Products.Dtos;
 
 public class GetByCreatorUserIdPaginatedDto : IResponse
 {

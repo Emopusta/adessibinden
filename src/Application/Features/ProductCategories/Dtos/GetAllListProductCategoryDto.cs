@@ -1,6 +1,6 @@
 ﻿using Core.Application.Dtos;
 
-namespace Application.Features.ProductCategories.Queries.GetAllList;
+namespace Application.Features.ProductCategories.Dtos;
 
 public class GetAllListProductCategoryDto : IDto
 {

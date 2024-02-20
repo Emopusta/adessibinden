@@ -1,6 +1,6 @@
 ﻿using Core.Application.Dtos;
 
-namespace Application.Features.PhoneProductFeatures.PhoneInternalMemories.Queries.GetAllList;
+namespace Application.Features.PhoneProductFeatures.PhoneInternalMemories.Dtos;
 public class GetAllListPhoneInternalMemoryDto : IDto
 {
     public int Id { get; set; }

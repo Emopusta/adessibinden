@@ -12,25 +12,26 @@ namespace WebAPI.Controllers;
 public class UserProfilesController : BaseController
 {
     [HttpPost]
-    public async Task<IDataResult<CreatedUserProfileResponse>> Create([FromBody] CreateUserProfileCommand createUserProfileCommand, CancellationToken cancellationToken)
+    public async Task<IDataResult<CreatedUserProfileResponse>> Create([FromBody] CreateUserProfileRequestDto createUserProfileRequestDto, CancellationToken cancellationToken)
     {
-        var response = await Mediator.Send(createUserProfileCommand, cancellationToken);
+        var command = new CreateUserProfileCommand(createUserProfileRequestDto);
+        var response = await Mediator.Send(command, cancellationToken);
         return ReturnResult(response);
     }
 
     [HttpPut]
-    public async Task<IDataResult<UpdatedUserProfileResponse>> Update([FromBody] UpdateUserProfileDto updateUserProfileDto, CancellationToken cancellationToken)
+    public async Task<IDataResult<UpdatedUserProfileResponse>> Update([FromBody] UpdateUserProfileRequestDto updateUserProfileRequestDto, CancellationToken cancellationToken)
     {
-        var updateUserProfileCommand = new UpdateUserProfileCommand { UpdateUserProfileDto = updateUserProfileDto };
-        var response = await Mediator.Send(updateUserProfileCommand, cancellationToken);
+        var command = new UpdateUserProfileCommand(updateUserProfileRequestDto);
+        var response = await Mediator.Send(command, cancellationToken);
         return ReturnResult(response);
     }
 
     [HttpGet("GetById")]
-    public async Task<IDataResult<GetUserProfileResponse>> GetById([FromQuery] int userId, CancellationToken cancellationToken)
+    public async Task<IDataResult<GetUserProfileResponse>> GetById([FromQuery] GetByUserIdUserProfileRequestDto getByUserIdUserProfileRequestDto, CancellationToken cancellationToken)
     {
-        var getByIdColorQuery = new GetByUserIdUserProfileQuery() { UserId = userId };
-        var result = await Mediator.Send(getByIdColorQuery, cancellationToken);
+        var query = new GetByUserIdUserProfileQuery(getByUserIdUserProfileRequestDto);
+        var result = await Mediator.Send(query, cancellationToken);
         return ReturnResult(result);
     }
 }

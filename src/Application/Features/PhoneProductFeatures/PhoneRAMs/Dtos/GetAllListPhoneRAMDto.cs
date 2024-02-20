@@ -1,6 +1,6 @@
 ﻿using Core.Application.Dtos;
 
-namespace Application.Features.PhoneProductFeatures.PhoneRAMs.Queries.GetAllList;
+namespace Application.Features.PhoneProductFeatures.PhoneRAMs.Dtos;
 
 public class GetAllListPhoneRAMDto : IDto
 {

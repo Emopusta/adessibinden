@@ -1,4 +1,5 @@
-﻿using Core.Application.Pipelines;
+﻿using Application.Features.Products.Dtos;
+using Core.Application.Pipelines;
 using Core.Application.Requests;
 using Core.Application.Responses;
 
@@ -8,4 +9,10 @@ public class GetByCreatorUserIdPaginatedQuery : IQueryRequest<PaginateResponse<G
 {
     public PageRequest PageRequest { get; set; }
     public int CreatorUserId { get; set; }
+
+    public GetByCreatorUserIdPaginatedQuery(GetByCreatorUserIdPaginatedRequestDto getByCreatorUserIdPaginatedRequestDto, PageRequest pageRequest)
+    {
+        PageRequest = pageRequest;
+        CreatorUserId = getByCreatorUserIdPaginatedRequestDto.CreatorUserId;
+    }
 }

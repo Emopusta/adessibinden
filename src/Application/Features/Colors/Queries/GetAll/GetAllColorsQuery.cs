@@ -8,5 +8,8 @@ public class GetAllColorsQuery : IQueryRequest<PaginateResponse<GetAllColorsList
 {
     public PageRequest PageRequest { get; set; }
 
-    
+    public GetAllColorsQuery(PageRequest pageRequest)
+    {
+        PageRequest = pageRequest;
+    }
 }

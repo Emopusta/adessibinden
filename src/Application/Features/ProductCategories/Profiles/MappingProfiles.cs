@@ -1,4 +1,4 @@
-﻿using Application.Features.ProductCategories.Queries.GetAllList;
+﻿using Application.Features.ProductCategories.Dtos;
 using AutoMapper;
 using Core.Application.Responses;
 using Core.DataAccess.Listing;

@@ -1,4 +1,5 @@
-﻿using Core.Application.Pipelines;
+﻿using Application.Features.PhoneProductFeatures.PhoneModels.Dtos;
+using Core.Application.Pipelines;
 using Core.Application.Responses;
 
 namespace Application.Features.PhoneProductFeatures.PhoneModels.Queries.GetAllList;

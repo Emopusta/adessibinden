@@ -51,7 +51,7 @@ public class AuthController : BaseController
     [HttpPut("RevokeToken")]
     public async Task<IDataResult<RevokedTokenResponse>> RevokeToken([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)] string? refreshToken, CancellationToken cancellationToken)
     {
-        var revokeTokenCommand = new RevokeTokenCommand() { Token = refreshToken };
+        var revokeTokenCommand = new RevokeTokenCommand(refreshToken);
         var result = await Mediator.Send(revokeTokenCommand, cancellationToken);
         return ReturnResult(result);
     }
