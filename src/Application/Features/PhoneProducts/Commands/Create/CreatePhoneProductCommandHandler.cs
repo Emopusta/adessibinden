@@ -52,7 +52,7 @@ public class CreatePhoneProductCommandHandler : ICommandRequestHandler<CreatePho
 
     private async Task<CreatedProductResponse> CreateProduct(int creatorUserId, int productCategoryId, string description, string title, CancellationToken cancellationToken)
     {
-        Product product = new()
+        var product = new Product()
         {
             Description = description,
             Title = title,
@@ -60,10 +60,10 @@ public class CreatePhoneProductCommandHandler : ICommandRequestHandler<CreatePho
             ProductCategoryId = productCategoryId
         };
 
-        Product addedProduct = await _productRepository.AddAsync(product);
+        var addedProduct = await _productRepository.AddAsync(product);
         await _unitOfWork.SaveAsync(cancellationToken);
 
-        CreatedProductResponse response = new()
+        var response = new CreatedProductResponse()
         {
             Id = addedProduct.Id,
             Description = addedProduct.Description,

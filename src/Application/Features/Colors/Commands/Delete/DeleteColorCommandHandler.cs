@@ -15,11 +15,11 @@ public class DeleteColorCommandHandler : ICommandRequestHandler<DeleteColorComma
 
     public async Task<DeletedColorResponse> Handle(DeleteColorCommand request, CancellationToken cancellationToken)
     {
-        Color? color = await _colorRepository.GetAsync(c => c.Id ==  request.Id);
+        var color = await _colorRepository.GetAsync(c => c.Id ==  request.Id);
 
         var deletedColor = await _colorRepository.DeleteAsync(color);
 
-        DeletedColorResponse result = new()
+        var result = new DeletedColorResponse()
         {
             Id = deletedColor.Id,
             Name = deletedColor.Name,

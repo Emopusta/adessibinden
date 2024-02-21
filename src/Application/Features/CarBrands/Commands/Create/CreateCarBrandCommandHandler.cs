@@ -19,9 +19,9 @@ public class CreateCarBrandCommandHandler : ICommandRequestHandler<CreateCarBran
             Name = request.Name
         };
 
-        CarBrand addedCarBrand = await _repository.AddAsync(carBrand);
+        var addedCarBrand = await _repository.AddAsync(carBrand);
 
-        CreatedCarBrandResponse result = new()
+        var result = new CreatedCarBrandResponse()
         {
             Name = addedCarBrand.Name,
         };

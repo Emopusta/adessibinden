@@ -10,7 +10,7 @@ public static class JWTExtension
     public static void AddJWT(this IServiceCollection services, IConfiguration configuration)
     {
         const string tokenOptionsConfigurationSection = "TokenOptions";
-        TokenOptions tokenOptions =
+        var tokenOptions =
             configuration.GetSection(tokenOptionsConfigurationSection).Get<TokenOptions>()
             ?? throw new InvalidOperationException($"\"{tokenOptionsConfigurationSection}\" section cannot found in configuration.");
 

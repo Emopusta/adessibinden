@@ -35,7 +35,7 @@ public class RevokeTokenCommandHandler : ICommandRequestHandler<RevokeTokenComma
 
         await _authService.RevokeRefreshToken(token: refreshToken!, ipAddress, reason: "Revoked without replacement");
 
-        RevokedTokenResponse revokedTokenResponse = _mapper.Map<RevokedTokenResponse>(refreshToken);
+        var revokedTokenResponse = _mapper.Map<RevokedTokenResponse>(refreshToken);
         return revokedTokenResponse;
     }
 }

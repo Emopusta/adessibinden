@@ -8,7 +8,7 @@ public static class RefreshTokenCookieHelper
 {
     public static void SetRefreshTokenToCookie(HttpContext httpContext, RefreshToken refreshToken)
     {
-        CookieOptions cookieOptions = new() { Expires = DateTime.UtcNow.AddDays(7), Secure=true, HttpOnly=true };
+        var cookieOptions = new CookieOptions() { Expires = DateTime.UtcNow.AddDays(7), Secure=true, HttpOnly=true };
         httpContext.Response.Cookies.Append(key: "refreshToken", refreshToken.Token, cookieOptions);
     }
 

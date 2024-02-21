@@ -35,26 +35,26 @@ public class AuthManager : IAuthService
 
     public async Task<AccessToken> CreateAccessToken(User user)
     {
-        IList<OperationClaim> operationClaims = await _userOperationClaimRepository
+        var operationClaims = await _userOperationClaimRepository
             .Query()
             .AsNoTracking()
             .Where(p => p.UserId == user.Id)
             .Select(p => new OperationClaim { Id = p.OperationClaimId, Name = p.OperationClaim.Name })
             .ToListAsync();
 
-        AccessToken accessToken = _tokenHelper.CreateToken(user, operationClaims);
+        var accessToken = _tokenHelper.CreateToken(user, operationClaims);
         return accessToken;
     }
 
     public async Task<RefreshToken> AddRefreshToken(RefreshToken refreshToken)
     {
-        RefreshToken addedRefreshToken = await _refreshTokenRepository.AddAsync(refreshToken);
+        var addedRefreshToken = await _refreshTokenRepository.AddAsync(refreshToken);
         return addedRefreshToken;
     }
 
     public async Task DeleteOldRefreshTokens(int userId)
     {
-        List<RefreshToken> refreshTokens = await _refreshTokenRepository
+        var refreshTokens = await _refreshTokenRepository
             .Query()
             .AsNoTracking()
             .Where(
@@ -71,7 +71,7 @@ public class AuthManager : IAuthService
 
     public async Task<RefreshToken?> GetRefreshTokenByToken(string token)
     {
-        RefreshToken? refreshToken = await _refreshTokenRepository.GetAsync(predicate: r => r.Token == token);
+        var refreshToken = await _refreshTokenRepository.GetAsync(predicate: r => r.Token == token);
         return refreshToken;
     }
 
@@ -86,14 +86,14 @@ public class AuthManager : IAuthService
 
     public async Task<RefreshToken> RotateRefreshToken(User user, RefreshToken refreshToken, string ipAddress)
     {
-        RefreshToken newRefreshToken = _tokenHelper.CreateRefreshToken(user, ipAddress);
+        var newRefreshToken = _tokenHelper.CreateRefreshToken(user, ipAddress);
         await RevokeRefreshToken(refreshToken, ipAddress, reason: "Replaced by new token", newRefreshToken.Token);
         return newRefreshToken;
     }
 
     public async Task RevokeDescendantRefreshTokens(RefreshToken refreshToken, string ipAddress, string reason)
     {
-        RefreshToken? childToken = await _refreshTokenRepository.GetAsync(predicate: r => r.Token == refreshToken.ReplacedByToken);
+        var childToken = await _refreshTokenRepository.GetAsync(predicate: r => r.Token == refreshToken.ReplacedByToken);
 
         if (childToken?.Revoked != null && childToken.Expires <= DateTime.UtcNow)
             await RevokeRefreshToken(childToken, ipAddress, reason);
@@ -103,7 +103,7 @@ public class AuthManager : IAuthService
 
     public Task<RefreshToken> CreateRefreshToken(User user, string ipAddress)
     {
-        RefreshToken refreshToken = _tokenHelper.CreateRefreshToken(user, ipAddress);
+        var refreshToken = _tokenHelper.CreateRefreshToken(user, ipAddress);
         return Task.FromResult(refreshToken);
     }
 }

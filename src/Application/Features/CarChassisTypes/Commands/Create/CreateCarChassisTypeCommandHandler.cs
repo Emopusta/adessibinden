@@ -14,14 +14,14 @@ public class CreateCarChassisTypeCommandHandler : ICommandRequestHandler<CreateC
 
     public async Task<CreatedCarChassisTypeResponse> Handle(CreateCarChassisTypeCommand request, CancellationToken cancellationToken)
     {
-        CarChassisType carChassisType = new()
+        var carChassisType = new CarChassisType()
         {
             Name = request.Name
         };
 
-        CarChassisType addedcarChassisType = await _repository.AddAsync(carChassisType);
+        var addedcarChassisType = await _repository.AddAsync(carChassisType);
 
-        CreatedCarChassisTypeResponse response = new()
+        var response = new CreatedCarChassisTypeResponse()
         {
             Name = addedcarChassisType.Name,
         };

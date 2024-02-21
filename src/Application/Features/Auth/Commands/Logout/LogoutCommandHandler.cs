@@ -29,7 +29,7 @@ public class LogoutCommandHandler : ICommandRequestHandler<LogoutCommand, Logged
 
         RefreshTokenCookieHelper.DeleteRefreshTokenFromCookies(_contextAccessor.HttpContext);
 
-        LoggedOutResponse result = new()
+        var result = new LoggedOutResponse()
         {
             Message = "Logged Out"
         };

@@ -26,7 +26,7 @@ public class UserManager : IUserService
         CancellationToken cancellationToken = default
     )
     {
-        User? user = await _userRepository.GetAsync(predicate, include, withDeleted, enableTracking, cancellationToken);
+        var user = await _userRepository.GetAsync(predicate, include, withDeleted, enableTracking, cancellationToken);
         return user;
     }
 
@@ -41,7 +41,7 @@ public class UserManager : IUserService
         CancellationToken cancellationToken = default
     )
     {
-        IPaginate<User> userList = await _userRepository.GetPaginateListAsync(
+        var userList = await _userRepository.GetPaginateListAsync(
             predicate,
             orderBy,
             include,
@@ -58,7 +58,7 @@ public class UserManager : IUserService
     {
         await _userBusinessRules.UserEmailShouldNotExistsWhenInsert(user.Email);
 
-        User addedUser = await _userRepository.AddAsync(user);
+        var addedUser = await _userRepository.AddAsync(user);
         return addedUser;
     }
 
@@ -66,13 +66,13 @@ public class UserManager : IUserService
     {
         await _userBusinessRules.UserEmailShouldNotExistsWhenUpdate(user.Id, user.Email);
 
-        User updatedUser = await _userRepository.UpdateAsync(user);
+        var updatedUser = await _userRepository.UpdateAsync(user);
         return updatedUser;
     }
 
     public async Task<User> DeleteAsync(User user, bool permanent = false)
     {
-        User deletedUser = await _userRepository.DeleteAsync(user);
+        var deletedUser = await _userRepository.DeleteAsync(user);
         return deletedUser;
     }
 }

@@ -2,7 +2,6 @@
 using Application.Services.AuthService;
 using Core.Application.GenericRepository;
 using Core.Security.Hashing;
-using Core.Security.JWT;
 using Core.CrossCuttingConcerns.Cookies;
 using Core.Utilities.Network;
 using Domain.Models;
@@ -41,20 +40,20 @@ public class RegisterCommandHandler : ICommandRequestHandler<RegisterCommand, Re
             passwordHash: out byte[] passwordHash,
             passwordSalt: out byte[] passwordSalt
         );
-        User newUser =
-            new()
+        var newUser =
+            new User()
             {
                 Email = request.UserForRegisterDto.Email,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
                 Status = true
             };
-        User createdUser = await _userRepository.AddAsync(newUser);
+        var createdUser = await _userRepository.AddAsync(newUser);
         await _unitOfWork.SaveAsync(cancellationToken);
 
         await _userProfileService.CreateDefaultUserProfile(createdUser.Id);
 
-        AccessToken createdAccessToken = await _authService.CreateAccessToken(createdUser);
+        var createdAccessToken = await _authService.CreateAccessToken(createdUser);
         var ipAddress = IpAddressHelper.GetIpAddress(_httpContextAccessor.HttpContext);
          
         var createdRefreshToken = await _authService.CreateRefreshToken(createdUser, ipAddress);
@@ -62,7 +61,7 @@ public class RegisterCommandHandler : ICommandRequestHandler<RegisterCommand, Re
 
         RefreshTokenCookieHelper.SetRefreshTokenToCookie(_httpContextAccessor.HttpContext, addedRefreshToken);
 
-        RegisteredResponse registeredResponse = new() { AccessToken = createdAccessToken , UserId = createdUser.Id };
+        var registeredResponse = new RegisteredResponse() { AccessToken = createdAccessToken , UserId = createdUser.Id };
         return registeredResponse;
     }
 }

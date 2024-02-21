@@ -15,15 +15,15 @@ public class CreatePhoneModelCommandHandler : ICommandRequestHandler<CreatePhone
 
     public async Task<CreatedPhoneModelResponse> Handle(CreatePhoneModelCommand request, CancellationToken cancellationToken)
     {
-        PhoneModel phoneModel = new()
+        var phoneModel = new PhoneModel()
         {
             BrandId = request.BrandId,
             Name = request.Name
         };
 
-        PhoneModel addedPhoneModel = await _phoneModelRepository.AddAsync(phoneModel);
+        var addedPhoneModel = await _phoneModelRepository.AddAsync(phoneModel);
 
-        CreatedPhoneModelResponse response = new()
+        var response = new CreatedPhoneModelResponse()
         {
             BrandId = addedPhoneModel.BrandId,
             Name = addedPhoneModel.Name

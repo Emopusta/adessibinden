@@ -1,10 +1,8 @@
 ﻿using Application.Features.Auth.Rules;
 using Application.Services.AuthService;
 using Application.Services.UsersService;
-using Core.Security.JWT;
 using Core.CrossCuttingConcerns.Cookies;
 using Core.Utilities.Network;
-using Domain.Models;
 using Microsoft.AspNetCore.Http;
 using Core.Application.Pipelines;
 
@@ -27,16 +25,16 @@ public class LoginCommandHandler : ICommandRequestHandler<LoginCommand, LoggedRe
 
     public async Task<LoggedResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        User? user = await _userService.GetAsync(
+        var user = await _userService.GetAsync(
             predicate: u => u.Email == request.UserForLoginDto.Email,
             cancellationToken: cancellationToken
         );
         await _authBusinessRules.UserShouldBeExistsWhenSelected(user);
         await _authBusinessRules.UserPasswordShouldBeMatch(user!.Id, request.UserForLoginDto.Password);
 
-        LoggedResponse loggedResponse = new();
+        var loggedResponse = new LoggedResponse();
 
-        AccessToken createdAccessToken = await _authService.CreateAccessToken(user);
+        var createdAccessToken = await _authService.CreateAccessToken(user);
 
         var ipAddress = IpAddressHelper.GetIpAddress(_httpContextAccessor.HttpContext);
         var createdRefreshToken = await _authService.CreateRefreshToken(user, ipAddress);
