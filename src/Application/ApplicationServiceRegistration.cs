@@ -37,7 +37,7 @@ public static class ApplicationServiceRegistration
 
         services.AddSubClassesOfType(Assembly.GetExecutingAssembly(), typeof(BaseBusinessRules));
 
-        services.Decorate(typeof(IRequestHandler<,>), typeof(ExampleDecoratorForCommands<,>));
+        services.Decorate(typeof(IRequestHandler<,>), typeof(ExampleDecoratorForCommandHandler<,>));
 
         return services;
     }

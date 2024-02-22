@@ -3,13 +3,13 @@ using Core.Application.Responses;
 
 namespace Core.Application.Decorators;
 
-public class ExampleDecoratorForCommands<TCommand, TResponse> : ICommandRequestHandler<TCommand, TResponse> 
+public class ExampleDecoratorForCommandHandler<TCommand, TResponse> : ICommandRequestHandler<TCommand, TResponse> 
     where TCommand : ICommandRequest<TResponse>
     where TResponse : IResponse
 {
     private readonly ICommandRequestHandler<TCommand, TResponse> _commandRequestHandler;
 
-    public ExampleDecoratorForCommands(ICommandRequestHandler<TCommand, TResponse> commandRequestHandler)
+    public ExampleDecoratorForCommandHandler(ICommandRequestHandler<TCommand, TResponse> commandRequestHandler)
     {
         _commandRequestHandler = commandRequestHandler;
     }
@@ -18,7 +18,7 @@ public class ExampleDecoratorForCommands<TCommand, TResponse> : ICommandRequestH
     {
         var result = _commandRequestHandler.Handle(request, cancellationToken);
 
-        Console.WriteLine("Example Decorator Pattern for Commands Works!!!");
+        Console.WriteLine("Example Decorator Pattern for Command Request Handlers Works!!!");
 
         return result;
     }
