@@ -3,10 +3,12 @@ using Application.Services.ProductService;
 using Application.Services.UserFavouriteProductService;
 using Application.Services.UserProfileService;
 using Application.Services.UsersService;
+using Core.Application.Decorators;
 using Core.Application.Pipelines.Transaction;
 using Core.Application.Pipelines.Validation;
 using Core.Application.Rules;
 using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -34,6 +36,8 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IUserFavouriteProductService, UserFavouriteProductManager>();
 
         services.AddSubClassesOfType(Assembly.GetExecutingAssembly(), typeof(BaseBusinessRules));
+
+        services.Decorate(typeof(IRequestHandler<,>), typeof(ExampleDecoratorForCommands<,>));
 
         return services;
     }
