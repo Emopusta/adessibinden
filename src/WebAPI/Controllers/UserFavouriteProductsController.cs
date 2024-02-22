@@ -21,10 +21,10 @@ public class UserFavouriteProductsController : BaseController
         return ReturnResult(response);
     }
 
-    [HttpDelete("{userId:int}/{productId:int}")]
-    public async Task<IDataResult<DeletedUserFavouriteProductResponse>> Delete([FromRoute] int userId, int productId, CancellationToken cancellationToken)
+    [HttpDelete("{deleteUserFavouriteProductRequestDto.UserId:int}/{deleteUserFavouriteProductRequestDto.ProductId:int}")]
+    public async Task<IDataResult<DeletedUserFavouriteProductResponse>> Delete([FromRoute] DeleteUserFavouriteProductRequestDto deleteUserFavouriteProductRequestDto, CancellationToken cancellationToken)
     {
-        var command = new DeleteUserFavouriteProductCommand(userId, productId);
+        var command = new DeleteUserFavouriteProductCommand(deleteUserFavouriteProductRequestDto);
         var response = await Mediator.Send(command, cancellationToken);
         return ReturnResult(response);
     }

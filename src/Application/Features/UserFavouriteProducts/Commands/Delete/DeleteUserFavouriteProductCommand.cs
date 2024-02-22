@@ -1,4 +1,5 @@
-﻿using Core.Application.Pipelines;
+﻿using Application.Features.UserFavouriteProducts.Dtos;
+using Core.Application.Pipelines;
 
 namespace Application.Features.UserFavouriteProducts.Commands.Delete;
 
@@ -7,9 +8,9 @@ public class DeleteUserFavouriteProductCommand : ICommandRequest<DeletedUserFavo
     public int UserId { get; set; }
     public int ProductId { get; set; }
 
-    public DeleteUserFavouriteProductCommand(int userId, int productId)
+    public DeleteUserFavouriteProductCommand(DeleteUserFavouriteProductRequestDto deleteUserFavouriteProductRequestDto)
     {
-        UserId = userId;
-        ProductId = productId;
+        UserId = deleteUserFavouriteProductRequestDto.UserId;
+        ProductId = deleteUserFavouriteProductRequestDto.ProductId;
     }
 }
