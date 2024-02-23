@@ -13,6 +13,17 @@ public class ProductCategoryConfiguration : IEntityTypeConfiguration<ProductCate
         builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
 
         builder.Property(e => e.Name).HasColumnType("character varying").HasColumnName("Name").IsRequired();
+
+        builder.HasData(GetSeeds());
+    }
+
+    private static IEnumerable<ProductCategory> GetSeeds()
+    {
+        var data = new List<ProductCategory>
+    {
+        new() { Id = 1, Name = "Phone" }
+    };
+        return data;
     }
 }
 

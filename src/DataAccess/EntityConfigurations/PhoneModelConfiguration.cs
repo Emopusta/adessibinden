@@ -19,5 +19,22 @@ public class PhoneModelConfiguration : IEntityTypeConfiguration<PhoneModel>
             .HasForeignKey(d => d.BrandId)
             .OnDelete(DeleteBehavior.ClientSetNull)
             .HasConstraintName("BrandId_fkey");
+
+        builder.HasData(GetSeeds());
+    }
+
+    private static IEnumerable<PhoneModel> GetSeeds()
+    {
+        var data = new List<PhoneModel>
+        {
+            new() { Id = 1, Name = "Iphone 11" , BrandId = 1},
+            new() { Id = 2, Name = "Iphone 12" , BrandId = 1},
+            new() { Id = 3, Name = "Iphone 13" , BrandId = 1},
+            new() { Id = 4, Name = "Iphone 14" , BrandId = 1},
+            new() { Id = 4, Name = "Galaxy Note 4" , BrandId = 2},
+            new() { Id = 4, Name = "Galaxy Note 5" , BrandId = 2},
+            new() { Id = 4, Name = "Galaxy Note 6" , BrandId = 2},
+        };
+        return data;
     }
 }

@@ -13,5 +13,17 @@ public class PhoneBrandConfiguration : IEntityTypeConfiguration<PhoneBrand>
         builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
 
         builder.Property(e => e.Name).HasColumnType("character varying").HasColumnName("Name").IsRequired();
+
+        builder.HasData(GetSeeds());
+    }
+
+    private static IEnumerable<PhoneBrand> GetSeeds()
+    {
+        var data = new List<PhoneBrand>
+    {
+        new() { Id = 1, Name = "Apple" },
+        new() { Id = 2, Name = "Samsung" }
+    };
+        return data;
     }
 }

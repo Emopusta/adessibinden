@@ -13,5 +13,17 @@ public class PhoneRAMConfiguration : IEntityTypeConfiguration<PhoneRAM>
         builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
 
         builder.Property(e => e.Memory).HasColumnType("character varying").HasColumnName("Memory").IsRequired();
+
+        builder.HasData(GetSeeds());
+    }
+
+    private static IEnumerable<PhoneRAM> GetSeeds()
+    {
+        var data = new List<PhoneRAM>
+    {
+        new() { Id = 1, Memory = "1 Gb" },
+        new() { Id = 2, Memory = "512 Kb" }
+    };
+        return data;
     }
 }

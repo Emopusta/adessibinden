@@ -18,13 +18,15 @@ public class ColorConfiguration : IEntityTypeConfiguration<Color>
         builder.HasData(GetSeeds());
     }
 
-    private IEnumerable<Color> GetSeeds()
+    private static IEnumerable<Color> GetSeeds()
     {
-        var colors = new List<Color>();
-        colors.Add(new Color() { Id = 1, Name = "Red" });
-        colors.Add(new Color() { Id = 2, Name = "Green" });
-        colors.Add(new Color() { Id = 3, Name = "Yellow" });
-        colors.Add(new Color() { Id = 4, Name = "Blue" });
+        var colors = new List<Color>
+        {
+            new() { Id = 1, Name = "Red" },
+            new() { Id = 2, Name = "Green" },
+            new() { Id = 3, Name = "Yellow" },
+            new() { Id = 4, Name = "Blue" }
+        };
         return colors;
     }
 }

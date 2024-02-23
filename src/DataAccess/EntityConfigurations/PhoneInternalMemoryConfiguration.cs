@@ -13,5 +13,19 @@ public class PhoneInternalMemoryConfiguration : IEntityTypeConfiguration<PhoneIn
         builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
 
         builder.Property(e => e.Capacity).HasColumnType("character varying").HasColumnName("Capacity").IsRequired();
+
+        builder.HasData(GetSeeds());
+    }
+
+    private static IEnumerable<PhoneInternalMemory> GetSeeds()
+    {
+        var data = new List<PhoneInternalMemory>
+        {
+            new() { Id = 1, Capacity = "64 Gb" },
+            new() { Id = 2, Capacity = "128 Gb" },
+            new() { Id = 3, Capacity = "256 Gb" },
+            new() { Id = 4, Capacity = "512 Gb" }
+        };
+        return data;
     }
 }
