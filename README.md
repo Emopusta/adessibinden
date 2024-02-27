@@ -62,11 +62,21 @@ Gereksinimler:
     |---|- KlonlananProje <br>
     |---|---| Adessibinden <br>
     |---|---| AdessibindenFrontend
-5. CMD (Komut İstemi) ni açınız ve projenin `docker.compose.yml` dosyasının bulunduğu dizinine gidiniz. [Dizine nasıl gidilir?]()
+5. CMD (Komut İstemi) ni açınız ve projenin `docker.compose.yml` dosyasının bulunduğu dizinine gidiniz. [Dizine nasıl gidilir?](#dizine-nasıl-gidilir)
 6. `docker compose build` komutunu çalıştırınız (Windowsta Docker Desktop çalışıyor iken yapmanız gerekli.)
 7. Build işlemi tamamlandıktan sonra `docker compose up` yaparak sistemi ayağa kaldırınız.
 8. `http://localhost:8080/` adresinden projeye erişebilirsiniz.
 
+
+### Dizine nasıl gidilir?
+
+**1. Yöntem:** `Windows + R` içine `cmd` yazarak veya arama yerine `cmd` veya `komut istemi` yazarak komut istemini açınız. ardından `cd` komutu ile gitmek istediğiniz yere doğru yöneliniz. ör: `cd source\repos\Adessibinden`
+
+**2. Yöntem:** Dosya Gezgini yardımıyla dosya konumuna gidiniz ardından dosya yolunun kısmına `cmd` yazınız ve enter'a basınız. 
+<br>Ör:<br>
+![path](./docs/path.png)
+<br>
+![cmd](./docs/cmd.png)
 
 ## Destek
 
