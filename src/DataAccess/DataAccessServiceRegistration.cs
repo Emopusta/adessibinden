@@ -1,4 +1,5 @@
 ﻿using Core.Application.GenericRepository;
+using Core.DataAccess.Repositories;
 using Core.DataAccess.UoW;
 using DataAccess.Contexts;
 using DataAccess.Repositories;
@@ -23,12 +24,37 @@ public static class DataAccessServiceRegistration
 
         services.AddScoped<IUnitOfWork, UnitOfWork<AdessibindenContext>>();
 
-        services.RegisterGenericRepositories();
+        services.RegisterCustomRepositories();
+
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
         return services;
     }
     
-private static IServiceCollection RegisterGenericRepositories(this IServiceCollection services)
+private static IServiceCollection RegisterCustomRepositories(this IServiceCollection services) // working for now but needs refactor !!!!!!
+    {
+        var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
+        var applicationAssembly = Directory.GetFiles(path, "Application.dll").Select(AssemblyLoadContext.Default.LoadFromAssemblyPath).FirstOrDefault();
+        var dataAccessAssembly = Directory.GetFiles(path, "DataAccess.dll").Select(AssemblyLoadContext.Default.LoadFromAssemblyPath).FirstOrDefault();
+
+        if (applicationAssembly == null || dataAccessAssembly == null) throw new Exception("Assemblies could not found.");
+
+        var irepositories = applicationAssembly.DefinedTypes.Where(p => p.GetInterfaces().Where(p => p.IsAssignableFrom(typeof(IBaseCustomRepository))).Count() == 1).ToList();
+        var repositories = dataAccessAssembly.DefinedTypes.Where(p => p.GetInterfaces().Where(p => p.IsAssignableFrom(typeof(IBaseCustomRepository))).Count() == 1).ToList();
+
+        irepositories.Sort();
+        repositories.Sort();
+
+        for(int i = 0; i < irepositories.Count; i++)
+        {
+            services.AddScoped(irepositories[i], repositories[i]);
+        }
+        
+        
+        return services;
+    }
+    private static IServiceCollection RegisterGenericRepositories(this IServiceCollection services)
     {
         var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
@@ -46,7 +72,7 @@ private static IServiceCollection RegisterGenericRepositories(this IServiceColle
         foreach (var domain in domainAssembly.DefinedTypes)
         {
             var domainEntityType = domain.AsType();
-            
+
             if (domainEntityType == null) { continue; }
 
             iGenericRepository.MakeGenericType(domainEntityType);

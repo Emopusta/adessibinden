@@ -4,7 +4,10 @@ using Application.Features.PhoneProducts.Commands.Update;
 using Application.Features.PhoneProducts.Dtos;
 using Application.Features.PhoneProducts.Queries.GetByIdDetails;
 using Application.Features.PhoneProducts.Queries.GetByIdDetailsForUpdate;
+using Application.Features.PhoneProducts.Queries.GetTenMostExpensive;
+using Core.Application.Responses;
 using Core.Utilities.Results;
+using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -49,6 +52,14 @@ public class PhoneProductsController : BaseController
     public async Task<IDataResult<GetByIdDetailsForUpdatePhoneProductResponse>> GetByIdForUpdateDetails([FromQuery] GetByIdDetailsForUpdatePhoneProductRequestDto getByIdDetailsForUpdatePhoneProductRequestDto, CancellationToken cancellationToken)
     {
         var query = new GetByIdDetailsForUpdatePhoneProductQuery(getByIdDetailsForUpdatePhoneProductRequestDto);
+        var result = await Mediator.Send(query, cancellationToken);
+        return ReturnResult(result);
+    }
+
+    [HttpGet("TenMostExpensive")]
+    public async Task<IDataResult<ListResponse<PhoneProduct>>> GetTenMostExpensive(CancellationToken cancellationToken)
+    {
+        var query = new GetTenMostExpensivePhoneProductQuery();
         var result = await Mediator.Send(query, cancellationToken);
         return ReturnResult(result);
     }
