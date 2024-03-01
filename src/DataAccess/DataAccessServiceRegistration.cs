@@ -31,7 +31,7 @@ public static class DataAccessServiceRegistration
         return services;
     }
     
-private static IServiceCollection RegisterCustomRepositories(this IServiceCollection services) // working for now but needs refactor !!!!!!
+private static IServiceCollection RegisterCustomRepositories(this IServiceCollection services)
     {
         var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
@@ -40,20 +40,22 @@ private static IServiceCollection RegisterCustomRepositories(this IServiceCollec
 
         if (applicationAssembly == null || dataAccessAssembly == null) throw new Exception("Assemblies could not found.");
 
-        var irepositories = applicationAssembly.DefinedTypes.Where(p => p.GetInterfaces().Where(p => p.IsAssignableFrom(typeof(IBaseCustomRepository))).Count() == 1).ToList();
-        var repositories = dataAccessAssembly.DefinedTypes.Where(p => p.GetInterfaces().Where(p => p.IsAssignableFrom(typeof(IBaseCustomRepository))).Count() == 1).ToList();
+        var irepositories = applicationAssembly.DefinedTypes.Where(p => p.GetInterfaces().Any(p => p.IsAssignableFrom(typeof(IBaseCustomRepository)))).ToList();
+        var repositories = dataAccessAssembly.DefinedTypes.Where(p => p.GetInterfaces().Any(p => p.IsAssignableFrom(typeof(IBaseCustomRepository)))).ToList();
 
         irepositories.Sort();
         repositories.Sort();
+
+        if (irepositories.Count != repositories.Count) throw new Exception("Something went wrong while registering custom repositories.");
 
         for(int i = 0; i < irepositories.Count; i++)
         {
             services.AddScoped(irepositories[i], repositories[i]);
         }
-        
-        
+          
         return services;
     }
+
     private static IServiceCollection RegisterGenericRepositories(this IServiceCollection services)
     {
         var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
