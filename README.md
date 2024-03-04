@@ -55,17 +55,9 @@ Gereksinimler:
 ### Kullanıcı Ortamı
 
 1. Kullanıcı ortamında çalışmalarınız yürütmek için öncelikle repoyu <br> `git clone https://github.com/Emopusta/adessibinden.git` <br> yardımı ile çalışma ortamınıza klonlamanız gerekmektedir.
-2. WebAPI içerisindeki `appsettings.json` içerisinde sadece postgre kullanıcı adı ve şifresini giriniz.
-3. `docker.compose.yml` dosyası içerisinden postgre kısmına aynı kullanıcı adı ve şifreyi giriniz.
-4. [Front-end](https://github.com/Emopusta/adessibinden-blazor) `git clone https://github.com/Emopusta/adessibinden-blazor.git` projesini bu proje ile aynı dizine klonlayınız<br>
-    |- repos <br>
-    |---|- KlonlananProje <br>
-    |---|---| Adessibinden <br>
-    |---|---| AdessibindenFrontend
-5. CMD (Komut İstemi) ni açınız ve projenin `docker.compose.yml` dosyasının bulunduğu dizinine gidiniz. [Dizine nasıl gidilir?](#dizine-nasıl-gidilir)
-6. `docker compose build` komutunu çalıştırınız (Windowsta Docker Desktop çalışıyor iken yapmanız gerekli.)
-7. Build işlemi tamamlandıktan sonra `docker compose up` yaparak sistemi ayağa kaldırınız.
-8. `http://localhost:8080/` adresinden projeye erişebilirsiniz.
+2. CMD (Komut İstemi) ni açınız ve projenin `docker.compose.yml` dosyasının bulunduğu dizinine gidiniz. [Dizine nasıl gidilir?](#dizine-nasıl-gidilir)
+3. `docker compose up` yaparak sistemi ayağa kaldırınız.(Windowsta Docker Desktop çalışıyor iken yapmanız gerekli.)
+4. `http://localhost:8080/` adresinden projeye erişebilirsiniz.
 
 
 ### Dizine nasıl gidilir?
