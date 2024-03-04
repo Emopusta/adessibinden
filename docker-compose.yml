@@ -34,7 +34,7 @@ services:
         networks:
             - adesnet
     adessibinden_frontend:
-        build: ../AdessibindenFrontend
+        build: ../adessibinden-blazor
         container_name: 'adessibinden_frontend'
         ports:
             - 8080:8080
