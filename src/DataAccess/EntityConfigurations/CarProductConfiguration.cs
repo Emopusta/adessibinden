@@ -22,17 +22,17 @@ public class CarProductConfiguration : IEntityTypeConfiguration<CarProduct>
 
         builder.HasOne(d => d.CarProductCategory).WithMany(p => p.CarProducts)
                 .HasForeignKey(d => d.CarProductCategoryId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.ClientCascade)
                 .HasConstraintName("CarProductCategoryId_fkey");
 
         builder.HasOne(d => d.ChassisType).WithMany(p => p.CarProducts)
                 .HasForeignKey(d => d.ChassisTypeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.ClientCascade)
                 .HasConstraintName("ChassisTypeId");
 
         builder.HasOne(d => d.Color).WithMany(p => p.CarProducts)
                 .HasForeignKey(d => d.ColorId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.ClientCascade)
                 .HasConstraintName("ColorId_fkey");
 
         builder.HasOne(d => d.FuelType).WithMany(p => p.CarProducts)
@@ -42,12 +42,12 @@ public class CarProductConfiguration : IEntityTypeConfiguration<CarProduct>
 
         builder.HasOne(d => d.Model).WithMany(p => p.CarProducts)
                 .HasForeignKey(d => d.ModelId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.ClientCascade)
                 .HasConstraintName("ModelId");
 
         builder.HasOne(d => d.Product).WithMany(p => p.CarProducts)
                 .HasForeignKey(d => d.ProductId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.ClientCascade)
                 .HasConstraintName("ProductId_fkey");
     }
 }

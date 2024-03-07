@@ -292,7 +292,7 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
             );
     }
 
-    private async Task setEntityAsSoftDeletedAsync(Entity entity)
+    private async Task setEntityAsSoftDeletedAsync(IEntityTimestamps entity)
     {   
         if (entity.DeletedDate.HasValue)
             return;
@@ -342,7 +342,7 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         Context.Update(entity);
     }
 
-    private void setEntityAsSoftDeleted(Entity entity)
+    private void setEntityAsSoftDeleted(IEntityTimestamps entity)
     {
         if (entity.DeletedDate.HasValue)
             return;

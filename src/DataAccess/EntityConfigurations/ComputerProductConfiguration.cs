@@ -22,37 +22,37 @@ public class ComputerProductConfiguration : IEntityTypeConfiguration<ComputerPro
 
         builder.HasOne(d => d.Brand).WithMany(p => p.ComputerProducts)
             .HasForeignKey(d => d.BrandId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
+            .OnDelete(DeleteBehavior.ClientCascade)
             .HasConstraintName("BrandId_fkey");
 
         builder.HasOne(d => d.OperatingSystem).WithMany(p => p.ComputerProducts)
             .HasForeignKey(d => d.OperatingSystemId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
+            .OnDelete(DeleteBehavior.ClientCascade)
             .HasConstraintName("OperatingSystemId_fkey");
 
         builder.HasOne(d => d.Processor).WithMany(p => p.ComputerProducts)
             .HasForeignKey(d => d.ProcessorId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
+            .OnDelete(DeleteBehavior.ClientCascade)
             .HasConstraintName("ProcessorId_fkey");
 
         builder.HasOne(d => d.Product).WithMany(p => p.ComputerProducts)
             .HasForeignKey(d => d.ProductId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
+            .OnDelete(DeleteBehavior.ClientCascade)
             .HasConstraintName("ProductId_fkey");
 
         builder.HasOne(d => d.RAM).WithMany(p => p.ComputerProducts)
             .HasForeignKey(d => d.RAMId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
+            .OnDelete(DeleteBehavior.ClientCascade)
             .HasConstraintName("RAMId_fkey");
 
         builder.HasOne(d => d.SSDCapacity).WithMany(p => p.ComputerProducts)
             .HasForeignKey(d => d.SSDCapacityId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
+            .OnDelete(DeleteBehavior.ClientCascade)
             .HasConstraintName("SSDCapacityId_fkey");
 
         builder.HasOne(d => d.VideoCard).WithMany(p => p.ComputerProducts)
             .HasForeignKey(d => d.VideoCardId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
+            .OnDelete(DeleteBehavior.ClientCascade)
             .HasConstraintName("VideoCardId_fkey");
     }
 }

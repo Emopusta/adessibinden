@@ -22,27 +22,27 @@ public class PhoneProductConfiguration : IEntityTypeConfiguration<PhoneProduct>
         
         builder.HasOne(d => d.Color).WithMany(p => p.PhoneProducts)
             .HasForeignKey(d => d.ColorId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
+            .OnDelete(DeleteBehavior.ClientCascade)
             .HasConstraintName("ColorId_fkey");
 
         builder.HasOne(d => d.InternalMemory).WithMany(p => p.PhoneProducts)
             .HasForeignKey(d => d.InternalMemoryId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
+            .OnDelete(DeleteBehavior.ClientCascade)
             .HasConstraintName("InternalMemoryId_fkey");
 
         builder.HasOne(d => d.Model).WithMany(p => p.PhoneProducts)
             .HasForeignKey(d => d.ModelId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
+            .OnDelete(DeleteBehavior.ClientCascade)
             .HasConstraintName("ModelId_fkey");
 
         builder.HasOne(d => d.Product).WithMany(p => p.PhoneProducts)
             .HasForeignKey(d => d.ProductId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
+            .OnDelete(DeleteBehavior.ClientCascade)
             .HasConstraintName("ProductId_fkey");
 
         builder.HasOne(d => d.RAM).WithMany(p => p.PhoneProducts)
             .HasForeignKey(d => d.RAMId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
+            .OnDelete(DeleteBehavior.ClientCascade)
             .HasConstraintName("RAMId_fkey");
     }
 }

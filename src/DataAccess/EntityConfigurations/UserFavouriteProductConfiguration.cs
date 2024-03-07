@@ -15,12 +15,12 @@ public class UserFavouriteProductConfiguration : IEntityTypeConfiguration<UserFa
 
         builder.HasOne(d => d.Product).WithMany(p => p.UserFavouriteProducts)
             .HasForeignKey(d => d.ProductId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
+            .OnDelete(DeleteBehavior.ClientCascade)
             .HasConstraintName("ProductId_fkey");
 
         builder.HasOne(d => d.User).WithMany(p => p.UserFavouriteProducts)
             .HasForeignKey(d => d.UserId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
+            .OnDelete(DeleteBehavior.ClientCascade)
             .HasConstraintName("UserId_fkey");
     }
 }

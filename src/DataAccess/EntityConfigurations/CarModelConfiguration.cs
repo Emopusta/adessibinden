@@ -18,7 +18,7 @@ public class CarModelConfiguration : IEntityTypeConfiguration<CarModel>
 
         builder.HasOne(d => d.Brand).WithMany(p => p.CarModels)
                 .HasForeignKey(d => d.BrandId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.ClientCascade)
                 .HasConstraintName("BrandId_fkey");
     }
 }

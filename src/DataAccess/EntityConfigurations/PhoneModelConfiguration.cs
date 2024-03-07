@@ -17,7 +17,7 @@ public class PhoneModelConfiguration : IEntityTypeConfiguration<PhoneModel>
 
         builder.HasOne(d => d.Brand).WithMany(p => p.PhoneModels)
             .HasForeignKey(d => d.BrandId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
+            .OnDelete(DeleteBehavior.ClientCascade)
             .HasConstraintName("BrandId_fkey");
 
         builder.HasData(GetSeeds());

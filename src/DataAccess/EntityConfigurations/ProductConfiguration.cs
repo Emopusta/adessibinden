@@ -24,7 +24,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 
         builder.HasOne(d => d.ProductCategory).WithMany(p => p.Products)
             .HasForeignKey(d => d.ProductCategoryId)
-            .OnDelete(DeleteBehavior.ClientSetNull)
+            .OnDelete(DeleteBehavior.ClientCascade)
             .HasConstraintName("ProductCategories_fkey");
     }
 }
