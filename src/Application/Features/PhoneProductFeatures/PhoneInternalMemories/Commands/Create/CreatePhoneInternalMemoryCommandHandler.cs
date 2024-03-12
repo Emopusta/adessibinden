@@ -15,14 +15,14 @@ public class CreatePhoneInternalMemoryCommandHandler : ICommandRequestHandler<Cr
 
     public async Task<CreatedPhoneInternalMemoryResponse> Handle(CreatePhoneInternalMemoryCommand request, CancellationToken cancellationToken)
     {
-        var phoneInternalMemory = new PhoneInternalMemory()
+        PhoneInternalMemory phoneInternalMemory = new()
         {
             Capacity = request.Capacity
         };
 
         var addedPhoneInternalMemory = await _phoneInternalMemoryRepository.AddAsync(phoneInternalMemory);
 
-        var response = new CreatedPhoneInternalMemoryResponse()
+        CreatedPhoneInternalMemoryResponse response = new()
         {
             Capacity = addedPhoneInternalMemory.Capacity,
         };

@@ -15,14 +15,14 @@ public class CreatePhoneRAMCommandHandler : ICommandRequestHandler<CreatePhoneRA
     public async Task<CreatedPhoneRAMResponse> Handle(CreatePhoneRAMCommand request, CancellationToken cancellationToken)
     {
 
-        var phoneRAM = new PhoneRAM()
+        PhoneRAM phoneRAM = new()
         {
             Memory = request.Memory,
         };
 
         var addedphoneRAM = await _phoneRAMRepository.AddAsync(phoneRAM);
 
-        var response = new CreatedPhoneRAMResponse()
+        CreatedPhoneRAMResponse response = new()
         {
             Memory = addedphoneRAM.Memory,
         };

@@ -26,7 +26,7 @@ public class DeletePhoneProductCommandHandler : ICommandRequestHandler<DeletePho
         await _productService.DeleteProduct(phoneProductToDelete.ProductId, cancellationToken);
         await _userFavouriteProductService.DeleteFavouritesByProduct(phoneProductToDelete.ProductId);
 
-        var response = new DeletedPhoneProductResponse()
+        DeletedPhoneProductResponse response = new()
         {
             ProductId = phoneProductToDelete.ProductId
         };

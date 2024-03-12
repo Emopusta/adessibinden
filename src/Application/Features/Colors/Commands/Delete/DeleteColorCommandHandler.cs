@@ -19,7 +19,7 @@ public class DeleteColorCommandHandler : ICommandRequestHandler<DeleteColorComma
 
         var deletedColor = await _colorRepository.DeleteAsync(color);
 
-        var result = new DeletedColorResponse()
+        DeletedColorResponse result = new()
         {
             Id = deletedColor.Id,
             Name = deletedColor.Name,

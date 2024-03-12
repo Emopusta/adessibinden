@@ -20,6 +20,7 @@ public class CreateUserProfileCommandHandler : ICommandRequestHandler<CreateUser
     {
         var userProfileToAdd = _mapper.Map<UserProfile>(request);
         var addedUserProfile = await _userProfileRepository.AddAsync(userProfileToAdd);
+
         var response = _mapper.Map<CreatedUserProfileResponse>(addedUserProfile);
         return response;
     }

@@ -15,14 +15,14 @@ public class CreatePhoneBrandCommandHandler : ICommandRequestHandler<CreatePhone
     public async Task<CreatedPhoneBrandResponse> Handle(CreatePhoneBrandCommand request, CancellationToken cancellationToken)
     {
 
-        var phoneBrand = new PhoneBrand()
+        PhoneBrand phoneBrand = new()
         {
             Name = request.Name
         };
 
         var addedphoneBrand = await _phoneBrandRepository.AddAsync(phoneBrand);
 
-        var response = new CreatedPhoneBrandResponse()
+        CreatedPhoneBrandResponse response = new()
         {
             Name = addedphoneBrand.Name,
         };

@@ -29,6 +29,7 @@ public class UpdatePhoneProductCommandHandler : ICommandRequestHandler<UpdatePho
         var phoneProductToUpdate = await _phoneProductRepository.GetAsync(p => p.ProductId == request.ProductId);
         var mappedPhoneProduct = _mapper.Map(request, phoneProductToUpdate);
         var updatedPhoneProduct = await _phoneProductRepository.UpdateAsync(mappedPhoneProduct);
+       
         var result = _mapper.Map<UpdatedPhoneProductResponse>(updatedPhoneProduct);
         return result;
     }
@@ -37,7 +38,7 @@ public class UpdatePhoneProductCommandHandler : ICommandRequestHandler<UpdatePho
     {
         var productToUpdate = await _productRepository.GetAsync(p => p.Id == productId);
 
-        var product = new UpdateProductDto()
+        UpdateProductDto product = new()
         {
             Id = productId,
             Description = description,
@@ -50,7 +51,7 @@ public class UpdatePhoneProductCommandHandler : ICommandRequestHandler<UpdatePho
         var updatedProduct = await _productRepository.UpdateAsync(mappedProduct);
         await _unitOfWork.SaveAsync(cancellationToken);
 
-        var response = new UpdatedProductResponse()
+        UpdatedProductResponse response = new()
         {
             Id = updatedProduct.Id,
             Description = updatedProduct.Description,

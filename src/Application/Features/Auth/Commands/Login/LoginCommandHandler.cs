@@ -32,7 +32,7 @@ public class LoginCommandHandler : ICommandRequestHandler<LoginCommand, LoggedRe
         await _authBusinessRules.UserShouldBeExistsWhenSelected(user);
         await _authBusinessRules.UserPasswordShouldBeMatch(user!.Id, request.UserForLoginDto.Password);
 
-        var loggedResponse = new LoggedResponse();
+        LoggedResponse loggedResponse = new();
 
         var createdAccessToken = await _authService.CreateAccessToken(user);
 

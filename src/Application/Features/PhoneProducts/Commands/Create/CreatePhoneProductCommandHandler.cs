@@ -22,7 +22,7 @@ public class CreatePhoneProductCommandHandler : ICommandRequestHandler<CreatePho
     {
         var createdProduct = await CreateProduct(request.CreatorUserId, request.ProductCategoryId, request.Description, request.Title, cancellationToken);
 
-        var phone = new PhoneProduct()
+        PhoneProduct phone = new()
         {
             ProductId = createdProduct.Id,
             ColorId = request.ColorId,
@@ -35,7 +35,7 @@ public class CreatePhoneProductCommandHandler : ICommandRequestHandler<CreatePho
 
         var addedPhone = await _phoneProductRepository.AddAsync(phone);
 
-        var response = new CreatedPhoneProductResponse()
+        CreatedPhoneProductResponse response = new()
         {
             ProductId = createdProduct.Id,
             CreatorUserId = createdProduct.CreatorUserId, 
@@ -52,7 +52,7 @@ public class CreatePhoneProductCommandHandler : ICommandRequestHandler<CreatePho
 
     private async Task<CreatedProductResponse> CreateProduct(int creatorUserId, int productCategoryId, string description, string title, CancellationToken cancellationToken)
     {
-        var product = new Product()
+        Product product = new()
         {
             Description = description,
             Title = title,
@@ -63,7 +63,7 @@ public class CreatePhoneProductCommandHandler : ICommandRequestHandler<CreatePho
         var addedProduct = await _productRepository.AddAsync(product);
         await _unitOfWork.SaveAsync(cancellationToken);
 
-        var response = new CreatedProductResponse()
+        CreatedProductResponse response = new()
         {
             Id = addedProduct.Id,
             Description = addedProduct.Description,

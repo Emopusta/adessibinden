@@ -40,8 +40,8 @@ public class RegisterCommandHandler : ICommandRequestHandler<RegisterCommand, Re
             passwordHash: out byte[] passwordHash,
             passwordSalt: out byte[] passwordSalt
         );
-        var newUser =
-            new User()
+        User newUser =
+            new()
             {
                 Email = request.UserForRegisterDto.Email,
                 PasswordHash = passwordHash,
@@ -61,7 +61,7 @@ public class RegisterCommandHandler : ICommandRequestHandler<RegisterCommand, Re
 
         RefreshTokenCookieHelper.SetRefreshTokenToCookie(_httpContextAccessor.HttpContext, addedRefreshToken);
 
-        var registeredResponse = new RegisteredResponse() { AccessToken = createdAccessToken , UserId = createdUser.Id };
+        RegisteredResponse registeredResponse = new() { AccessToken = createdAccessToken , UserId = createdUser.Id };
         return registeredResponse;
     }
 }

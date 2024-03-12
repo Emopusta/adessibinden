@@ -26,6 +26,7 @@ public class UpdateUserProfileCommandHandler : ICommandRequestHandler<UpdateUser
         var userProfileToUpdate = await _userProfileRepository.GetAsync(up =>  up.UserId == request.UserId);
         var mappedUserProfile = _mapper.Map(request, userProfileToUpdate);
         var updatedUserProfile = _userProfileRepository.UpdateAsync(mappedUserProfile).Result;
+
         var response = _mapper.Map<UpdatedUserProfileResponse>(updatedUserProfile);
         return response;
     }

@@ -20,6 +20,7 @@ public class GetByUserIdUserProfileQueryHandler : IQueryRequestHandler<GetByUser
             predicate: p => p.UserId == request.UserId,
             cancellationToken: cancellationToken
             );
+
         var response = _mapper.Map<GetUserProfileResponse>(userProfile);
         return response;
     }

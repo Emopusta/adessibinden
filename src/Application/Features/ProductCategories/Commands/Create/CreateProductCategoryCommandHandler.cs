@@ -15,14 +15,14 @@ public class CreateProductCategoryCommandHandler : ICommandRequestHandler<Create
     public async Task<CreatedProductCategoryResponse> Handle(CreateProductCategoryCommand request, CancellationToken cancellationToken)
     {
 
-        var productCategory = new ProductCategory()
+        ProductCategory productCategory = new()
         {
             Name = request.Name
         };
 
         var addedProductCategory = await _productCategoryRepository.AddAsync(productCategory);
 
-        var response = new CreatedProductCategoryResponse()
+        CreatedProductCategoryResponse response = new()
         {
             Name = addedProductCategory.Name,
         };

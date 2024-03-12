@@ -298,19 +298,19 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
             return;
         entity.DeletedDate = DateTime.UtcNow;
 
-        var navigations = Context
+        List<INavigation> navigations = Context
             .Entry(entity)
             .Metadata.GetNavigations()
             .Where(x => x is { IsOnDependent: false, ForeignKey.DeleteBehavior: DeleteBehavior.ClientCascade or DeleteBehavior.Cascade })
             .ToList();
-        foreach (INavigation? navigation in navigations)
+        foreach (var navigation in navigations)
         {
             if (navigation.TargetEntityType.IsOwned())
                 continue;
             if (navigation.PropertyInfo == null)
                 continue;
 
-            object? navValue = navigation.PropertyInfo.GetValue(entity);
+            var navValue = navigation.PropertyInfo.GetValue(entity);
             if (navigation.IsCollection)
             {
                 if (navValue == null)
@@ -348,19 +348,19 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
             return;
         entity.DeletedDate = DateTime.UtcNow;
 
-        var navigations = Context
+        List<INavigation>? navigations = Context
             .Entry(entity)
             .Metadata.GetNavigations()
             .Where(x => x is { IsOnDependent: false, ForeignKey.DeleteBehavior: DeleteBehavior.ClientCascade or DeleteBehavior.Cascade })
             .ToList();
-        foreach (INavigation? navigation in navigations)
+        foreach (var navigation in navigations)
         {
             if (navigation.TargetEntityType.IsOwned())
                 continue;
             if (navigation.PropertyInfo == null)
                 continue;
 
-            object? navValue = navigation.PropertyInfo.GetValue(entity);
+            var navValue = navigation.PropertyInfo.GetValue(entity);
             if (navigation.IsCollection)
             {
                 if (navValue == null)
