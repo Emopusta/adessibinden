@@ -1,4 +1,5 @@
 ﻿using Application.Features.Products.Commands.Create;
+using Application.Features.Products.Dtos;
 using Core.Application.GenericRepository;
 using Core.Application.Pipelines;
 using Core.DataAccess.UoW;
@@ -20,7 +21,13 @@ public class CreatePhoneProductCommandHandler : ICommandRequestHandler<CreatePho
 
     public async Task<CreatedPhoneProductResponse> Handle(CreatePhoneProductCommand request, CancellationToken cancellationToken)
     {
-        var createdProduct = await CreateProduct(request.CreatorUserId, request.ProductCategoryId, request.Description, request.Title, cancellationToken);
+        CreateProductDto productToCreate = new() { 
+            CreatorUserId = request.CreatorUserId,
+            Description = request.Description,
+            ProductCategoryId = request.ProductCategoryId,
+            Title = request.Title
+        };
+        var createdProduct = await createProduct(productToCreate, cancellationToken);
 
         PhoneProduct phone = new()
         {
@@ -47,17 +54,18 @@ public class CreatePhoneProductCommandHandler : ICommandRequestHandler<CreatePho
             UsageStatus = addedPhone.UsageStatus,
             Price = addedPhone.Price,
         };
+
         return response;
     }
 
-    private async Task<CreatedProductResponse> CreateProduct(int creatorUserId, int productCategoryId, string description, string title, CancellationToken cancellationToken)
+    private async Task<CreatedProductResponse> createProduct(CreateProductDto createProductDto, CancellationToken cancellationToken)
     {
         Product product = new()
         {
-            Description = description,
-            Title = title,
-            CreatorUserId = creatorUserId,
-            ProductCategoryId = productCategoryId
+            Description = createProductDto.Description,
+            Title = createProductDto.Title,
+            CreatorUserId = createProductDto.CreatorUserId,
+            ProductCategoryId = createProductDto.ProductCategoryId
         };
 
         var addedProduct = await _productRepository.AddAsync(product);
