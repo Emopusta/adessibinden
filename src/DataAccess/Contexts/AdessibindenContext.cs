@@ -36,6 +36,7 @@ public class AdessibindenContext : DbContext
     public DbSet<OperationClaim> OperationClaims { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+
     public AdessibindenContext(DbContextOptions<AdessibindenContext> options)
         : base(options)
     {
@@ -50,28 +51,23 @@ public class AdessibindenContext : DbContext
         modelBuilder.AddGlobalFilterWithExpression<Entity>(expression: e => !e.DeletedDate.HasValue);
     }
 
-    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+    public async override Task<int> SaveChangesAsync(CancellationToken cancellationToken)
     {
         var now = DateTime.UtcNow;
-        foreach (var entity in ChangeTracker.Entries())
+        var entities = ChangeTracker.Entries<Entity>();
+
+        foreach (var entity in entities)
         {
-            if (entity.Entity is Entity baseEntity)
-            switch (entity.State)
+            _ = entity.State switch
             {
-                case EntityState.Added:
-                    baseEntity.CreatedDate = now;
-                    break;
-                case EntityState.Deleted:
-                    baseEntity.DeletedDate = now;
-                    break;
-                case EntityState.Modified:
-                    baseEntity.UpdatedDate = now;
-                    break;
-                default:
-                    break;
-            }
+                EntityState.Added => entity.Entity.CreatedDate = now,
+                EntityState.Modified => entity.Entity.UpdatedDate = now,
+                EntityState.Deleted => entity.Entity.DeletedDate = now,
+                _ => now
+            };
         }
-        return base.SaveChangesAsync(cancellationToken);
+
+        return await base.SaveChangesAsync(cancellationToken);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
