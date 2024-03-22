@@ -40,19 +40,17 @@ private static IServiceCollection RegisterCustomRepositories(this IServiceCollec
 
         if (applicationAssembly == null || dataAccessAssembly == null) throw new Exception("Assemblies could not found.");
 
-        var irepositories = applicationAssembly.DefinedTypes.Where(p => p.GetInterfaces().Any(p => p.IsAssignableFrom(typeof(IBaseCustomRepository)))).ToList();
+        var iRepositories = applicationAssembly.DefinedTypes.Where(p => p.GetInterfaces().Any(p => p.IsAssignableFrom(typeof(IBaseCustomRepository)))).ToList();
         var repositories = dataAccessAssembly.DefinedTypes.Where(p => p.GetInterfaces().Any(p => p.IsAssignableFrom(typeof(IBaseCustomRepository)))).ToList();
 
-        irepositories.Sort();
-        repositories.Sort();
+        if (iRepositories.Count != repositories.Count) throw new Exception("Your repository interfaces and concretes must be one-to-one. You can not implement a Repository Interface to multiple concrete Repositories.");
 
-        if (irepositories.Count != repositories.Count) throw new Exception("Something went wrong while registering custom repositories.");
-
-        for(int i = 0; i < irepositories.Count; i++)
+        foreach (var repository in repositories)
         {
-            services.AddScoped(irepositories[i], repositories[i]);
+            var iRepository = iRepositories.FirstOrDefault(p => p.IsAssignableFrom(repository)) ?? throw new Exception("You must Implement your Repository Interface to its Concrete repository.");
+            services.AddScoped(iRepository, repository);
         }
-          
+
         return services;
     }
 
