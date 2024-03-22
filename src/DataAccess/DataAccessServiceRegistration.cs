@@ -43,12 +43,21 @@ private static IServiceCollection RegisterCustomRepositories(this IServiceCollec
         var iRepositories = applicationAssembly.DefinedTypes.Where(p => p.GetInterfaces().Any(p => p.IsAssignableFrom(typeof(IBaseCustomRepository)))).ToList();
         var repositories = dataAccessAssembly.DefinedTypes.Where(p => p.GetInterfaces().Any(p => p.IsAssignableFrom(typeof(IBaseCustomRepository)))).ToList();
 
-        if (iRepositories.Count != repositories.Count) throw new Exception("Your repository interfaces and concretes must be one-to-one. You can not implement a Repository Interface to multiple concrete Repositories.");
+        int oneToOneCondition = 1;
+        int notImplementedCondition = 0;
+        foreach (var iRepository in iRepositories)
+        {
+            var assignableCounter = repositories.Count(p => p.IsAssignableTo(iRepository));
+            if (assignableCounter > oneToOneCondition) throw new Exception("Repository interfaces and concretes must be one-to-one. You can not implement a Repository Interface to multiple concrete Repositories.");
+            if (assignableCounter == notImplementedCondition) throw new Exception($" \"{iRepository.Name}\" not implemented to its concrete.");
+        }
+
+        if (iRepositories.Count != repositories.Count) throw new Exception($"Total number of Custom Repository Interfaces and Concretes must be equal. \"{nameof(IBaseCustomRepository)}\" must implemented to custom repository interface not to concrete.");
 
         foreach (var repository in repositories)
         {
-            var iRepository = iRepositories.FirstOrDefault(p => p.IsAssignableFrom(repository)) ?? throw new Exception("You must Implement your Repository Interface to its Concrete repository.");
-            services.AddScoped(iRepository, repository);
+            var iRepository = iRepositories.FirstOrDefault(p => p.IsAssignableFrom(repository));
+            services.AddScoped(iRepository!, repository);
         }
 
         return services;
