@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Core.Application.GenericRepository;
 using Core.Application.Pipelines;
+using Core.EventBus.RabbitMQ;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,11 +11,13 @@ public class GetByIdDetailsPhoneProductQueryHandler : IQueryRequestHandler<GetBy
 {
     private readonly IGenericRepository<PhoneProduct> _phoneProductRepository;
     private readonly IMapper _mapper;
+    private readonly IMessageBroker _rabbitMQBroker;
 
-    public GetByIdDetailsPhoneProductQueryHandler(IGenericRepository<PhoneProduct> phoneProductRepository, IMapper mapper)
+    public GetByIdDetailsPhoneProductQueryHandler(IGenericRepository<PhoneProduct> phoneProductRepository, IMapper mapper, IMessageBroker rabbitMQBroker)
     {
         _phoneProductRepository = phoneProductRepository;
         _mapper = mapper;
+        _rabbitMQBroker = rabbitMQBroker;
     }
 
     public async Task<GetByIdDetailsPhoneProductResponse> Handle(GetByIdDetailsPhoneProductQuery request, CancellationToken cancellationToken)
@@ -31,6 +34,12 @@ public class GetByIdDetailsPhoneProductQueryHandler : IQueryRequestHandler<GetBy
             );
 
         var result = _mapper.Map<GetByIdDetailsPhoneProductResponse>(phoneProduct);
+
+        _rabbitMQBroker.PublishMessage("phone_product_details_queue", $"Requested phone product details.");
+
+
+        _rabbitMQBroker.ConsumeMessage("phone_product_details_queue", p => Console.WriteLine(p + "***"));
+
         return result;
     }
 }

@@ -7,9 +7,11 @@ using Core.Application.Decorators;
 using Core.Application.Pipelines.Transaction;
 using Core.Application.Pipelines.Validation;
 using Core.Application.Rules;
+using Core.EventBus.RabbitMQ;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using RabbitMQ.Client;
 using System.Reflection;
 
 namespace Application;
@@ -34,6 +36,20 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IUserProfileService, UserProfileManager>();
         services.AddScoped<IProductService, ProductManager>();
         services.AddScoped<IUserFavouriteProductService, UserFavouriteProductManager>();
+
+
+        var rabbitMQFactory = new ConnectionFactory()
+        {
+            Port = 5672,
+            UserName = "guest",
+            Password = "guest",
+            HostName = "localhost",
+            Uri = new("amqp://guest:guest@localhost:5672")
+        };
+
+        services.AddSingleton(rabbitMQFactory);
+
+        services.AddScoped<IMessageBroker,  MessageBroker>();
 
         services.AddSubClassesOfType(Assembly.GetExecutingAssembly(), typeof(BaseBusinessRules));
 
