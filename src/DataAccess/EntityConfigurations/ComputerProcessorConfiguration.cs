@@ -10,8 +10,6 @@ public class ComputerProcessorConfiguration : IEntityTypeConfiguration<ComputerP
     {
         builder.ToTable("computerProcessors").HasKey(e => e.Id);
 
-        builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
-
         builder.Property(e => e.Name).HasColumnType("character varying").HasColumnName("Name").IsRequired();
     }
 }

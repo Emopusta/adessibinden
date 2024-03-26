@@ -10,8 +10,6 @@ public class UserProfileConfiguration : IEntityTypeConfiguration<UserProfile>
     {
         builder.ToTable("userProfiles").HasKey(e => e.Id);
 
-        builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
-
         builder.Property(e => e.Address).HasColumnType("character varying").HasColumnName("Address");
         builder.Property(e => e.FirstName).HasColumnType("character varying").HasColumnName("FirstName");
         builder.Property(e => e.LastName).HasColumnType("character varying").HasColumnName("LastName");

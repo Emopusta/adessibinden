@@ -10,8 +10,6 @@ public class PhoneRAMConfiguration : IEntityTypeConfiguration<PhoneRAM>
     {
         builder.ToTable("phoneRAMs").HasKey(e => e.Id);
 
-        builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
-
         builder.Property(e => e.Memory).HasColumnType("character varying").HasColumnName("Memory").IsRequired();
 
         builder.HasData(GetSeeds());

@@ -10,8 +10,6 @@ public class PhoneProductConfiguration : IEntityTypeConfiguration<PhoneProduct>
     {
         builder.ToTable("phoneProducts").HasKey(e => e.Id);
 
-        builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
-
         builder.Property(e => e.ProductId).HasColumnName("ProductId").IsRequired();
         builder.Property(e => e.ColorId).HasColumnName("ColorId").IsRequired();
         builder.Property(e => e.ModelId).HasColumnName("ModelId").IsRequired();

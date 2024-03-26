@@ -10,8 +10,6 @@ public class CarModelConfiguration : IEntityTypeConfiguration<CarModel>
     {
         builder.ToTable("carModels").HasKey(e => e.Id);
 
-        builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
-
         builder.Property(e => e.BrandId).HasColumnName("BrandId");
 
         builder.Property(e => e.Name).HasColumnType("character varying").HasColumnName("Name").IsRequired();

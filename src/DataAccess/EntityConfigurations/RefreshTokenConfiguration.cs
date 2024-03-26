@@ -10,7 +10,6 @@ public class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken>
     {
         builder.ToTable("refreshTokens").HasKey(rt => rt.Id);
 
-        builder.Property(rt => rt.Id).HasColumnName("Id").IsRequired();
         builder.Property(rt => rt.UserId).HasColumnName("UserId").IsRequired();
         builder.Property(rt => rt.Token).HasColumnName("Token").IsRequired();
         builder.Property(rt => rt.Expires).HasColumnName("Expires").IsRequired();

@@ -10,8 +10,6 @@ public class ComputerSSDCapacityConfiguration : IEntityTypeConfiguration<Compute
     {
         builder.ToTable("computerSSDCapacities").HasKey(e => e.Id);
 
-        builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
-
         builder.Property(e => e.Capacity).HasColumnType("character varying").HasColumnName("Capacity").IsRequired();
     }
 }

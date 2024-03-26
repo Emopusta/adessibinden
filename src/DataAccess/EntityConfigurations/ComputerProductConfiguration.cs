@@ -10,8 +10,6 @@ public class ComputerProductConfiguration : IEntityTypeConfiguration<ComputerPro
     {
         builder.ToTable("computerProducts").HasKey(e => e.Id);
 
-        builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
-
         builder.Property(e => e.RAMId).HasColumnName("RAMId").IsRequired();
         builder.Property(e => e.SSDCapacityId).HasColumnName("SSDCapacityId").IsRequired();
         builder.Property(e => e.BrandId).HasColumnName("BrandId").IsRequired();

@@ -10,8 +10,6 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
         builder.ToTable("products").HasKey(e => e.Id);
 
-        builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
-
         builder.Property(e => e.CreatorUserId).HasColumnName("CreatorUserId").IsRequired();
         builder.Property(e => e.ProductCategoryId).HasColumnName("ProductCategoryId").IsRequired();
         builder.Property(e => e.Description).HasColumnType("character varying").HasColumnName("Description");

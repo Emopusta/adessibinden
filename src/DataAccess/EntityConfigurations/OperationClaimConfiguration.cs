@@ -11,7 +11,6 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
     {
         builder.ToTable("operationClaims").HasKey(oc => oc.Id);
 
-        builder.Property(oc => oc.Id).HasColumnName("Id").IsRequired();
         builder.Property(oc => oc.Name).HasColumnName("Name").IsRequired();
 
         builder.HasMany(oc => oc.UserOperationClaims);

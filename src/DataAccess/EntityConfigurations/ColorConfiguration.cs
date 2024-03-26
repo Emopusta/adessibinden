@@ -10,8 +10,6 @@ public class ColorConfiguration : IEntityTypeConfiguration<Color>
     {
         builder.ToTable("colors").HasKey(e => e.Id);
 
-        builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
-
         builder.Property(e => e.Name).HasColumnType("character varying").HasColumnName("Name");
         builder.HasIndex(e => e.Name).IsUnique();
 

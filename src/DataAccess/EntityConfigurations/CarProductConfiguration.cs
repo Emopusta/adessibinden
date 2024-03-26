@@ -11,8 +11,6 @@ public class CarProductConfiguration : IEntityTypeConfiguration<CarProduct>
 
         builder.ToTable("carProducts").HasKey(e => e.Id);
 
-        builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
-
         builder.Property(e => e.ProductId).HasColumnName("ProductId").IsRequired();
         builder.Property(e => e.CarProductCategoryId).HasColumnName("CarProductCategoryId").IsRequired();
         builder.Property(e => e.ChassisTypeId).HasColumnName("ChassisTypeId").IsRequired();
