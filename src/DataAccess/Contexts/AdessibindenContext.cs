@@ -50,7 +50,7 @@ public class AdessibindenContext : DbContext
         {
             modelBuilder.Entity(entityType.ClrType).Property<int>("Id").HasColumnName("Id").IsRequired();
             modelBuilder.Entity(entityType.ClrType).Property<DateTime>("CreatedDate").IsRequired();
-            modelBuilder.Entity(entityType.ClrType).Property<DateTime?>("UpdatedDate");
+            modelBuilder.Entity(entityType.ClrType).Property<DateTime?>("UpdatedDate").IsRequired();
             modelBuilder.Entity(entityType.ClrType).Property<DateTime?>("DeletedDate");
         });
 
