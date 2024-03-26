@@ -46,7 +46,18 @@ public class AdessibindenContext : DbContext
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-        modelBuilder.AddTimestampsToEntities();
+        modelBuilder.AddPropertiesToEntitiesDerivedFrom<Entity>(entityType =>
+        {
+            modelBuilder.Entity(entityType.ClrType).Property<int>("Id").HasColumnName("Id").IsRequired();
+            modelBuilder.Entity(entityType.ClrType).Property<DateTime>("CreatedDate").IsRequired();
+            modelBuilder.Entity(entityType.ClrType).Property<DateTime?>("UpdatedDate");
+            modelBuilder.Entity(entityType.ClrType).Property<DateTime?>("DeletedDate");
+        });
+
+        modelBuilder.AddPropertiesToEntitiesDerivedFrom<EntityOnlyId>(entityType =>
+        {
+            modelBuilder.Entity(entityType.ClrType).Property<int>("Id").HasColumnName("Id").IsRequired();
+        });
 
         modelBuilder.AddGlobalFilterWithExpression<Entity>(expression: e => !e.DeletedDate.HasValue);
     }
