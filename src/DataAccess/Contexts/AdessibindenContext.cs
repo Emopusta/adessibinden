@@ -69,13 +69,21 @@ public class AdessibindenContext : DbContext
 
         foreach (var entity in entities)
         {
-            _ = entity.State switch
+            switch (entity.State)
             {
-                EntityState.Added => entity.Entity.CreatedDate = now,
-                EntityState.Modified => entity.Entity.UpdatedDate = now,
-                EntityState.Deleted => entity.Entity.DeletedDate = now,
-                _ => now
-            };
+                case EntityState.Added:
+                    entity.Entity.CreatedDate = now;
+                    entity.Entity.UpdatedDate = now;
+                    break;
+                case EntityState.Modified:
+                    entity.Entity.UpdatedDate = now;
+                    break;
+                case EntityState.Deleted:
+                    entity.Entity.DeletedDate = now;
+                    break;
+                default:
+                    break;
+            }
         }
 
         return await base.SaveChangesAsync(cancellationToken);
