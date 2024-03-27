@@ -26,6 +26,25 @@ public static class DataAccessServiceRegistration
 
         services.RegisterCustomRepositories();
 
+        services.AddCap(options =>
+        {
+            options.UseEntityFramework<AdessibindenContext>();
+            options.UsePostgreSql(configuration.GetConnectionString("Adessibinden"));
+            options.UseDashboard(path => path.PathMatch = "/cap-dashboard");
+            options.UseRabbitMQ(options =>
+            {
+                options.ConnectionFactoryOptions = options =>
+                {
+                    options.Ssl.Enabled = false;
+                    options.HostName = "localhost";
+                    options.UserName = "guest";
+                    options.Password = "guest";
+                    options.Port = 5672;
+                    options.Uri = new("amqp://guest:guest@localhost:5672");
+                };
+            });
+        });
+
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
         return services;
@@ -103,6 +122,7 @@ public class DbContextDesignFactory : IDesignTimeDbContextFactory<AdessibindenCo
 
         var optionsBuilder = new DbContextOptionsBuilder<AdessibindenContext>();
         optionsBuilder.UseNpgsql(configuration.GetConnectionString("Adessibinden"));
-        return new AdessibindenContext(optionsBuilder.Options);
+
+            return new AdessibindenContext(optionsBuilder.Options);
     }
 }

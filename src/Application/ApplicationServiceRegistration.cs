@@ -28,20 +28,22 @@ public static class ApplicationServiceRegistration
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
+        
+
         services.AddServices();
 
-        var rabbitMQFactory = new ConnectionFactory()
-        {
-            Port = 5672,
-            UserName = "guest",
-            Password = "guest",
-            HostName = "localhost",
-            Uri = new("amqp://guest:guest@localhost:5672")
-        };
+        //var rabbitMQFactory = new ConnectionFactory()
+        //{
+        //    Port = 5672,
+        //    UserName = "guest",
+        //    Password = "guest",
+        //    HostName = "localhost",
+        //    Uri = new("amqp://guest:guest@localhost:5672")
+        //};
 
-        services.AddSingleton(rabbitMQFactory);
+        //services.AddSingleton(rabbitMQFactory);
 
-        services.AddScoped<IMessageBroker,  MessageBroker>();
+        //services.AddScoped<IMessageBroker,  MessageBroker>();
 
         services.AddSubClassesOfType(Assembly.GetExecutingAssembly(), typeof(BaseBusinessRules));
 
