@@ -1,11 +1,12 @@
-﻿using Core.DataAccess.Paging;
+﻿using Core.Application.Services;
+using Core.DataAccess.Paging;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
 namespace Application.Services.UsersService;
 
-public interface IUserService
+public interface IUserService : IServiceBase
 {
     Task<User?> GetAsync(
         Expression<Func<User, bool>> predicate,

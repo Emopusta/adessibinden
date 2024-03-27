@@ -1,9 +1,10 @@
-﻿using Core.Security.JWT;
+﻿using Core.Application.Services;
+using Core.Security.JWT;
 using Domain.Models;
 
 namespace Application.Services.AuthService;
 
-public interface IAuthService
+public interface IAuthService : IServiceBase
 {
     public Task<AccessToken> CreateAccessToken(User user);
     public Task<RefreshToken> CreateRefreshToken(User user, string ipAddress);

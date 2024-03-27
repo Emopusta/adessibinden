@@ -1,6 +1,8 @@
-﻿namespace Application.Services.UserFavouriteProductService;
+﻿using Core.Application.Services;
 
-public interface IUserFavouriteProductService
+namespace Application.Services.UserFavouriteProductService;
+
+public interface IUserFavouriteProductService : IServiceBase
 {
     Task DeleteFavouritesByProduct(int productId);
 }

@@ -1,18 +1,15 @@
-using Application.Services.AuthService;
-using Application.Services.ProductService;
-using Application.Services.UserFavouriteProductService;
-using Application.Services.UserProfileService;
-using Application.Services.UsersService;
 using Core.Application.Decorators;
 using Core.Application.Pipelines.Transaction;
 using Core.Application.Pipelines.Validation;
 using Core.Application.Rules;
+using Core.Application.Services;
 using Core.EventBus.RabbitMQ;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
 using System.Reflection;
+using System.Runtime.Loader;
 
 namespace Application;
 
@@ -31,12 +28,7 @@ public static class ApplicationServiceRegistration
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-        services.AddScoped<IAuthService, AuthManager>();
-        services.AddScoped<IUserService, UserManager>();
-        services.AddScoped<IUserProfileService, UserProfileManager>();
-        services.AddScoped<IProductService, ProductManager>();
-        services.AddScoped<IUserFavouriteProductService, UserFavouriteProductManager>();
-
+        services.AddServices();
 
         var rabbitMQFactory = new ConnectionFactory()
         {
@@ -71,6 +63,25 @@ public static class ApplicationServiceRegistration
                 services.AddScoped(item);
             else
                 addWithLifeCycle(services, type);
+
+        return services;
+    }
+
+    private static IServiceCollection AddServices(this IServiceCollection services)
+    {
+
+        var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
+        var applicationAssembly = Directory.GetFiles(path, "Application.dll").Select(AssemblyLoadContext.Default.LoadFromAssemblyPath).FirstOrDefault();
+
+        var customServices = applicationAssembly.DefinedTypes.Where(p => p.GetInterfaces().Any(p => p.IsAssignableFrom(typeof(IServiceBase))) && p.IsInterface).ToList();
+        var customManagers = applicationAssembly.DefinedTypes.Where(p => p.GetInterfaces().Any(p => p.IsAssignableFrom(typeof(IServiceBase))) && p.IsClass).ToList();
+
+        foreach (var service in customServices)
+        {
+            var manager = customManagers.FirstOrDefault(p => p.IsAssignableTo(service));
+            services.AddScoped(service!, manager);
+        }
 
         return services;
     }
