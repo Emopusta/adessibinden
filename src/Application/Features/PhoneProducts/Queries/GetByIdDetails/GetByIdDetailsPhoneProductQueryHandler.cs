@@ -36,7 +36,7 @@ public class GetByIdDetailsPhoneProductQueryHandler : IQueryRequestHandler<GetBy
 
         var result = _mapper.Map<GetByIdDetailsPhoneProductResponse>(phoneProduct);
 
-        await _capPublisher.PublishAsync("phone_product_details_queue_cap", result, cancellationToken: cancellationToken);
+        await _capPublisher.PublishAsync("phone_product_details_queue_cap", contentObj: new { ProductId = phoneProduct!.ProductId }, cancellationToken: cancellationToken);
 
         return result;
     }

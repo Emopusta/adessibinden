@@ -545,51 +545,6 @@ namespace DataAccess.Migrations
                     b.ToTable("computerVideoCards", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Models.InteractionCount", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("Id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Count")
-                        .HasColumnType("integer")
-                        .HasColumnName("Count");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("character varying")
-                        .HasColumnName("Name");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("interactionCounts", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Count = 0,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "phone_product_details_queue_cap",
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
-                });
-
             modelBuilder.Entity("Domain.Models.OperationClaim", b =>
                 {
                     b.Property<int>("Id")
@@ -1008,6 +963,40 @@ namespace DataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Domain.Models.ProductInteractionCount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("Id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Count")
+                        .HasColumnType("integer")
+                        .HasColumnName("Count");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer")
+                        .HasColumnName("ProductId");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
+
+                    b.ToTable("interactionCounts", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Models.RefreshToken", b =>
                 {
                     b.Property<int>("Id")
@@ -1116,8 +1105,8 @@ namespace DataAccess.Migrations
                             Id = 1,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@admin.com",
-                            PasswordHash = "EtWNSddguOB3UWxmd0U/epS7tSmYn0UMLUpNYOtIeF2zSdNJplwEAxTQmomlCP3gkcsQZq21oc+FtKBc6L+K6Q==",
-                            PasswordSalt = "B9+ZCZwkxsnFQvRidOsfAc7/y11Bjje+AxqXVEYQDQT29WcwysZzQC1p++zQF38gZCkwhFJMV2gyISiYYWlhctvaJfc5oiHQ96PCC0qRcsoTgCe0Ep9ln84zW6dGm0AF+avunYYbD2z6OLAchVbh1KKxZoV3V2RXy0862e5JH9c=",
+                            PasswordHash = "FtnOl4PqWldtm5aWYJWaM1W1FwbR2bAm92E+l5W08Qkrak1jzN97hFvTE+/0ph2nmjDHkyWxNTv8Dxzi1NYz6w==",
+                            PasswordSalt = "ex1XHt++gHPAudUgugf0c7cvBdv1BbKOSzLzNCMAfv/+JHuOAY9Kc9Af4Tet2n2L4JOVzOMpBx+hE7jotuM8CS4pYb2A8SZEtDQeS6Nkg9d8rp4JD6gEZb90Nr4Ue0Fhq1CrKW0yDKUL2G5MaHFku+fcld4UzoDGUYSYNHUIzLo=",
                             Status = true,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -1444,6 +1433,17 @@ namespace DataAccess.Migrations
                     b.Navigation("ProductCategory");
                 });
 
+            modelBuilder.Entity("Domain.Models.ProductInteractionCount", b =>
+                {
+                    b.HasOne("Domain.Models.Product", "Product")
+                        .WithOne("ProductInteractionCount")
+                        .HasForeignKey("Domain.Models.ProductInteractionCount", "ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Domain.Models.RefreshToken", b =>
                 {
                     b.HasOne("Domain.Models.User", "User")
@@ -1601,6 +1601,9 @@ namespace DataAccess.Migrations
                     b.Navigation("ComputerProducts");
 
                     b.Navigation("PhoneProducts");
+
+                    b.Navigation("ProductInteractionCount")
+                        .IsRequired();
 
                     b.Navigation("UserFavouriteProducts");
                 });

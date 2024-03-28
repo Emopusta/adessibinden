@@ -11,11 +11,14 @@ public class CreatePhoneProductCommandHandler : ICommandRequestHandler<CreatePho
 {
     private readonly IGenericRepository<PhoneProduct> _phoneProductRepository;
     private readonly IGenericRepository<Product> _productRepository;
+    private readonly IGenericRepository<ProductInteractionCount> _interactionCountRepository;
     private readonly IUnitOfWork _unitOfWork;
-    public CreatePhoneProductCommandHandler(IGenericRepository<PhoneProduct> phoneProductRepository, IGenericRepository<Product> productRepository, IUnitOfWork unitOfWork)
+
+    public CreatePhoneProductCommandHandler(IGenericRepository<PhoneProduct> phoneProductRepository, IGenericRepository<Product> productRepository, IGenericRepository<ProductInteractionCount> interactionCountRepository, IUnitOfWork unitOfWork)
     {
         _phoneProductRepository = phoneProductRepository;
         _productRepository = productRepository;
+        _interactionCountRepository = interactionCountRepository;
         _unitOfWork = unitOfWork;
     }
 
@@ -71,6 +74,8 @@ public class CreatePhoneProductCommandHandler : ICommandRequestHandler<CreatePho
         var addedProduct = await _productRepository.AddAsync(product);
         await _unitOfWork.SaveAsync(cancellationToken);
 
+        await CreateDefaultProductInteractionCount(addedProduct.Id);
+
         CreatedProductResponse response = new()
         {
             Id = addedProduct.Id,
@@ -80,5 +85,16 @@ public class CreatePhoneProductCommandHandler : ICommandRequestHandler<CreatePho
             ProductCategoryId = addedProduct.ProductCategoryId
         };
         return response;
+    }
+
+    private async Task CreateDefaultProductInteractionCount(int productId)
+    {
+        var newInteraction = new ProductInteractionCount()
+        {
+            Count = 0,
+            ProductId = productId,
+        };
+
+        await _interactionCountRepository.AddAsync(newInteraction);
     }
 }

@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class addinteractioncounter : Migration
+    public partial class productinteractioncounter : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -280,7 +280,7 @@ namespace DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "character varying", nullable: false),
+                    ProductId = table.Column<int>(type: "integer", nullable: false),
                     Count = table.Column<int>(type: "integer", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -289,6 +289,12 @@ namespace DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_interactionCounts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_interactionCounts_products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.UpdateData(
@@ -318,11 +324,6 @@ namespace DataAccess.Migrations
                 keyValue: 4,
                 column: "UpdatedDate",
                 value: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
-
-            migrationBuilder.InsertData(
-                table: "interactionCounts",
-                columns: new[] { "Id", "Count", "CreatedDate", "DeletedDate", "Name", "UpdatedDate" },
-                values: new object[] { 1, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "phone_product_details_queue_cap", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.UpdateData(
                 table: "operationClaims",
@@ -377,7 +378,7 @@ namespace DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 columns: new[] { "PasswordHash", "PasswordSalt", "UpdatedDate" },
-                values: new object[] { "EtWNSddguOB3UWxmd0U/epS7tSmYn0UMLUpNYOtIeF2zSdNJplwEAxTQmomlCP3gkcsQZq21oc+FtKBc6L+K6Q==", "B9+ZCZwkxsnFQvRidOsfAc7/y11Bjje+AxqXVEYQDQT29WcwysZzQC1p++zQF38gZCkwhFJMV2gyISiYYWlhctvaJfc5oiHQ96PCC0qRcsoTgCe0Ep9ln84zW6dGm0AF+avunYYbD2z6OLAchVbh1KKxZoV3V2RXy0862e5JH9c=", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { "FtnOl4PqWldtm5aWYJWaM1W1FwbR2bAm92E+l5W08Qkrak1jzN97hFvTE+/0ph2nmjDHkyWxNTv8Dxzi1NYz6w==", "ex1XHt++gHPAudUgugf0c7cvBdv1BbKOSzLzNCMAfv/+JHuOAY9Kc9Af4Tet2n2L4JOVzOMpBx+hE7jotuM8CS4pYb2A8SZEtDQeS6Nkg9d8rp4JD6gEZb90Nr4Ue0Fhq1CrKW0yDKUL2G5MaHFku+fcld4UzoDGUYSYNHUIzLo=", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "phoneModels",
@@ -394,9 +395,9 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_interactionCounts_Name",
+                name: "IX_interactionCounts_ProductId",
                 table: "interactionCounts",
-                column: "Name",
+                column: "ProductId",
                 unique: true);
         }
 

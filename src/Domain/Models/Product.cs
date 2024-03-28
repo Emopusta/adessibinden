@@ -14,5 +14,6 @@ public class Product : Entity
     public virtual User CreatorUser { get; set; } = null!;
     public virtual ICollection<PhoneProduct> PhoneProducts { get; set; } = new List<PhoneProduct>();
     public virtual ProductCategory ProductCategory { get; set; } = null!;
+    public virtual ProductInteractionCount ProductInteractionCount { get; set; } = null!;
     public virtual ICollection<UserFavouriteProduct> UserFavouriteProducts { get; set; } = new List<UserFavouriteProduct>();
 }
