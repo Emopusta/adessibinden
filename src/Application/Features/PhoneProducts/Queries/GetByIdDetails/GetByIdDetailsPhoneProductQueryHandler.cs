@@ -32,6 +32,7 @@ public class GetByIdDetailsPhoneProductQueryHandler : IQueryRequestHandler<GetBy
             .Include(p => p.InternalMemory)
             .Include(p => p.Model)
             .Include(p => p.Model.Brand)
+            .Include(p => p.Product.ProductInteractionCount)
             );
 
         var result = _mapper.Map<GetByIdDetailsPhoneProductResponse>(phoneProduct);
