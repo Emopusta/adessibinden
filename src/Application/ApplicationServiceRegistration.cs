@@ -3,11 +3,10 @@ using Core.Application.Pipelines.Transaction;
 using Core.Application.Pipelines.Validation;
 using Core.Application.Rules;
 using Core.Application.Services;
-using Core.EventBus.RabbitMQ;
+using DotNetCore.CAP;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using RabbitMQ.Client;
 using System.Reflection;
 using System.Runtime.Loader;
 
@@ -28,22 +27,9 @@ public static class ApplicationServiceRegistration
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-        
-
         services.AddServices();
-
-        //var rabbitMQFactory = new ConnectionFactory()
-        //{
-        //    Port = 5672,
-        //    UserName = "guest",
-        //    Password = "guest",
-        //    HostName = "localhost",
-        //    Uri = new("amqp://guest:guest@localhost:5672")
-        //};
-
-        //services.AddSingleton(rabbitMQFactory);
-
-        //services.AddScoped<IMessageBroker,  MessageBroker>();
+        
+        services.AddCAPSubscribeConsumers();
 
         services.AddSubClassesOfType(Assembly.GetExecutingAssembly(), typeof(BaseBusinessRules));
 
@@ -83,6 +69,22 @@ public static class ApplicationServiceRegistration
         {
             var manager = customManagers.FirstOrDefault(p => p.IsAssignableTo(service));
             services.AddScoped(service!, manager);
+        }
+
+        return services;
+    }
+
+    private static IServiceCollection AddCAPSubscribeConsumers(this IServiceCollection services)
+    {
+        var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
+        var applicationAssembly = Directory.GetFiles(path, "Application.dll").Select(AssemblyLoadContext.Default.LoadFromAssemblyPath).FirstOrDefault();
+
+        var customConsumers = applicationAssembly.DefinedTypes.Where(p => p.GetInterfaces().Any(p => p.IsAssignableFrom(typeof(ICapSubscribe))) && p.IsClass).ToList();
+
+        foreach (var consumer in customConsumers)
+        {
+            services.AddScoped(consumer);
         }
 
         return services;

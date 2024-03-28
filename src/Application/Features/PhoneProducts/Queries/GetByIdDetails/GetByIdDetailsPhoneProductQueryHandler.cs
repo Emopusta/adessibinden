@@ -38,11 +38,6 @@ public class GetByIdDetailsPhoneProductQueryHandler : IQueryRequestHandler<GetBy
 
         await _capPublisher.PublishAsync("phone_product_details_queue_cap", result, cancellationToken: cancellationToken);
 
-        //_rabbitMQBroker.PublishMessage("phone_product_details_queue", $"Requested phone product details.");
-
-
-        //_rabbitMQBroker.ConsumeMessage("phone_product_details_queue", p => Console.WriteLine(p + "***"));
-
         return result;
     }
 }
