@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using Core.Application.GenericRepository;
 using Core.Application.Pipelines;
-using Core.EventBus.RabbitMQ;
+using Core.EventBus.Messages;
+using Core.EventBus.Extensions;
 using Domain.Models;
 using DotNetCore.CAP;
 using Microsoft.EntityFrameworkCore;
@@ -37,7 +38,7 @@ public class GetByIdDetailsPhoneProductQueryHandler : IQueryRequestHandler<GetBy
 
         var result = _mapper.Map<GetByIdDetailsPhoneProductResponse>(phoneProduct);
 
-        await _capPublisher.PublishAsync("phone_product_details_queue_cap", contentObj: new { ProductId = phoneProduct!.ProductId }, cancellationToken: cancellationToken);
+        await _capPublisher.PublishAsync(new PhoneProductDetailsMessage { ProductId = phoneProduct.ProductId }, cancellationToken: cancellationToken);
 
         return result;
     }

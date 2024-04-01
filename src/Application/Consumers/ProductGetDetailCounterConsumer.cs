@@ -1,10 +1,9 @@
 ﻿using Core.Application.GenericRepository;
 using Core.DataAccess.UoW;
+using Core.EventBus.Attributes;
+using Core.EventBus.Messages;
 using Domain.Models;
 using DotNetCore.CAP;
-using Microsoft.VisualBasic;
-using System.Text.Json;
-using System.Transactions;
 
 namespace Application.Consumers;
 public class ProductGetDetailCounterConsumer : ICapSubscribe
@@ -18,12 +17,10 @@ public class ProductGetDetailCounterConsumer : ICapSubscribe
         _unitOfWork = unitOfWork;
     }
 
-    [CapSubscribe("phone_product_details_queue_cap")]
-    public async Task ConsumerAsync(JsonElement param, CancellationToken cancellationToken)
+    [CustomCapSubscribe(typeof(PhoneProductDetailsMessage))]
+    public async Task ConsumerAsync(PhoneProductDetailsMessage message, CancellationToken cancellationToken)
     {
-        var productId = param.GetProperty("ProductId").GetInt32();
-        
-        var interaction = await _interactionCountRepository.GetAsync(p => p.ProductId == productId, cancellationToken: cancellationToken);
+        var interaction = await _interactionCountRepository.GetAsync(p => p.ProductId == message.ProductId, cancellationToken: cancellationToken);
         interaction!.Count++;
 
         await _interactionCountRepository.UpdateAsync(interaction);
