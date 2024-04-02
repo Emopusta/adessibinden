@@ -1,40 +1,25 @@
 ﻿using Microsoft.Extensions.Configuration;
-using NpgsqlTypes;
 using Serilog;
-using Serilog.Sinks.PostgreSQL;
-using Serilog.Sinks.PostgreSQL.ColumnWriters;
+using Serilog.Events;
 using LoggingSerilog = Serilog;
 
 namespace Core.Logging.Serilog;
 
 public class SerilogPostgresLogger : ILogger
 {
-    private readonly LoggingSerilog.ILogger _logger;
+    private LoggingSerilog.ILogger _logger;
     private readonly IConfiguration _configuration;
 
     public SerilogPostgresLogger(IConfiguration configuration)
     {
         _configuration = configuration;
 
-        IDictionary<string, ColumnWriterBase> columnWriters = new Dictionary<string, ColumnWriterBase>
-        {
-            { "message", new RenderedMessageColumnWriter(NpgsqlDbType.Text) },
-            { "level", new LevelColumnWriter(true, NpgsqlDbType.Varchar) },
-            { "raise_date", new TimestampColumnWriter(NpgsqlDbType.TimestampTz) },
-            { "exception", new ExceptionColumnWriter(NpgsqlDbType.Text) },
-            { "properties", new LogEventSerializedColumnWriter(NpgsqlDbType.Jsonb) },
-            { "props_test", new PropertiesColumnWriter(NpgsqlDbType.Jsonb) },
-            { "machine_name", new SinglePropertyColumnWriter("MachineName", PropertyWriteMethod.ToString, NpgsqlDbType.Text, "l") }
-        };
-
-        var connectionString = _configuration.GetConnectionString("Adessibinden");
-        var tableName = "logs";
-
         _logger = new LoggerConfiguration()
-            .WriteTo.PostgreSQL(connectionString, tableName, columnWriters, needAutoCreateTable: true)
+            .ReadFrom.Configuration(_configuration)
+            .Enrich.With(new ExampleEnricher())
             .CreateLogger();
     }
-
+ 
     public void Debug(string message)
     {
         _logger?.Debug(message);
@@ -50,8 +35,38 @@ public class SerilogPostgresLogger : ILogger
         _logger?.Fatal(message);
     }
 
+    public LoggingSerilog.ILogger ForContext<T>()
+    {
+        string[] filteredLayers = [/*"Core.EventBus"*/]; //Todo: Get these from appsettings
+
+        var logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(_configuration)
+            .Enrich.With(new ExampleEnricher())
+            .Filter.ByIncludingOnly(logEvent =>
+            {
+                if (logEvent.Properties.TryGetValue("SourceContext", out LogEventPropertyValue value))
+                {
+                    var context = value.ToString().Trim('"');
+
+                    foreach (var layer in filteredLayers)
+                    {
+                        if (context.StartsWith(layer))
+                        {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            })
+            .CreateLogger()
+            .ForContext(typeof(T));
+
+        return logger;
+    }
+
     public void Information(string message)
     {
+
         _logger?.Information(message);
     }
 

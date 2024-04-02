@@ -1,5 +1,6 @@
-﻿namespace Core.Logging.Serilog;
+﻿using LoggingSerilog = Serilog;
 
+namespace Core.Logging.Serilog;
 public interface ILogger
 {
     public void Debug(string message);
@@ -8,4 +9,5 @@ public interface ILogger
     public void Warning(string message);
     public void Verbose(string message);
     public void Fatal(string message);
+    public LoggingSerilog.ILogger ForContext<T>();
 }

@@ -17,7 +17,8 @@ public class CapAdapter : ICapAdapter
 
     public async Task PublishAsync<T>(T message, CancellationToken cancellationToken) where T : MessageBase
     {
-        _logger.Information($"Publishing Async message: {typeof(T).Name}");
+        _logger.ForContext<CapAdapter>().Information($"Publishing message inside Cap Adapter: {typeof(T).Name}");
+        _logger.Information("Test log (This log must written because it has no Context Filter) (CapAdapter PublishAsync<T>)");
 
         await _capPublisher.PublishAsync(typeof(T).Name, contentObj: message, cancellationToken: cancellationToken);
     }
