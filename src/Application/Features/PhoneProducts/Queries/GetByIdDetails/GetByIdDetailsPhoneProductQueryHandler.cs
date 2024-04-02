@@ -4,7 +4,6 @@ using Core.Application.Pipelines;
 using Core.EventBus.Messages;
 using Core.EventBus.Extensions;
 using Domain.Models;
-using DotNetCore.CAP;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.PhoneProducts.Queries.GetByIdDetails;
