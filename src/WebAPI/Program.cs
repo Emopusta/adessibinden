@@ -1,6 +1,7 @@
 using Application;
 using Core.CrossCuttingConcerns.Exceptions.Extensions;
 using Core.Security;
+using Core.EventBus;
 using DataAccess;
 using WebAPI.Extensions;
 
@@ -10,6 +11,9 @@ builder.Services.AddControllers();
 builder.Services.AddDataAccessServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddSecurityServices();
+
+builder.Services.RegisterEventBusServices();
+
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddJWT(builder.Configuration);

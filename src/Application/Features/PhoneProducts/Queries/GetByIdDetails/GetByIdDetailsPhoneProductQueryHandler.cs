@@ -13,13 +13,13 @@ public class GetByIdDetailsPhoneProductQueryHandler : IQueryRequestHandler<GetBy
 {
     private readonly IGenericRepository<PhoneProduct> _phoneProductRepository;
     private readonly IMapper _mapper;
-    private readonly ICapPublisher _capPublisher;
+    private readonly ICapAdapter _capAdapter;
 
-    public GetByIdDetailsPhoneProductQueryHandler(IGenericRepository<PhoneProduct> phoneProductRepository, IMapper mapper, ICapPublisher capPublisher)
+    public GetByIdDetailsPhoneProductQueryHandler(IGenericRepository<PhoneProduct> phoneProductRepository, IMapper mapper, ICapAdapter capAdapter)
     {
         _phoneProductRepository = phoneProductRepository;
         _mapper = mapper;
-        _capPublisher = capPublisher;
+        _capAdapter = capAdapter;
     }
 
     public async Task<GetByIdDetailsPhoneProductResponse> Handle(GetByIdDetailsPhoneProductQuery request, CancellationToken cancellationToken)
@@ -38,7 +38,7 @@ public class GetByIdDetailsPhoneProductQueryHandler : IQueryRequestHandler<GetBy
 
         var result = _mapper.Map<GetByIdDetailsPhoneProductResponse>(phoneProduct);
 
-        await _capPublisher.PublishAsync(new PhoneProductDetailsMessage { ProductId = phoneProduct.ProductId }, cancellationToken: cancellationToken);
+        await _capAdapter.PublishAsync(new PhoneProductDetailsMessage { ProductId = phoneProduct.ProductId }, cancellationToken: cancellationToken);
 
         return result;
     }
