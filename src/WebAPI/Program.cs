@@ -4,6 +4,7 @@ using Core.Security;
 using Core.EventBus;
 using DataAccess;
 using WebAPI.Extensions;
+using Core.Logging.Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,7 @@ builder.Services.AddDataAccessServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddSecurityServices();
 
+builder.Services.AddSerilogLogging(builder.Host);
 builder.Services.RegisterEventBusServices();
 
 builder.Services.AddHttpContextAccessor();
