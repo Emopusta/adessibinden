@@ -1,16 +1,15 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Events;
-using LoggingSerilog = Serilog;
 
 namespace Core.Logging.Serilog;
 
-public class SerilogPostgresLogger : ILogger
+public class EmopLogger : IEmopLogger
 {
-    private LoggingSerilog.ILogger _logger;
+    private ILogger _logger;
     private readonly IConfiguration _configuration;
 
-    public SerilogPostgresLogger(IConfiguration configuration)
+    public EmopLogger(IConfiguration configuration)
     {
         _configuration = configuration;
 
@@ -19,7 +18,13 @@ public class SerilogPostgresLogger : ILogger
             .Enrich.With(new ExampleEnricher())
             .CreateLogger();
     }
- 
+
+    public EmopLogger(ILogger logger)
+    {
+        _logger = logger;
+
+    }
+
     public void Debug(string message)
     {
         _logger?.Debug(message);
@@ -30,12 +35,8 @@ public class SerilogPostgresLogger : ILogger
         _logger?.Error(message);
     }
 
-    public void Fatal(string message)
-    {
-        _logger?.Fatal(message);
-    }
 
-    public LoggingSerilog.ILogger ForContext<T>()
+    public ILogger ForContext<T>()
     {
         string[] filteredLayers = [/*"Core.EventBus"*/]; //Todo: Get these from appsettings
 
