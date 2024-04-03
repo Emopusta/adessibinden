@@ -15,7 +15,7 @@ namespace Core.Logging.Serilog
 
         public IEmopLogger ForContext<TContext>()
         {
-            string[] filteredLayers = ["Core.EventBus"]; //Todo: Get these from appsettings
+            var filteredLayers = _configuration.GetSection("EmopLogging:Filter").Get<LoggerFilterConfiguration>();
 
             var logger = new LoggerConfiguration()
             .ReadFrom.Configuration(_configuration)
@@ -26,7 +26,7 @@ namespace Core.Logging.Serilog
                 {
                     var context = value.ToString().Trim('"');
 
-                    foreach (var layer in filteredLayers)
+                    foreach (var layer in filteredLayers.FilteredLayers)
                     {
                         if (context.StartsWith(layer))
                         {
