@@ -8,5 +8,4 @@ public interface IEmopLogger
     public void Error(string message);
     public void Warning(string message);
     public void Verbose(string message);
-    public ILogger ForContext<T>();
 }

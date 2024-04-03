@@ -11,7 +11,6 @@ public static class AddSerilog
 
         host.UseSerilog();
 
-        services.AddScoped<IEmopLogger, EmopLogger>();
         services.AddScoped<IEmopLoggerFactory, EmopLoggerFactory>();
 
         return services;
