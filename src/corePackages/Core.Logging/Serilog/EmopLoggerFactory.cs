@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Core.Logging.Configurations;
+using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Events;
+using Serilog.Sinks.Grafana.Loki;
 
 namespace Core.Logging.Serilog
 {
@@ -17,8 +19,19 @@ namespace Core.Logging.Serilog
         {
             var filteredLayers = _configuration.GetSection("EmopLogging:Filter").Get<LoggerFilterConfiguration>();
 
+            var grafanaLokiConfiguration = _configuration.GetSection("GrafanaLoki").Get<GrafanaLokiConfiguration>();
+            var labels = new List<LokiLabel>();
+
+            foreach (var (key, value) in grafanaLokiConfiguration.Labels)
+            {
+                labels.Add(new LokiLabel { Key = key, Value = value });
+            }
+
+            Enum.TryParse(grafanaLokiConfiguration.MinimumLevel, out LogEventLevel level);
+
             var logger = new LoggerConfiguration()
             .ReadFrom.Configuration(_configuration)
+            .WriteTo.GrafanaLoki(grafanaLokiConfiguration.URL, restrictedToMinimumLevel: LogEventLevel.Information, labels: labels)
             .Enrich.With(new ExampleEnricher())
             .Filter.ByIncludingOnly(logEvent =>
             {
