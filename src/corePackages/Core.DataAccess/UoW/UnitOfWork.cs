@@ -7,17 +7,17 @@ namespace DataAccess.UoW;
 public class UnitOfWork<TContext> : IUnitOfWork where TContext : DbContext
 {
     private readonly TContext _dbContext;
-    private readonly IEmopLoggerFactory _emopLoggerFactory;
+    private readonly IEmopLogger _emopLogger;
 
     public UnitOfWork(TContext dbContext, IEmopLoggerFactory emopLoggerFactory)
     {
         _dbContext = dbContext;
-        _emopLoggerFactory = emopLoggerFactory;
+        _emopLogger = emopLoggerFactory.ForContext<IUnitOfWork>();
     }
 
     public async Task<int> SaveAsync(CancellationToken cancellationToken)
     {
-        _emopLoggerFactory.ForContext<IUnitOfWork>().Information("Unit of Work called.");
+        _emopLogger.Information("Unit of Work called.");
 
         return await _dbContext.SaveChangesAsync(cancellationToken);
     }
