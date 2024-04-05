@@ -1,10 +1,11 @@
 ﻿using Application.Features.PhoneProducts.Commands.Create;
 using Application.Features.PhoneProducts.Dtos;
 using Core.Application.CQRS;
+using Core.Application.Pipelines.Cache;
 
 namespace Application.Features.PhoneProducts.Commands.Update;
 
-public class UpdatePhoneProductCommand : ICommandRequest<UpdatedPhoneProductResponse>
+public class UpdatePhoneProductCommand : ICommandRequest<UpdatedPhoneProductResponse>, IEmopCacheRemove
 {
     public int ProductCategoryId { get; set; }
     public string Title { get; set; }
@@ -17,6 +18,8 @@ public class UpdatePhoneProductCommand : ICommandRequest<UpdatedPhoneProductResp
     public int RAMId { get; set; }
     public bool UsageStatus { get; set; }
     public decimal Price { get; set; }
+
+    public string CacheKey { get; init; }
 
     public UpdatePhoneProductCommand(UpdatePhoneProductRequestDto updatePhoneProductRequestDto)
     {
@@ -31,5 +34,7 @@ public class UpdatePhoneProductCommand : ICommandRequest<UpdatedPhoneProductResp
         RAMId = updatePhoneProductRequestDto.RAMId;
         UsageStatus = updatePhoneProductRequestDto.UsageStatus;
         Price = updatePhoneProductRequestDto.Price;
+
+        CacheKey = $"GetByIdDetailsPhoneProductQuery {updatePhoneProductRequestDto.ProductId}";
     }
 }

@@ -25,6 +25,7 @@ public static class ApplicationServiceRegistration
             configuration.AddOpenBehavior(typeof(TransactionBehavior<,>));
             configuration.AddOpenBehavior(typeof(FluentValidationBehavior<,>));
             configuration.AddOpenBehavior(typeof(EmopCacheBehavior<,>));
+            configuration.AddOpenBehavior(typeof(EmopCacheRemoveBehavior<,>));
         });
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
