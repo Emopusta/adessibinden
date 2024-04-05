@@ -16,6 +16,9 @@ builder.Services.AddSecurityServices();
 builder.Services.AddSerilogLogging(builder.Host);
 builder.Services.RegisterEventBusServices();
 
+//builder.Services.AddDistributedMemoryCache();
+builder.Services.AddStackExchangeRedisCache(opt => opt.Configuration = "localhost:6379");
+
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddJWT(builder.Configuration);

@@ -1,4 +1,5 @@
 using Core.Application.Decorators;
+using Core.Application.Pipelines.Cache;
 using Core.Application.Pipelines.Transaction;
 using Core.Application.Pipelines.Validation;
 using Core.Application.Rules;
@@ -23,6 +24,7 @@ public static class ApplicationServiceRegistration
             configuration.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             configuration.AddOpenBehavior(typeof(TransactionBehavior<,>));
             configuration.AddOpenBehavior(typeof(FluentValidationBehavior<,>));
+            configuration.AddOpenBehavior(typeof(EmopCacheBehavior<,>));
         });
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
