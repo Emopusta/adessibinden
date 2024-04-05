@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Diagnostics;
+﻿using Core.Logging.Serilog;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using System.Data.Common;
 using System.Diagnostics;
 
@@ -7,12 +8,20 @@ namespace Core.CrossCuttingConcerns.Interceptors;
 public class LoggingInterceptor : DbCommandInterceptor
 {
     private Stopwatch? _timer;
+    
+    private readonly IEmopLogger _emopLogger;
+
+    public LoggingInterceptor(IEmopLoggerFactory emopLoggerFactory)
+    {
+        _emopLogger = emopLoggerFactory.ForContext<LoggingInterceptor>();
+    }
 
     public override InterceptionResult<DbCommand> CommandCreating(
        CommandCorrelatedEventData eventData, InterceptionResult<DbCommand> result)
     {
         _timer = Stopwatch.StartNew();
-        Console.WriteLine($"Created Command Date = {eventData.StartTime}");
+        _emopLogger.Information($"DbCommandCreating Date = {eventData.StartTime}");
+
         return result;
     }
 
@@ -20,17 +29,29 @@ public class LoggingInterceptor : DbCommandInterceptor
        CommandEndEventData eventData, DbCommand result)
     {
         _timer.Stop();
-        Console.WriteLine($"Elapsed Time = {_timer}");
+        _emopLogger.Information($"DbCommandInitialized Elapsed Time = {_timer}");
+
         return result;
     }
 
-    public override ValueTask<InterceptionResult<DbDataReader>> ReaderExecutingAsync(
-        DbCommand command,
-        CommandEventData eventData,
-        InterceptionResult<DbDataReader> result,
-        CancellationToken cancellationToken)
+    public override void CommandFailed(DbCommand command, CommandErrorEventData eventData)
     {
-        Console.WriteLine($"Executed Db Query = {command.CommandText}");
-        return new ValueTask<InterceptionResult<DbDataReader>>(result);
+        _emopLogger.Error($"DbCommandFailed Failed: {eventData.Exception.Message}");
+
+        base.CommandFailed(command, eventData);
+    }
+
+    public override Task CommandFailedAsync(DbCommand command, CommandErrorEventData eventData, CancellationToken cancellationToken = default)
+    {
+        _emopLogger.Error($"DbCommandFailedAsync Failed: {eventData.Exception.Message}");
+
+        return base.CommandFailedAsync(command, eventData, cancellationToken);
+    }
+
+    public override ValueTask<DbDataReader> ReaderExecutedAsync(DbCommand command, CommandExecutedEventData eventData, DbDataReader result, CancellationToken cancellationToken = default)
+    {
+        _emopLogger.Information($"DbReaderExecutedAsync Query: {command.CommandText}");
+
+        return base.ReaderExecutedAsync(command, eventData, result, cancellationToken);
     }
 }
