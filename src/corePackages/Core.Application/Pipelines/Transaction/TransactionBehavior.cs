@@ -1,4 +1,5 @@
-﻿using Core.DataAccess.UoW;
+﻿using Core.Application.CQRS;
+using Core.DataAccess.UoW;
 using MediatR;
 using System.Transactions;
 

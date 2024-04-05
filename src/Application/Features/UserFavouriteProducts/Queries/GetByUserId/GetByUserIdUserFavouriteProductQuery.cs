@@ -1,5 +1,5 @@
 ﻿using Application.Features.UserFavouriteProducts.Dtos;
-using Core.Application.Pipelines;
+using Core.Application.CQRS;
 using Core.Application.Responses;
 
 namespace Application.Features.UserFavouriteProducts.Queries.GetByUserId;

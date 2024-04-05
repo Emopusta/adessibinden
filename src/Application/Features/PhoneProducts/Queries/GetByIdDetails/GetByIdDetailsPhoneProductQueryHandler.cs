@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Core.Application.GenericRepository;
-using Core.Application.Pipelines;
 using Core.EventBus.Messages;
 using Core.EventBus.Extensions;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Core.Application.CQRS;
 
 namespace Application.Features.PhoneProducts.Queries.GetByIdDetails;
 

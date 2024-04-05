@@ -1,5 +1,5 @@
 ﻿using MediatR;
 
-namespace Core.Application.Pipelines;
+namespace Core.Application.CQRS;
 
 public interface IQueryRequest<out TResponse> : IRequest<TResponse> { }

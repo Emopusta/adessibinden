@@ -1,6 +1,6 @@
 ﻿using Application.Features.Colors.Dtos;
 using Application.Features.Colors.Queries.GetById;
-using Core.Application.Pipelines;
+using Core.Application.CQRS;
 
 namespace Application.Features.Colors.Queries.GetAll;
 

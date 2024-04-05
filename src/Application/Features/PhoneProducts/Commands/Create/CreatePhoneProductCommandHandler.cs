@@ -1,7 +1,7 @@
 ﻿using Application.Features.Products.Commands.Create;
 using Application.Features.Products.Dtos;
+using Core.Application.CQRS;
 using Core.Application.GenericRepository;
-using Core.Application.Pipelines;
 using Core.DataAccess.UoW;
 using Domain.Models;
 

@@ -1,6 +1,6 @@
 ﻿using Application.Repositories;
 using AutoMapper;
-using Core.Application.Pipelines;
+using Core.Application.CQRS;
 using Core.Application.Responses;
 using Domain.Models;
 

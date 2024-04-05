@@ -1,7 +1,7 @@
 ﻿using Application.Features.Colors.Queries.GetById;
 using AutoMapper;
+using Core.Application.CQRS;
 using Core.Application.GenericRepository;
-using Core.Application.Pipelines;
 using Domain.Models;
 
 namespace Application.Features.Colors.Queries.GetAll;

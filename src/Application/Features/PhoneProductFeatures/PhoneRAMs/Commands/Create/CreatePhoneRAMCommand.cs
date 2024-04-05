@@ -1,5 +1,5 @@
 ﻿using Application.Features.PhoneProductFeatures.PhoneRAMs.Dtos;
-using Core.Application.Pipelines;
+using Core.Application.CQRS;
 
 namespace Application.Features.PhoneProductFeatures.PhoneRAMs.Commands.Create;
 

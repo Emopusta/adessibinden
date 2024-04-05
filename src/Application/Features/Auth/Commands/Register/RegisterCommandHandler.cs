@@ -7,8 +7,8 @@ using Core.Utilities.Network;
 using Domain.Models;
 using Microsoft.AspNetCore.Http;
 using Application.Services.UserProfileService;
-using Core.Application.Pipelines;
 using Core.DataAccess.UoW;
+using Core.Application.CQRS;
 
 namespace Application.Features.Auth.Commands.Register;
 

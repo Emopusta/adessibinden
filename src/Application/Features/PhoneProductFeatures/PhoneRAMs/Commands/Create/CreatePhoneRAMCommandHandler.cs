@@ -1,5 +1,5 @@
-﻿using Core.Application.GenericRepository;
-using Core.Application.Pipelines;
+﻿using Core.Application.CQRS;
+using Core.Application.GenericRepository;
 using Domain.Models;
 
 namespace Application.Features.PhoneProductFeatures.PhoneRAMs.Commands.Create;

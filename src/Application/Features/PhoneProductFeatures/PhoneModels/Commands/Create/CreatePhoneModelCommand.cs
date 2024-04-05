@@ -1,5 +1,5 @@
 ﻿using Application.Features.PhoneProductFeatures.PhoneModels.Dtos;
-using Core.Application.Pipelines;
+using Core.Application.CQRS;
 
 namespace Application.Features.PhoneProductFeatures.PhoneModels.Commands.Create;
 

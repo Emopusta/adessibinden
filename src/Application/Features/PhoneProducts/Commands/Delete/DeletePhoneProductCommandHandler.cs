@@ -1,7 +1,7 @@
 ﻿using Application.Services.ProductService;
 using Application.Services.UserFavouriteProductService;
+using Core.Application.CQRS;
 using Core.Application.GenericRepository;
-using Core.Application.Pipelines;
 using Domain.Models;
 
 namespace Application.Features.PhoneProducts.Commands.Delete;

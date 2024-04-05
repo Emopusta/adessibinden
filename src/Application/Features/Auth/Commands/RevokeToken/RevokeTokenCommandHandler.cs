@@ -1,7 +1,7 @@
 ﻿using Application.Features.Auth.Rules;
 using Application.Services.AuthService;
 using AutoMapper;
-using Core.Application.Pipelines;
+using Core.Application.CQRS;
 using Core.CrossCuttingConcerns.Cookies;
 using Core.Utilities.Network;
 using Microsoft.AspNetCore.Http;

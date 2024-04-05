@@ -1,4 +1,4 @@
-﻿using Core.Application.Pipelines;
+﻿using Core.Application.CQRS;
 using Core.Application.Requests;
 using Core.Application.Responses;
 

@@ -1,6 +1,6 @@
 ﻿using Application.Features.UserFavouriteProducts.Constants;
+using Core.Application.CQRS;
 using Core.Application.GenericRepository;
-using Core.Application.Pipelines;
 using Core.CrossCuttingConcerns.Exceptions.Types;
 using Domain.Models;
 

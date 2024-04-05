@@ -4,7 +4,7 @@ using Application.Services.UsersService;
 using Core.CrossCuttingConcerns.Cookies;
 using Core.Utilities.Network;
 using Microsoft.AspNetCore.Http;
-using Core.Application.Pipelines;
+using Core.Application.CQRS;
 
 namespace Application.Features.Auth.Commands.Login;
 

@@ -1,7 +1,7 @@
 ﻿using Application.Features.PhoneProductFeatures.PhoneModels.Dtos;
 using AutoMapper;
+using Core.Application.CQRS;
 using Core.Application.GenericRepository;
-using Core.Application.Pipelines;
 using Core.Application.Responses;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;

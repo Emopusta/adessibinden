@@ -1,5 +1,5 @@
 ﻿using Application.Features.PhoneProductFeatures.PhoneBrands.Dtos;
-using Core.Application.Pipelines;
+using Core.Application.CQRS;
 using Core.Application.Responses;
 
 namespace Application.Features.PhoneProductFeatures.PhoneBrands.Queries.GetAllList;

@@ -1,5 +1,5 @@
-﻿using Core.Application.Dtos;
-using Core.Application.Pipelines;
+﻿using Core.Application.CQRS;
+using Core.Application.Dtos;
 
 namespace Application.Features.Auth.Commands.Login;
 

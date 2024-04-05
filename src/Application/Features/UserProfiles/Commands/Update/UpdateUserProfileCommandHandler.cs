@@ -1,7 +1,7 @@
 ﻿using Application.Features.Users.Rules;
 using AutoMapper;
+using Core.Application.CQRS;
 using Core.Application.GenericRepository;
-using Core.Application.Pipelines;
 using Domain.Models;
 
 namespace Application.Features.UserProfiles.Commands.Update;
