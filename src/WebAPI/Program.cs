@@ -5,6 +5,7 @@ using Core.EventBus;
 using DataAccess;
 using WebAPI.Extensions;
 using Core.Logging.Serilog;
+using Core.Cache.ServiceRegistration;
 using Core.Host;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,8 +20,7 @@ builder.Services.AddSecurityServices();
 builder.Services.AddSerilogLogging(builder.Host);
 builder.Services.RegisterEventBusServices();
 
-//builder.Services.AddDistributedMemoryCache();
-builder.Services.AddStackExchangeRedisCache(opt => opt.Configuration = "localhost:6379");
+builder.Services.AddEmopCache();
 
 builder.Services.AddHttpContextAccessor();
 

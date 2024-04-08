@@ -1,7 +1,7 @@
-﻿using Application.Features.PhoneProducts.Commands.Create;
-using Application.Features.PhoneProducts.Dtos;
+﻿using Application.Features.PhoneProducts.Dtos;
 using Core.Application.CQRS;
-using Core.Application.Pipelines.Cache;
+using Core.Cache.Cache;
+
 
 namespace Application.Features.PhoneProducts.Commands.Update;
 

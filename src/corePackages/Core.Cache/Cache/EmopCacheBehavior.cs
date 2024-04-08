@@ -2,11 +2,11 @@
 using Core.Logging.Serilog;
 using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System.Text;
 using System.Text.Json;
 
-namespace Core.Application.Pipelines.Cache;
+namespace Core.Cache.Cache;
 public class EmopCacheBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> 
     where TRequest : IQueryRequest<TResponse>, IEmopCache
 {
@@ -15,17 +15,17 @@ public class EmopCacheBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest
     private readonly CacheConfiguration _cacheConfiguration;
     private readonly IEmopLogger _emopLogger;
 
-    public EmopCacheBehavior(IDistributedCache distributedCache, IEmopLoggerFactory emopLoggerFactory, IConfiguration configuration)
+    public EmopCacheBehavior(IDistributedCache distributedCache, IOptionsMonitor<CacheConfiguration> optionsMonitor, IEmopLoggerFactory emopLoggerFactory)
     {
-        _distributedCache = distributedCache;
         _emopLogger = emopLoggerFactory.ForContext<EmopCacheBehavior<TRequest, TResponse>>();
-        _cacheConfiguration = configuration.GetSection("CacheConfiguration").Get<CacheConfiguration>() ?? throw new InvalidOperationException("Proper Cache Configuration needed."); ;
+        _distributedCache = distributedCache;
+        _cacheConfiguration = optionsMonitor.CurrentValue;
     }
 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
         TResponse response;
-
+        
         var cachedResponse = await _distributedCache.GetAsync(request.CacheKey, cancellationToken);
         if (cachedResponse != null)
         {

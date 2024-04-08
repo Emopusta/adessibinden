@@ -3,7 +3,7 @@ using Core.Logging.Serilog;
 using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
 
-namespace Core.Application.Pipelines.Cache;
+namespace Core.Cache.Cache;
 
 public class EmopCacheRemoveBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : ICommandRequest<TResponse>, IEmopCacheRemove

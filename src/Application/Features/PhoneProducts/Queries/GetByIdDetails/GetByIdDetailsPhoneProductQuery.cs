@@ -1,6 +1,6 @@
 ﻿using Application.Features.PhoneProducts.Dtos;
 using Core.Application.CQRS;
-using Core.Application.Pipelines.Cache;
+using Core.Cache.Cache;
 
 namespace Application.Features.PhoneProducts.Queries.GetByIdDetails;
 

@@ -1,4 +1,4 @@
-﻿namespace Core.Application.Pipelines.Cache;
+﻿namespace Core.Cache.Cache;
 
 public class CacheConfiguration
 {

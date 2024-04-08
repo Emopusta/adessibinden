@@ -1,9 +1,9 @@
 using Core.Application.Decorators;
-using Core.Application.Pipelines.Cache;
 using Core.Application.Pipelines.Transaction;
 using Core.Application.Pipelines.Validation;
 using Core.Application.Rules;
 using Core.Application.Services;
+using Core.Cache.Cache;
 using DotNetCore.CAP;
 using FluentValidation;
 using MediatR;
