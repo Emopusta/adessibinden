@@ -5,7 +5,7 @@ using Core.Cache.Cache;
 
 namespace Application.Features.PhoneProducts.Commands.Update;
 
-public class UpdatePhoneProductCommand : ICommandRequest<UpdatedPhoneProductResponse>, IEmopCacheRemove
+public class UpdatePhoneProductCommand : ICommandRequest<UpdatedPhoneProductResponse>, IEmopCache
 {
     public int ProductCategoryId { get; set; }
     public string Title { get; set; }
@@ -19,10 +19,12 @@ public class UpdatePhoneProductCommand : ICommandRequest<UpdatedPhoneProductResp
     public bool UsageStatus { get; set; }
     public decimal Price { get; set; }
 
-    public string CacheKey { get; init; }
+    public string CacheKey { get; }
 
     public UpdatePhoneProductCommand(UpdatePhoneProductRequestDto updatePhoneProductRequestDto)
     {
+        CacheKey = $"PhoneProductGetByIdDetails {updatePhoneProductRequestDto.ProductId}";
+
         ProductCategoryId = updatePhoneProductRequestDto.ProductCategoryId;
         Title = updatePhoneProductRequestDto.Title;
         Description = updatePhoneProductRequestDto.Description;
@@ -34,7 +36,5 @@ public class UpdatePhoneProductCommand : ICommandRequest<UpdatedPhoneProductResp
         RAMId = updatePhoneProductRequestDto.RAMId;
         UsageStatus = updatePhoneProductRequestDto.UsageStatus;
         Price = updatePhoneProductRequestDto.Price;
-
-        CacheKey = $"GetByIdDetailsPhoneProductQuery {updatePhoneProductRequestDto.ProductId}";
     }
 }

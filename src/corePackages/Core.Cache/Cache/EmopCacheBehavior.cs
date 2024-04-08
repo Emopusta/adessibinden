@@ -8,7 +8,7 @@ using System.Text.Json;
 
 namespace Core.Cache.Cache;
 public class EmopCacheBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> 
-    where TRequest : IQueryRequest<TResponse>, IEmopCache
+    where TRequest : IRequest<TResponse>, IEmopCache
 {
     private readonly IDistributedCache _distributedCache;
 
@@ -25,12 +25,36 @@ public class EmopCacheBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
         TResponse response;
-        
-        var cachedResponse = await _distributedCache.GetAsync(request.CacheKey, cancellationToken);
+
+        var cacheKey = request.CacheKey;
+
+        response = typeof(TRequest).GetInterfaces().Any(p => p.Name == typeof(ICommandRequest<>).Name)
+            ? await RemoveCache(cacheKey, next, cancellationToken)
+            : await AddOrFetchCache(cacheKey, next, cancellationToken); ;
+
+        return response;
+    }
+
+    private async Task<TResponse> RemoveCache(string cacheKey, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    {
+        var response = await next();
+
+        if (cacheKey != null)
+        {
+            await _distributedCache.RemoveAsync(cacheKey, cancellationToken);
+            _emopLogger.Information($"Removed Cache: {cacheKey}");
+        }
+        return response;
+    }
+    private async Task<TResponse> AddOrFetchCache(string cacheKey, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    {
+        TResponse response;
+
+        var cachedResponse = await _distributedCache.GetAsync(cacheKey, cancellationToken);
         if (cachedResponse != null)
         {
             response = JsonSerializer.Deserialize<TResponse>(Encoding.Default.GetString(cachedResponse))!;
-            _emopLogger.Information($"Fetched from Cache: {request.CacheKey}");
+            _emopLogger.Information($"Fetched from Cache: {cacheKey}");
         }
         else
         {
@@ -40,8 +64,8 @@ public class EmopCacheBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest
             DistributedCacheEntryOptions cacheOptions = new() { SlidingExpiration = slidingExpiration };
 
             var serializedData = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(response));
-            await _distributedCache.SetAsync(request.CacheKey, serializedData, cacheOptions, cancellationToken);
-            _emopLogger.Information($"Added to Cache: {request.CacheKey}");
+            await _distributedCache.SetAsync(cacheKey, serializedData, cacheOptions, cancellationToken);
+            _emopLogger.Information($"Added to Cache: {cacheKey}");
         }
 
         return response;
