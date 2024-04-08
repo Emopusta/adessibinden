@@ -15,11 +15,11 @@ public class EmopCacheBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest
     private readonly CacheConfiguration _cacheConfiguration;
     private readonly IEmopLogger _emopLogger;
 
-    public EmopCacheBehavior(IDistributedCache distributedCache, IOptionsMonitor<CacheConfiguration> optionsMonitor, IEmopLoggerFactory emopLoggerFactory)
+    public EmopCacheBehavior(IDistributedCache distributedCache, IOptions<CacheConfiguration> optionsMonitor, IEmopLoggerFactory emopLoggerFactory)
     {
         _emopLogger = emopLoggerFactory.ForContext<EmopCacheBehavior<TRequest, TResponse>>();
         _distributedCache = distributedCache;
-        _cacheConfiguration = optionsMonitor.CurrentValue;
+        _cacheConfiguration = optionsMonitor.Value;
     }
 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
