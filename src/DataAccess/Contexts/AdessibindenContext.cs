@@ -2,6 +2,7 @@
 using Core.CrossCuttingConcerns.Interceptors;
 using Core.DataAccess.ModelBuilderExtensions;
 using Core.Domain.Entities;
+using Core.Logging.Serilog;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -92,5 +93,5 @@ public class AdessibindenContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
         optionsBuilder
-        .AddInterceptors(new LoggingInterceptor()); 
+        .AddInterceptors(new LoggingInterceptor(new EmopLoggerFactory())); 
 }
