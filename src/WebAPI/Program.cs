@@ -17,7 +17,7 @@ builder.Services.AddDataAccessServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddSecurityServices();
 
-builder.Services.AddSerilogLogging(builder.Host);
+builder.Services.AddEmopLogger(builder.Host);
 builder.Services.RegisterEventBusServices();
 
 builder.Services.AddEmopCache();

@@ -1,4 +1,4 @@
-﻿namespace Core.Logging.Serilog;
+﻿namespace Core.Logging.Configurations;
 
 public class LoggerFilterConfiguration
 {

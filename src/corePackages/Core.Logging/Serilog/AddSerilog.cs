@@ -10,23 +10,49 @@ namespace Core.Logging.Serilog;
 
 public static class AddSerilog
 {
-    public static IServiceCollection AddSerilogLogging(this IServiceCollection services, IHostBuilder host)
+    public static IServiceCollection AddEmopLogger(this IServiceCollection services, IHostBuilder host)
     {
 
         host.UseSerilog((builderContext, loggerConfiguration) =>
         {
-            var filteredLayers = builderContext.Configuration.GetSection("EmopLogging:Filter").Get<LoggerFilterConfiguration>();
+            var emopLoggingConfigurations = builderContext.Configuration.GetSection("EmopLogging").Get<EmopLoggingConfiguration>();
 
             loggerConfiguration
             .ReadFrom.Configuration(builderContext.Configuration)
-            .Enrich.With(new ExampleEnricher())
-            .Filter.ByIncludingOnly(logEvent =>
+            .Enrich.With(new ExampleEnricher());
+
+            ConfigureEmopLogger(emopLoggingConfigurations, loggerConfiguration);
+        });
+           
+
+        services.AddScoped<IEmopLoggerFactory, EmopLoggerFactory>();
+
+        return services;
+
+    }
+
+
+    private static void ConfigureEmopLogger(EmopLoggingConfiguration emopLoggingConfiguration,
+        LoggerConfiguration loggerConfiguration)
+    {
+        if (emopLoggingConfiguration!=null)
+        {
+            ConfigureGrafanaLoki(emopLoggingConfiguration.GrafanaLoki, loggerConfiguration);
+            ConfigureLayerFiltering(emopLoggingConfiguration.Filter, loggerConfiguration);
+        }
+    }
+
+    private static void ConfigureLayerFiltering(LoggerFilterConfiguration loggerFilterConfiguration, LoggerConfiguration loggerConfiguration)
+    {
+        if (loggerFilterConfiguration!=null)
+        {
+            loggerConfiguration.Filter.ByIncludingOnly(logEvent =>
              {
-                 if (logEvent.Properties.TryGetValue("SourceContext", out LogEventPropertyValue value) && filteredLayers!=null)
+                 if (logEvent.Properties.TryGetValue("SourceContext", out LogEventPropertyValue value) && loggerFilterConfiguration.FilteredLayers != null)
                  {
                      var context = value.ToString().Trim('"');
 
-                     foreach (var layer in filteredLayers.FilteredLayers)
+                     foreach (var layer in loggerFilterConfiguration.FilteredLayers)
                      {
                          if (context.StartsWith(layer))
                          {
@@ -36,30 +62,24 @@ public static class AddSerilog
                  }
                  return true;
              });
+        }
+    }
 
-            var grafanaLokiConfiguration = builderContext.Configuration.GetSection("GrafanaLoki").Get<GrafanaLokiConfiguration>() ?? new GrafanaLokiConfiguration { Enabled = false };
-            
-            if (grafanaLokiConfiguration.Enabled)
+    private static void ConfigureGrafanaLoki(GrafanaLokiConfiguration grafanaLokiConfiguration, LoggerConfiguration loggerConfiguration)
+    {
+
+        if (grafanaLokiConfiguration.Enabled)
+        {
+            var labels = new List<LokiLabel>();
+
+            foreach (var (key, value) in grafanaLokiConfiguration.Labels)
             {
-                var labels = new List<LokiLabel>();
-
-                foreach (var (key, value) in grafanaLokiConfiguration.Labels)
-                {
-                    labels.Add(new LokiLabel { Key = key, Value = value });
-                }
-
-                _ = Enum.TryParse(grafanaLokiConfiguration.MinimumLevel, out LogEventLevel level);
-
-                _ = loggerConfiguration.WriteTo.GrafanaLoki(grafanaLokiConfiguration.URL, restrictedToMinimumLevel: LogEventLevel.Information, labels: labels);
-
+                labels.Add(new LokiLabel { Key = key, Value = value });
             }
 
-        });
-           
+            _ = Enum.TryParse(grafanaLokiConfiguration.MinimumLevel, out LogEventLevel level);
 
-        services.AddScoped<IEmopLoggerFactory, EmopLoggerFactory>();
-
-        return services;
-
+            _ = loggerConfiguration.WriteTo.GrafanaLoki(grafanaLokiConfiguration.URL, restrictedToMinimumLevel: level, labels: labels);
+        }
     }
 }
