@@ -5,8 +5,11 @@ using Core.EventBus;
 using DataAccess;
 using WebAPI.Extensions;
 using Core.Logging.Serilog;
+using Core.Host;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.SetEmopConfiguration(builder.Configuration);
 
 builder.Services.AddControllers();
 builder.Services.AddDataAccessServices(builder.Configuration);
