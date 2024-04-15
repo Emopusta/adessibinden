@@ -92,7 +92,7 @@ public class EmopCacheBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest
         {
             response = await next();
 
-            var slidingExpiration = TimeSpan.FromDays(_cacheConfiguration.SlidingExpiration);
+            var slidingExpiration = TimeSpan.FromMinutes(_cacheConfiguration.SlidingExpiration);
             DistributedCacheEntryOptions cacheOptions = new() { SlidingExpiration = slidingExpiration };
 
             var serializedData = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(response));

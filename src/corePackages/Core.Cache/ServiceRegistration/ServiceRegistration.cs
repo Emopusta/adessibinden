@@ -12,7 +12,7 @@ public static class ServiceRegistration
 
         _ = services.Configure<CacheConfiguration>(EmopConfiguration.Configuration.GetSection("CacheConfiguration"));
 
-        //builder.Services.AddDistributedMemoryCache();
+        //services.AddDistributedMemoryCache();
         services.AddStackExchangeRedisCache(opt => opt.Configuration = "localhost:6379");
 
         return services;
