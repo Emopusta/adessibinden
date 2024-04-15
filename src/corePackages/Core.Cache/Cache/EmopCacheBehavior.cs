@@ -3,6 +3,7 @@ using Core.Logging.Serilog;
 using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
+using StackExchange.Redis;
 using System.Text;
 using System.Text.Json;
 
@@ -31,7 +32,7 @@ public class EmopCacheBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest
         var cacheKey = GenerateCacheKey(request);
 
         response = typeof(TRequest).GetInterfaces().Any(p => p.Name == typeof(ICommandRequest<>).Name)
-            ? await RemoveAllCache(next, cancellationToken)
+            ? await RemoveAllCacheFromServer(next, cancellationToken)
             : await AddOrFetchCache(cacheKey, next, cancellationToken); ;
 
         return response;
@@ -41,16 +42,29 @@ public class EmopCacheBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest
     {
         return $"{request.GetType().FullName} | {JsonSerializer.Serialize<TRequest>(request)}";
     }
-    
     private async Task<TResponse> RemoveCache(string cacheKey, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
         var response = await next();
-
+    
         if (cacheKey != null)
         {
             await _distributedCache.RemoveAsync(cacheKey, cancellationToken);
             _emopLogger.Information($"Removed Cache: {cacheKey}");
         }
+        return response;
+    }
+  
+    private async Task<TResponse> RemoveAllCacheFromServer(RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    {
+        var response = await next();
+
+        var opt = ConfigurationOptions.Parse("localhost:6379");
+        opt.AllowAdmin = true;
+        var redis = ConnectionMultiplexer.Connect(opt);
+        var endpoints = redis.GetEndPoints();
+        var server = redis.GetServer(endpoints.First());
+        await server.FlushAllDatabasesAsync();
+
         return response;
     }
    
