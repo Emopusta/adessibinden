@@ -1,15 +1,14 @@
+using Core.Application;
 using Core.Application.Decorators;
 using Core.Application.Pipelines.Transaction;
 using Core.Application.Pipelines.Validation;
 using Core.Application.Rules;
-using Core.Application.Services;
 using Core.Cache.Cache;
 using Core.EventBus;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using System.Runtime.Loader;
 
 namespace Application;
 
@@ -29,7 +28,7 @@ public static class ApplicationServiceRegistration
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-        services.AddServices();
+        services.RegisterCustomServicesFromAssembly(Assembly.GetExecutingAssembly());
         
         services.RegisterEmopCapConsumersFromAssembly(Assembly.GetExecutingAssembly());
 
@@ -57,24 +56,4 @@ public static class ApplicationServiceRegistration
         return services;
     }
 
-    private static IServiceCollection AddServices(this IServiceCollection services)
-    {
-
-        var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-
-        var applicationAssembly = Directory.GetFiles(path, "Application.dll").Select(AssemblyLoadContext.Default.LoadFromAssemblyPath).FirstOrDefault();
-
-        var customServices = applicationAssembly.DefinedTypes.Where(p => p.GetInterfaces().Any(p => p.IsAssignableFrom(typeof(IServiceBase))) && p.IsInterface).ToList();
-        var customManagers = applicationAssembly.DefinedTypes.Where(p => p.GetInterfaces().Any(p => p.IsAssignableFrom(typeof(IServiceBase))) && p.IsClass).ToList();
-
-        foreach (var service in customServices)
-        {
-            var manager = customManagers.FirstOrDefault(p => p.IsAssignableTo(service));
-            services.AddScoped(service!, manager);
-        }
-
-        return services;
-    }
-
-    
 }
