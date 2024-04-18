@@ -1,12 +1,12 @@
 ﻿using Core.Application.GenericRepository;
 using Core.DataAccess.UoW;
 using Core.EventBus.Attributes;
+using Core.EventBus.EmopCap;
 using Core.EventBus.Messages;
 using Domain.Models;
-using DotNetCore.CAP;
 
 namespace Application.Consumers;
-public class ProductGetDetailCounterConsumer : ICapSubscribe
+public class ProductGetDetailCounterConsumer : IEmopCapConsumer
 {
     private readonly IGenericRepository<ProductInteractionCount> _interactionCountRepository;
     private readonly IUnitOfWork _unitOfWork;

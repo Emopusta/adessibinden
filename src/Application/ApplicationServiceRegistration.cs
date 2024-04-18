@@ -4,7 +4,7 @@ using Core.Application.Pipelines.Validation;
 using Core.Application.Rules;
 using Core.Application.Services;
 using Core.Cache.Cache;
-using DotNetCore.CAP;
+using Core.EventBus;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,7 +31,7 @@ public static class ApplicationServiceRegistration
 
         services.AddServices();
         
-        services.AddCAPSubscribeConsumers();
+        services.RegisterEmopCapConsumersFromAssembly(Assembly.GetExecutingAssembly());
 
         services.AddSubClassesOfType(Assembly.GetExecutingAssembly(), typeof(BaseBusinessRules));
 
@@ -76,19 +76,5 @@ public static class ApplicationServiceRegistration
         return services;
     }
 
-    private static IServiceCollection AddCAPSubscribeConsumers(this IServiceCollection services)
-    {
-        var path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-
-        var applicationAssembly = Directory.GetFiles(path, "Application.dll").Select(AssemblyLoadContext.Default.LoadFromAssemblyPath).FirstOrDefault();
-
-        var customConsumers = applicationAssembly.DefinedTypes.Where(p => p.GetInterfaces().Any(p => p.IsAssignableFrom(typeof(ICapSubscribe))) && p.IsClass).ToList();
-
-        foreach (var consumer in customConsumers)
-        {
-            services.AddScoped(consumer);
-        }
-
-        return services;
-    }
+    
 }

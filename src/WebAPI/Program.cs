@@ -18,8 +18,7 @@ builder.Services.AddApplicationServices();
 builder.Services.AddSecurityServices();
 
 builder.Services.AddEmopLogger(builder.Host);
-builder.Services.RegisterEventBusServices();
-
+builder.Services.AddEmopCap();
 builder.Services.AddEmopCache();
 
 builder.Services.AddHttpContextAccessor();
