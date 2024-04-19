@@ -19,11 +19,11 @@ public class EmopCacheBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest
 
     private static string _baseGroupKey = "BaseCacheGroup";
 
-    public EmopCacheBehavior(IDistributedCache distributedCache, IOptions<CacheConfiguration> optionsMonitor, IEmopLoggerFactory emopLoggerFactory)
+    public EmopCacheBehavior(IDistributedCache distributedCache, IOptions<CacheConfiguration> options, IEmopLoggerFactory emopLoggerFactory)
     {
         _emopLogger = emopLoggerFactory.ForContext<EmopCacheBehavior<TRequest, TResponse>>();
         _distributedCache = distributedCache;
-        _cacheConfiguration = optionsMonitor.Value;
+        _cacheConfiguration = options.Value;
     }
 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
