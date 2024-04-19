@@ -1,4 +1,4 @@
-﻿using Core.Cache.Cache;
+﻿using Core.Cache.Configurations;
 using Core.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

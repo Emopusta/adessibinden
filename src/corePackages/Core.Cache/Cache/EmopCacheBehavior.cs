@@ -1,4 +1,5 @@
 ﻿using Core.Application.CQRS;
+using Core.Cache.Configurations;
 using Core.Logging.Serilog;
 using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
